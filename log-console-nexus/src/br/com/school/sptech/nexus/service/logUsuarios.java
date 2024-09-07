@@ -119,8 +119,14 @@ public class logUsuarios {
                     break;
                 }
                 case 0: {
-                    System.out.println("Saindo do sistema...");
-                    break;
+                    try {
+                        System.out.println("Saindo do sistema...");
+                        Thread.sleep(1500);
+                        System.out.println("Sistema encerrado com sucesso!");
+                        break;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 default: {
                     System.out.println("Opção inválida, tente novamente.");
