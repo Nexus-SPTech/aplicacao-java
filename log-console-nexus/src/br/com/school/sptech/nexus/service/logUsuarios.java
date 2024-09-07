@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class logUsuarios {
-    private List<Usuarios> listaUsuarios = new ArrayList<>();
+    private final List<Usuarios> listaUsuarios = new ArrayList<>();
     private Usuarios usuarioLogado = null;  // Variável para manter o controle do usuário logado
 
     public String pegarHorarioAtual(){
@@ -55,7 +55,7 @@ public class logUsuarios {
             if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
                 usuarioLogado = usuario;
                 usuarioEncontrado = true;
-                System.out.println("Login bem-sucedido! Bem-vindo, " + usuario.getUsuario()
+                System.out.println("Login bem-sucedido! Bem-vindo(a), " + usuario.getUsuario()
                 + ", Horário de login: " + pegarHorarioAtual());
                 break;
             }
