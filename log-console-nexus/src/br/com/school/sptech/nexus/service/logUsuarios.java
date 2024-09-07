@@ -90,12 +90,12 @@ public class logUsuarios {
 
         while (opcao != 0) {
             System.out.println("""
-                1 - Cadastrar conta
+                1 - Cadastrar nova conta
                 2 - Logar conta
                 3 - Sair da conta
                 4 - Receber saudações
 
-                0 - Sair
+                0 - Sair da aplicação
                 """);
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
