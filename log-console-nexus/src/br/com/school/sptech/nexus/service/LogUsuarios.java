@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class logUsuarios {
+public class LogUsuarios {
     private final List<Usuarios> listaUsuarios = new ArrayList<>();
     private Usuarios usuarioLogado = null;  // Variável para manter o controle do usuário logado
 
