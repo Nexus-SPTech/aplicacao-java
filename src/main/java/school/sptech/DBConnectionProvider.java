@@ -10,10 +10,18 @@ public class DBConnectionProvider {
     private final DataSource dataSource;
 
     public DBConnectionProvider() {
+        // Altere com suas informações.
+        String nomeUsuario = "nome_do_usuario";
+        String senha = "senha_do_banco";
+        String bancoUsado = "dbnexus";
+
+        // Altere o endereço de conexão para se conectar com a nuvem.
+        String url = "jdbc:mysql://localhost:3306/" + bancoUsado + "/" + nomeUsuario;
+
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl("jdbc:mysql://localhost:3306/dbnexus");
-        basicDataSource.setUsername("root");
-        basicDataSource.setPassword("ma140506");
+        basicDataSource.setUrl(url);
+        basicDataSource.setUsername(nomeUsuario);
+        basicDataSource.setPassword(senha);
 
         this.dataSource = basicDataSource;
     }
