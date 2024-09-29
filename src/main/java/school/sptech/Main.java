@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DBConnectionProvider dbConnectionProvider = new DBConnectionProvider();
-        JdbcTemplate connection = dbConnectionProvider.getConnection();
+        DBProvedorConexao dbProvedorConexao = new DBProvedorConexao();
+        JdbcTemplate connection = dbProvedorConexao.getConnection();
 
         connection.execute("""
                 CREATE TABLE filme (

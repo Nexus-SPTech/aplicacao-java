@@ -5,21 +5,21 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-public class DBConnectionProvider {
+public class DBProvedorConexao {
 
     private final DataSource dataSource;
 
-    public DBConnectionProvider() {
+    public DBProvedorConexao() {
         // Altere com suas informações.
-        String nomeUsuario = "nome_do_usuario";
-        String senha = "senha_do_banco";
+        String nomeUsuario = "root";
+        String senha = "ma140506";
         String bancoUsado = "dbnexus";
 
         // Altere o endereço de conexão para se conectar com a nuvem.
         String url = "jdbc:mysql://localhost:3306/" + bancoUsado + "/" + nomeUsuario;
 
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(url);
+        basicDataSource.setUrl("jdbc:mysql://localhost:3306/" + bancoUsado);
         basicDataSource.setUsername(nomeUsuario);
         basicDataSource.setPassword(senha);
 
