@@ -1,7 +1,7 @@
 package school.sptech;
 
 public class Classroom {
-    private Integer id;
+    private Integer idTurma;
     private String instituicao;
     private String serie;
     private String periodo;
@@ -9,19 +9,19 @@ public class Classroom {
     public Classroom() {
     }
 
-    public Classroom(Integer id, String instituicao, String serie, String periodo) {
-        this.id = id;
+    public Classroom(Integer idTurma, String instituicao, String serie, String periodo) {
+        this.idTurma = idTurma;
         this.instituicao = instituicao;
         this.serie = serie;
         this.periodo = periodo;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdTurma() {
+        return idTurma;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdTurma(Integer idTurma) {
+        this.idTurma = idTurma;
     }
 
     public String getInstituicao() {
@@ -51,6 +51,6 @@ public class Classroom {
 
     @Override
     public String toString() {
-        return "id: " + id + ", instituicao: " + instituicao  + ", serie: " + serie + ", periodo: " + periodo;
+        return "id: " + idTurma + ", instituicao: " + instituicao  + ", serie: " + serie + ", periodo: " + periodo;
     }
 }

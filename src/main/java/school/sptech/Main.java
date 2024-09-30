@@ -18,8 +18,8 @@ public class Main {
         inserirAlunos(connection);
         inserirDisciplinas(connection);
 
-        // Inserção de dados na tabela notas_aluno
-        inserirNotasAluno(connection);
+        // Inserção de dados na tabela notas_turma
+        inserirNotasTurma(connection);
 
         // Exibição dos dados inseridos
         exibirDados(connection);
@@ -27,73 +27,84 @@ public class Main {
 
     private static void criarTabelas(JdbcTemplate connection) {
         // Drop das tabelas existentes
-        connection.execute("DROP TABLE IF EXISTS notas_aluno");
-        connection.execute("DROP TABLE IF EXISTS discipline");
-        connection.execute("DROP TABLE IF EXISTS classroom");
+        connection.execute("DROP TABLE IF EXISTS instituicao");
+        connection.execute("DROP TABLE IF EXISTS turma");
+        connection.execute("DROP TABLE IF EXISTS disciplina");
+        connection.execute("DROP TABLE IF EXISTS notas_turma");
 
-        // Criação da tabela classroom
+        //Criação da tabela 'instituicao'
         connection.execute("""
-                CREATE TABLE classroom (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    instituicao VARCHAR(255) NOT NULL,
-                    serie VARCHAR(100) NOT NULL,
-                    periodo VARCHAR(50) NOT NULL
-                )
-        """);
+                 CREATE TABLE IF NOT EXISTS instituicao (
+                     idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
+                     nome_instituicao VARCHAR(45) NOT NULL,
+                     nome_departamento VARCHAR(45)
+                 );
+                """);
 
-        // Criação da tabela discipline
+        // Criação da tabela 'turma'
         connection.execute("""
-                CREATE TABLE discipline (
-                    idDisciplina INT AUTO_INCREMENT PRIMARY KEY,
-                    nome VARCHAR(45) UNIQUE NOT NULL 
-                )
-        """);
+                CREATE TABLE IF NOT EXISTS turma (
+                    idTurma INT AUTO_INCREMENT PRIMARY KEY,
+                    serie VARCHAR(45),
+                    periodo VARCHAR(45),
+                    fkInstituicao INT,
+                    FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
+                );
+                """);
 
-        // Criação da tabela notas_aluno
+        //Criação da tabela 'disciplina'
+
         connection.execute("""
-                CREATE TABLE notas_aluno (
-                    fkAluno INT,
-                    fkDisciplina INT,
-                    nota DOUBLE NOT NULL,
-                    PRIMARY KEY (fkAluno, fkDisciplina),
-                    FOREIGN KEY (fkAluno) REFERENCES classroom(id),
-                    FOREIGN KEY (fkDisciplina) REFERENCES discipline(idDisciplina)
-                )
-        """);
+                CREATE TABLE IF NOT EXISTS disciplina (
+                    idDisc INT AUTO_INCREMENT PRIMARY KEY,
+                    nome_disciplina VARCHAR(45)
+                );
+                """);
+
+        // Criação da tabela notas_turma
+        connection.execute("""
+                CREATE TABLE IF NOT EXISTS  notas_turma (
+                    fkTurma INT,
+                    fkDisc INT,
+                    media VARCHAR(45),
+                    PRIMARY KEY (fkTurma, fkDisc),
+                    FOREIGN KEY (fkDisc) REFERENCES disciplina(idDisc)
+                );
+                """);
     }
 
     private static void inserirAlunos(JdbcTemplate connection) {
-        connection.update("INSERT INTO classroom (instituicao, serie, periodo) VALUES (?, ?, ?)",
+        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
                 "SPTech", "3º Médio", "Noturno");
 
-        connection.update("INSERT INTO classroom (instituicao, serie, periodo) VALUES (?, ?, ?)",
+        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
                 "Objetivo", "9º Ano", "Diurno");
 
-        connection.update("INSERT INTO classroom (instituicao, serie, periodo) VALUES (?, ?, ?)",
+        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
                 "Anglo", "1º Médio", "Vespertino");
 
-        connection.update("INSERT INTO classroom (instituicao, serie, periodo) VALUES (?, ?, ?)",
+        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
                 "Etec", "2º Médio", "Integral");
 
         System.out.println("Alunos inseridos com sucesso!");
     }
 
     private static void inserirDisciplinas(JdbcTemplate connection) {
-        connection.update("INSERT INTO discipline (nome) VALUES (?)", "História");
-        connection.update("INSERT INTO discipline (nome) VALUES (?)", "Língua Portuguesa");
-        connection.update("INSERT INTO discipline (nome) VALUES (?)", "Geografia");
-        connection.update("INSERT INTO discipline (nome) VALUES (?)", "Matemática");
+        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "História");
+        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "Língua Portuguesa");
+        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "Geografia");
+        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "Matemática");
 
         System.out.println("Disciplinas inseridas com sucesso!");
     }
 
-    private static void inserirNotasAluno(JdbcTemplate connection) {
+    private static void inserirNotasTurma(JdbcTemplate connection) {
         // Recuperar IDs dos alunos
-        List<Classroom> classrooms = connection.query("SELECT * FROM classroom",
+        List<Classroom> classrooms = connection.query("SELECT * FROM turma",
                 new BeanPropertyRowMapper<>(Classroom.class));
 
         // Recuperar IDs das disciplinas
-        List<Discipline> disciplines = connection.query("SELECT * FROM discipline",
+        List<Discipline> disciplines = connection.query("SELECT * FROM disciplina",
                 new BeanPropertyRowMapper<>(Discipline.class));
 
         // Inserir notas para cada classroom em cada discipline
@@ -102,11 +113,11 @@ public class Main {
                 // Gerar uma nota aleatória entre 0 e 10
                 double nota = Math.round(Math.random() * 10 * 100.0) / 100.0;
 
-                connection.update("INSERT INTO notas_aluno (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)",
-                        classroom.getId(), discipline.getIdDisciplina(), nota);
+                connection.update("INSERT INTO notas_turma (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)",
+                        classroom.getIdTurma(), discipline.getIdDisciplina(), nota);
 
                 System.out.printf("Inserida nota %.2f para o classroom ID %d na discipline ID %d%n",
-                        nota, classroom.getId(), discipline.getIdDisciplina());
+                        nota, classroom.getIdTurma(), discipline.getIdDisciplina());
             }
         }
 
@@ -116,7 +127,7 @@ public class Main {
     private static void exibirDados(JdbcTemplate connection) {
         // Exibir alunos
         System.out.println("\n--- Alunos ---");
-        List<Classroom> classrooms = connection.query("SELECT * FROM classroom",
+        List<Classroom> classrooms = connection.query("SELECT * FROM turma",
                 new BeanPropertyRowMapper<>(Classroom.class));
 
         for (Classroom classroom : classrooms) {
@@ -139,25 +150,25 @@ public class Main {
                             a.id AS aluno_id, a.instituicao, a.serie, a.periodo,
                             d.idDisciplina AS disciplina_id, d.nome,
                             n.nota
-                        FROM notas_aluno n
-                        JOIN classroom a ON n.fkAluno = a.id
-                        JOIN discipline d ON n.fkDisciplina = d.idDisciplina
+                        FROM notas_turma n
+                        JOIN turma a ON n.fkAluno = a.id
+                        JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
                         """,
                 (rs, rowNum) -> {
                     Classroom classroom = new Classroom();
-                    classroom.setId(rs.getInt("aluno_id"));
+                    classroom.setIdTurma(rs.getInt("aluno_id"));
                     classroom.setInstituicao(rs.getString("instituicao"));
                     classroom.setSerie(rs.getString("serie"));
                     classroom.setPeriodo(rs.getString("periodo"));
 
                     Discipline discipline = new Discipline();
                     discipline.setIdDisciplina(rs.getInt("disciplina_id"));
-                    discipline.setNome(rs.getString("nome"));
+                    discipline.setNomeDisciplina(rs.getString("nome"));
 
                     ClassroomGrade classroomGrade = new ClassroomGrade();
                     classroomGrade.setAluno(classroom);
                     classroomGrade.setDisciplina(discipline);
-                    classroomGrade.setNota(rs.getDouble("nota"));
+                    classroomGrade.setMedia(rs.getDouble("nota"));
 
                     return classroomGrade;
                 });
