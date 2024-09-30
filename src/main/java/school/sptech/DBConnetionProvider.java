@@ -5,11 +5,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-public class DBProvedorConexao {
+public class DBConnetionProvider {
 
     private final DataSource dataSource;
 
-    public DBProvedorConexao() {
+    public DBConnetionProvider() {
         // Altere com suas informações.
         String nomeUsuario = "root";
         String senha = "senha_usuario";

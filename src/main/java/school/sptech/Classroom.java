@@ -1,21 +1,19 @@
 package school.sptech;
 
-public class Aluno {
+public class Classroom {
     private Integer id;
     private String instituicao;
     private String serie;
     private String periodo;
-    private Double media;
 
-    public Aluno() {
+    public Classroom() {
     }
 
-    public Aluno(Integer id, String instituicao, String serie, String periodo, Double media) {
+    public Classroom(Integer id, String instituicao, String serie, String periodo) {
         this.id = id;
         this.instituicao = instituicao;
         this.serie = serie;
         this.periodo = periodo;
-        this.media = media;
     }
 
     public Integer getId() {
@@ -50,17 +48,9 @@ public class Aluno {
         this.periodo = periodo;
     }
 
-    public Double getMedia() {
-        return media;
-    }
-
-    public void setMedia(Double media) {
-        this.media = media;
-    }
 
     @Override
     public String toString() {
-        return "id: " + id + ", instituicao: " + instituicao  + ", serie: " + serie + ", periodo: " + periodo +
-                ", media: " + media;
+        return "id: " + id + ", instituicao: " + instituicao  + ", serie: " + serie + ", periodo: " + periodo;
     }
 }

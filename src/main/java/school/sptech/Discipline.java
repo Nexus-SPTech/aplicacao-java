@@ -1,13 +1,13 @@
 package school.sptech;
 
-public class Disciplina {
+public class Discipline {
     private Integer idDisciplina;
     private String nome;
 
-    public Disciplina() {
+    public Discipline() {
     }
 
-    public Disciplina(Integer idDisciplina, String nome) {
+    public Discipline(Integer idDisciplina, String nome) {
         this.idDisciplina = idDisciplina;
         this.nome = nome;
     }
