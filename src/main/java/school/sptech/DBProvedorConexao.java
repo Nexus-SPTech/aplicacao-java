@@ -12,7 +12,7 @@ public class DBProvedorConexao {
     public DBProvedorConexao() {
         // Altere com suas informações.
         String nomeUsuario = "root";
-        String senha = "ma140506";
+        String senha = "senha_usuario";
         String bancoUsado = "dbnexus";
 
         // Altere o endereço de conexão para se conectar com a nuvem.
