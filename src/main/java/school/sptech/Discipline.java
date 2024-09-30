@@ -2,14 +2,14 @@ package school.sptech;
 
 public class Discipline {
     private Integer idDisciplina;
-    private String nome;
+    private String nomeDisciplina;
 
     public Discipline() {
     }
 
-    public Discipline(Integer idDisciplina, String nome) {
+    public Discipline(Integer idDisciplina, String nomeDisciplina) {
         this.idDisciplina = idDisciplina;
-        this.nome = nome;
+        this.nomeDisciplina = nomeDisciplina;
     }
 
     public Integer getIdDisciplina() {
@@ -20,18 +20,18 @@ public class Discipline {
         this.idDisciplina = idDisciplina;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeDisciplina() {
+        return nomeDisciplina;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeDisciplina(String nomeDisciplina) {
+        this.nomeDisciplina = nomeDisciplina;
     }
 
     @Override
     public String toString() {
         return  "Disciplina" +
                 "idDisciplina= " + idDisciplina +
-                ", nome= '" + nome + '\'';
+                ", nome= '" + nomeDisciplina + '\'';
     }
 }

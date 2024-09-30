@@ -3,15 +3,15 @@ package school.sptech;
 public class ClassroomGrade {
     private Classroom classroom;
     private Discipline discipline;
-    private Double nota;
+    private Double media;
 
     public ClassroomGrade() {
     }
 
-    public ClassroomGrade(Classroom classroom, Discipline discipline, Double nota) {
+    public ClassroomGrade(Classroom classroom, Discipline discipline, Double media) {
         this.classroom = classroom;
         this.discipline = discipline;
-        this.nota = nota;
+        this.media = media;
     }
 
     public Classroom getAluno() {
@@ -30,19 +30,20 @@ public class ClassroomGrade {
         this.discipline = discipline;
     }
 
-    public Double getNota() {
-        return nota;
+    public Double getMedia() {
+        return media;
     }
 
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public void setMedia(Double media) {
+        this.media = media;
     }
 
     @Override
     public String toString() {
-        return "NotaAluno: " +
-                "aluno= " + classroom +
-                ", disciplina= " + discipline +
-                ", nota= " + nota ;
+        return "ClassroomGrade{" +
+                "media=" + media +
+                ", discipline=" + discipline +
+                ", classroom=" + classroom +
+                '}';
     }
 }
