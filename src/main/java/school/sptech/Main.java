@@ -109,6 +109,7 @@ public class Main {
     private static void insertDisciplines(JdbcTemplate jdbcTemplate) {
         String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
 
+
         jdbcTemplate.update(sql, "Matemática");
         jdbcTemplate.update(sql, "Português");
         jdbcTemplate.update(sql, "História");
@@ -126,6 +127,12 @@ public class Main {
 
         String sql = "INSERT INTO notas_turma (fkTurma, fkDisciplina, media) VALUES (?, ?, ?)";
 
+
+        /*/ Esses dois fors tem o objetivo de inserir uma nota aleatória
+         Primeiramente é percorrido a lista de turmas no banco de dados
+         Depois é percorrido a lista de disciplinas
+         Pois cada turma possui todas as disciplinas
+         então para cada turma, será necessário inserir notas de todas as disciplinas /*/
         for (Classroom classroom : classrooms) {
             for (Discipline discipline : disciplines) {
                 // Gera uma média aleatória entre 0 e 10
@@ -133,7 +140,7 @@ public class Main {
 
                 jdbcTemplate.update(sql, classroom.getIdTurma(), discipline.getIdDisciplina(), media);
 
-                System.out.printf("Inserida média %.2f para a turma ID %d na disciplina ID %d"
+                System.out.println("Inserida média %.2f para a turma ID %d na disciplina ID %d"
                         .formatted(media, classroom.getIdTurma(), discipline.getIdDisciplina())
                 );
             }
@@ -142,6 +149,8 @@ public class Main {
         System.out.println("Notas das turmas inseridas com sucesso!");
     }
 
+    /*/ Esse metodo é responsavel por capturar os dados do banco e printar no console
+     Ou seja, aqui acontece os selects /*/
     private static void displayData(JdbcTemplate jdbcTemplate) {
         // Exibe Instituições
         System.out.println("\n--- Instituições ---");
