@@ -30,8 +30,10 @@ public class Discipline {
 
     @Override
     public String toString() {
-        return  "Disciplina" +
-                "idDisciplina= " + idDisciplina +
-                ", nome= '" + nomeDisciplina + '\'';
+        return """
+                Id: %d
+                Disciplina: %s
+                """.formatted(idDisciplina, nomeDisciplina);
+
     }
 }

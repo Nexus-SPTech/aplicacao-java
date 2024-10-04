@@ -21,8 +21,8 @@ public class DBConnetionProvider {
         /*/
 
         // PARA CONEXÃO COM LOCAL
-        String username = "INSIRA_SEU_USUARIO";
-        String password = "INSIRA_SUA_SENHA";
+        String username = "root";
+        String password = "ma140506";
         String database = "dbnexus"; // É necessário criar o banco manualmente
         String ip = "localhost:3306";
 

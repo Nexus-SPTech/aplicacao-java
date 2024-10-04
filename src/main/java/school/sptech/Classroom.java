@@ -2,6 +2,8 @@ package school.sptech;
 
 public class Classroom {
     private Integer idTurma;
+    // A fk instituição gera o nome da instituição da turma
+    // Precisa ser alterado para um atributo do tipo Institution
     private String fkInstituicao;
     private String serie;
     private String periodo;
@@ -51,6 +53,10 @@ public class Classroom {
 
     @Override
     public String toString() {
-        return "id: " + idTurma + ", instituicao: " + fkInstituicao + ", serie: " + serie + ", periodo: " + periodo;
+        return """
+                Id: %d
+                Instituicao: %s
+                Serie: %s
+                Periodo: %s""".formatted(idTurma, fkInstituicao, serie, periodo);
     }
 }

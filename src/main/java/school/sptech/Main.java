@@ -166,15 +166,7 @@ public class Main {
                         SELECT t.*, i.nome_instituicao AS fkInstituicao
                         FROM turma t
                         JOIN instituicao i ON t.fkInstituicao = i.idInstituicao
-                        """,
-                (rs, rowNum) -> {
-                    Classroom classroom = new Classroom();
-                    classroom.setIdTurma(rs.getInt("idTurma"));
-                    classroom.setFkInstituicao(rs.getString("fkInstituicao"));
-                    classroom.setSerie(rs.getString("serie"));
-                    classroom.setPeriodo(rs.getString("periodo"));
-                    return classroom;
-                });
+                        """, new BeanPropertyRowMapper<>(Classroom.class));
         for (Classroom classroom : classrooms) {
             System.out.println(classroom);
         }
@@ -199,28 +191,7 @@ public class Main {
                         JOIN turma t ON n.fkTurma = t.idTurma
                         JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
                         JOIN instituicao i ON t.fkInstituicao = i.idInstituicao
-                        """,
-                (rs, rowNum) -> {
-                    // Cria instância de Classroom
-                    Classroom classroom = new Classroom();
-                    classroom.setIdTurma(rs.getInt("idTurma"));
-                    classroom.setFkInstituicao(rs.getString("fkInstituicao"));
-                    classroom.setSerie(rs.getString("serie"));
-                    classroom.setPeriodo(rs.getString("periodo"));
-
-                    // Cria instância de Discipline
-                    Discipline discipline = new Discipline();
-                    discipline.setIdDisciplina(rs.getInt("idDisciplina"));
-                    discipline.setNomeDisciplina(rs.getString("nome_disciplina"));
-
-                    // Cria instância de ClassroomGrade
-                    ClassroomGrade classroomGrade = new ClassroomGrade();
-                    classroomGrade.setClassroom(classroom);
-                    classroomGrade.setDisciplina(discipline);
-                    classroomGrade.setMedia(rs.getDouble("media"));
-
-                    return classroomGrade;
-                });
+                        """, new ClassroomGradeRowMapper());
         for (ClassroomGrade grade : classroomGrades) {
             System.out.println(grade);
         }

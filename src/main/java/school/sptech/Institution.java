@@ -37,4 +37,13 @@ public class Institution {
     public void setNomeDepartamento(String nomeDepartamento) {
         this.nomeDepartamento = nomeDepartamento;
     }
+
+    @Override
+    public String toString() {
+        return """
+                Id: %d
+                Instituição: %s
+                Departamento: %s
+                """.formatted(idInstituicao, nomeInstituicao, nomeDepartamento);
+    }
 }

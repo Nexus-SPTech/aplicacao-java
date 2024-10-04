@@ -56,10 +56,11 @@ public class ClassroomGrade {
 
     @Override
     public String toString() {
-        return "ClassroomGrade{" +
-                "media=" + media +
-                ", discipline=" + discipline +
-                ", classroom=" + classroom +
-                '}';
+        return """
+                Média: %.2f
+                Disciplina: %s
+                Sala de aula: %s
+                """.formatted(media, discipline, classroom);
+
     }
 }
