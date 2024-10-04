@@ -8,6 +8,22 @@ public class ClassroomGrade {
     public ClassroomGrade() {
     }
 
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
+
+    public Discipline getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline(Discipline discipline) {
+        this.discipline = discipline;
+    }
+
     public ClassroomGrade(Classroom classroom, Discipline discipline, Double media) {
         this.classroom = classroom;
         this.discipline = discipline;

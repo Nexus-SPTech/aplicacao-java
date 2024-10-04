@@ -2,16 +2,16 @@ package school.sptech;
 
 public class Classroom {
     private Integer idTurma;
-    private String instituicao;
+    private String fkInstituicao;
     private String serie;
     private String periodo;
 
     public Classroom() {
     }
 
-    public Classroom(Integer idTurma, String instituicao, String serie, String periodo) {
+    public Classroom(Integer idTurma, String fkInstituicao, String serie, String periodo) {
         this.idTurma = idTurma;
-        this.instituicao = instituicao;
+        this.fkInstituicao = fkInstituicao;
         this.serie = serie;
         this.periodo = periodo;
     }
@@ -24,12 +24,12 @@ public class Classroom {
         this.idTurma = idTurma;
     }
 
-    public String getInstituicao() {
-        return instituicao;
+    public String getFkInstituicao() {
+        return fkInstituicao;
     }
 
-    public void setInstituicao(String instituicao) {
-        this.instituicao = instituicao;
+    public void setFkInstituicao(String fkInstituicao) {
+        this.fkInstituicao = fkInstituicao;
     }
 
     public String getSerie() {
@@ -51,6 +51,6 @@ public class Classroom {
 
     @Override
     public String toString() {
-        return "id: " + idTurma + ", instituicao: " + instituicao  + ", serie: " + serie + ", periodo: " + periodo;
+        return "id: " + idTurma + ", instituicao: " + fkInstituicao + ", serie: " + serie + ", periodo: " + periodo;
     }
 }

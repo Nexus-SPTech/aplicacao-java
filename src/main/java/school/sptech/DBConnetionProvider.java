@@ -12,12 +12,21 @@ public class DBConnetionProvider {
     public DBConnetionProvider() {
 
         // Credenciais do banco de dados
+
+        /* PARA CONEXÃO COM A EC2
         String username = "root";
         String password = "urubu100";
         String database = "nexus";
         String ip = "54.165.251.183";
+        /*/
 
-        // URL da conexão com a instancia da nuvem
+        // PARA CONEXÃO COM LOCAL
+        String username = "INSIRA_SEU_USUARIO";
+        String password = "INSIRA_SUA_SENHA";
+        String database = "dbnexus"; // É necessário criar o banco manualmente
+        String ip = "localhost:3306";
+
+        // URL da conexão completa
         String url = "jdbc:mysql://" + ip + "/" + database;
 
         BasicDataSource basicDataSource = new BasicDataSource();

@@ -7,174 +7,213 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
-        DBConnetionProvider dbConnetionProvider = new DBConnetionProvider();
-        JdbcTemplate connection = dbConnetionProvider.getConnection();
+        // Instancia o provedor de conexão
+        DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
+        JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
 
         // Criação das tabelas
-        criarTabelas(connection);
+        createTables(jdbcTemplate);
 
-        // Inserção de dados nas tabelas classroom e discipline
-        inserirAlunos(connection);
-        inserirDisciplinas(connection);
+        // Inserção de dados
+        insertInstitutions(jdbcTemplate);
+        insertClassrooms(jdbcTemplate);
+        insertDisciplines(jdbcTemplate);
+        insertClassroomGrades(jdbcTemplate);
 
-        // Inserção de dados na tabela notas_turma
-        inserirNotasTurma(connection);
-
-        // Exibição dos dados inseridos
-        exibirDados(connection);
+        // Exibição dos dados
+        displayData(jdbcTemplate);
     }
 
-    private static void criarTabelas(JdbcTemplate connection) {
+    private static void createTables(JdbcTemplate jdbcTemplate) {
         // Drop das tabelas existentes
-        connection.execute("DROP TABLE IF EXISTS instituicao");
-        connection.execute("DROP TABLE IF EXISTS turma");
-        connection.execute("DROP TABLE IF EXISTS disciplina");
-        connection.execute("DROP TABLE IF EXISTS notas_turma");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS notas_turma");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS turma");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS instituicao");
 
-        //Criação da tabela 'instituicao'
-        connection.execute("""
-                 CREATE TABLE IF NOT EXISTS instituicao (
-                     idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
-                     nome_instituicao VARCHAR(45) NOT NULL,
-                     nome_departamento VARCHAR(45)
-                 );
+        // Criação da tabela 'instituicao'
+        jdbcTemplate.execute("""
+                        CREATE TABLE instituicao (
+                            idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
+                            nome_instituicao VARCHAR(45) NOT NULL,
+                            nome_departamento VARCHAR(45)
+                        )
                 """);
 
         // Criação da tabela 'turma'
-        connection.execute("""
-                CREATE TABLE IF NOT EXISTS turma (
-                    idTurma INT AUTO_INCREMENT PRIMARY KEY,
-                    serie VARCHAR(45),
-                    periodo VARCHAR(45),
-                    fkInstituicao INT,
-                    FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
-                );
+        jdbcTemplate.execute("""
+                        CREATE TABLE turma (
+                            idTurma INT AUTO_INCREMENT PRIMARY KEY,
+                            fkInstituicao INT,
+                            serie VARCHAR(45),
+                            periodo VARCHAR(45),
+                            FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
+                        )
                 """);
 
-        //Criação da tabela 'disciplina'
-
-        connection.execute("""
-                CREATE TABLE IF NOT EXISTS disciplina (
-                    idDisc INT AUTO_INCREMENT PRIMARY KEY,
-                    nome_disciplina VARCHAR(45)
-                );
+        // Criação da tabela 'disciplina'
+        jdbcTemplate.execute("""
+                        CREATE TABLE disciplina (
+                            idDisciplina INT AUTO_INCREMENT PRIMARY KEY,
+                            nome_disciplina VARCHAR(45)
+                        )
                 """);
 
-        // Criação da tabela notas_turma
-        connection.execute("""
-                CREATE TABLE IF NOT EXISTS  notas_turma (
-                    fkTurma INT,
-                    fkDisc INT,
-                    media VARCHAR(45),
-                    PRIMARY KEY (fkTurma, fkDisc),
-                    FOREIGN KEY (fkDisc) REFERENCES disciplina(idDisc)
-                );
+        // Criação da tabela 'notas_turma'
+        jdbcTemplate.execute("""
+                        CREATE TABLE notas_turma (
+                            fkTurma INT,
+                            fkDisciplina INT,
+                            media DOUBLE,
+                            PRIMARY KEY (fkTurma, fkDisciplina),
+                            FOREIGN KEY (fkTurma) REFERENCES turma(idTurma),
+                            FOREIGN KEY (fkDisciplina) REFERENCES disciplina(idDisciplina)
+                        )
                 """);
     }
 
-    private static void inserirAlunos(JdbcTemplate connection) {
-        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
-                "SPTech", "3º Médio", "Noturno");
+    // Inserção de dados na tabela instituição
+    private static void insertInstitutions(JdbcTemplate jdbcTemplate) {
+        // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
+        String sql = "INSERT INTO instituicao (nome_instituicao, nome_departamento) VALUES (?, ?)";
 
-        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
-                "Objetivo", "9º Ano", "Diurno");
+        /* Explicação metodo UPDATE:
+         Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
+         Depois passamos os conteudos que serão atualizados na variavel
+         Com isso as interrogações seram substituídas pelos argumentos passados
+         O metodo update por fim executa o comando no banco
+         /*/
 
-        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
-                "Anglo", "1º Médio", "Vespertino");
+        jdbcTemplate.update(sql, "SPTech", "Faculdade Privada");
+        jdbcTemplate.update(sql, "Alberto Menrindes", "Escola estadual");
+        jdbcTemplate.update(sql, "USP", "Faculdade Publica");
 
-        connection.update("INSERT INTO turma (instituicao, serie, periodo) VALUES (?, ?, ?)",
-                "Etec", "2º Médio", "Integral");
-
-        System.out.println("Alunos inseridos com sucesso!");
+        System.out.println("Instituições inseridas com sucesso!");
     }
 
-    private static void inserirDisciplinas(JdbcTemplate connection) {
-        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "História");
-        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "Língua Portuguesa");
-        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "Geografia");
-        connection.update("INSERT INTO disciplina (nome) VALUES (?)", "Matemática");
+    private static void insertClassrooms(JdbcTemplate jdbcTemplate) {
+        // Recupera as instituições para obter os nomes
+        List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao",
+                new BeanPropertyRowMapper<>(Institution.class));
+
+        String sql = "INSERT INTO turma (fkInstituicao, serie, periodo) VALUES (?, ?, ?)";
+
+        for (Institution institution : institutions) {
+            jdbcTemplate.update(sql, institution.getIdInstituicao(), "1º Ano", "Matutino");
+            jdbcTemplate.update(sql, institution.getIdInstituicao(), "2º Ano", "Vespertino");
+        }
+
+        System.out.println("Turmas inseridas com sucesso!");
+    }
+
+    private static void insertDisciplines(JdbcTemplate jdbcTemplate) {
+        String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
+
+        jdbcTemplate.update(sql, "Matemática");
+        jdbcTemplate.update(sql, "Português");
+        jdbcTemplate.update(sql, "História");
+        jdbcTemplate.update(sql, "Geografia");
 
         System.out.println("Disciplinas inseridas com sucesso!");
     }
 
-    private static void inserirNotasTurma(JdbcTemplate connection) {
-        // Recuperar IDs dos alunos
-        List<Classroom> classrooms = connection.query("SELECT * FROM turma",
+    private static void insertClassroomGrades(JdbcTemplate jdbcTemplate) {
+        // Recupera as turmas e disciplinas para obter os IDs
+        List<Classroom> classrooms = jdbcTemplate.query("SELECT * FROM turma",
                 new BeanPropertyRowMapper<>(Classroom.class));
-
-        // Recuperar IDs das disciplinas
-        List<Discipline> disciplines = connection.query("SELECT * FROM disciplina",
+        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina",
                 new BeanPropertyRowMapper<>(Discipline.class));
 
-        // Inserir notas para cada classroom em cada discipline
+        String sql = "INSERT INTO notas_turma (fkTurma, fkDisciplina, media) VALUES (?, ?, ?)";
+
         for (Classroom classroom : classrooms) {
             for (Discipline discipline : disciplines) {
-                // Gerar uma nota aleatória entre 0 e 10
-                double nota = Math.round(Math.random() * 10 * 100.0) / 100.0;
+                // Gera uma média aleatória entre 0 e 10
+                double media = Math.round(Math.random() * 10 * 100.0) / 100.0;
 
-                connection.update("INSERT INTO notas_turma (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)",
-                        classroom.getIdTurma(), discipline.getIdDisciplina(), nota);
+                jdbcTemplate.update(sql, classroom.getIdTurma(), discipline.getIdDisciplina(), media);
 
-                System.out.printf("Inserida nota %.2f para o classroom ID %d na discipline ID %d%n",
-                        nota, classroom.getIdTurma(), discipline.getIdDisciplina());
+                System.out.printf("Inserida média %.2f para a turma ID %d na disciplina ID %d"
+                        .formatted(media, classroom.getIdTurma(), discipline.getIdDisciplina())
+                );
             }
         }
 
-        System.out.println("Notas inseridas com sucesso!");
+        System.out.println("Notas das turmas inseridas com sucesso!");
     }
 
-    private static void exibirDados(JdbcTemplate connection) {
-        // Exibir alunos
-        System.out.println("\n--- Alunos ---");
-        List<Classroom> classrooms = connection.query("SELECT * FROM turma",
-                new BeanPropertyRowMapper<>(Classroom.class));
+    private static void displayData(JdbcTemplate jdbcTemplate) {
+        // Exibe Instituições
+        System.out.println("\n--- Instituições ---");
+        List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao",
+                new BeanPropertyRowMapper<>(Institution.class));
+        for (Institution institution : institutions) {
+            System.out.println(institution);
+        }
 
+        // Exibe Turmas
+        System.out.println("\n--- Turmas ---");
+        List<Classroom> classrooms = jdbcTemplate.query("""
+                        SELECT t.*, i.nome_instituicao AS fkInstituicao
+                        FROM turma t
+                        JOIN instituicao i ON t.fkInstituicao = i.idInstituicao
+                        """,
+                (rs, rowNum) -> {
+                    Classroom classroom = new Classroom();
+                    classroom.setIdTurma(rs.getInt("idTurma"));
+                    classroom.setFkInstituicao(rs.getString("fkInstituicao"));
+                    classroom.setSerie(rs.getString("serie"));
+                    classroom.setPeriodo(rs.getString("periodo"));
+                    return classroom;
+                });
         for (Classroom classroom : classrooms) {
             System.out.println(classroom);
         }
 
-        // Exibir disciplinas
+        // Exibe Disciplinas
         System.out.println("\n--- Disciplinas ---");
-        List<Discipline> disciplines = connection.query("SELECT * FROM discipline",
+        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina",
                 new BeanPropertyRowMapper<>(Discipline.class));
-
         for (Discipline discipline : disciplines) {
             System.out.println(discipline);
         }
 
-        // Exibir notas dos alunos
-        System.out.println("\n--- Notas dos Alunos ---");
-        List<ClassroomGrade> notas = connection.query("""
+        // Exibe Notas das Turmas
+        System.out.println("\n--- Notas das Turmas ---");
+        List<ClassroomGrade> classroomGrades = jdbcTemplate.query("""
                         SELECT 
-                            a.id AS aluno_id, a.instituicao, a.serie, a.periodo,
-                            d.idDisciplina AS disciplina_id, d.nome,
-                            n.nota
+                            n.media,
+                            t.idTurma, t.serie, t.periodo,
+                            d.idDisciplina, d.nome_disciplina,
+                            i.nome_instituicao AS fkInstituicao
                         FROM notas_turma n
-                        JOIN turma a ON n.fkAluno = a.id
+                        JOIN turma t ON n.fkTurma = t.idTurma
                         JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
+                        JOIN instituicao i ON t.fkInstituicao = i.idInstituicao
                         """,
                 (rs, rowNum) -> {
+                    // Cria instância de Classroom
                     Classroom classroom = new Classroom();
-                    classroom.setIdTurma(rs.getInt("aluno_id"));
-                    classroom.setInstituicao(rs.getString("instituicao"));
+                    classroom.setIdTurma(rs.getInt("idTurma"));
+                    classroom.setFkInstituicao(rs.getString("fkInstituicao"));
                     classroom.setSerie(rs.getString("serie"));
                     classroom.setPeriodo(rs.getString("periodo"));
 
+                    // Cria instância de Discipline
                     Discipline discipline = new Discipline();
-                    discipline.setIdDisciplina(rs.getInt("disciplina_id"));
-                    discipline.setNomeDisciplina(rs.getString("nome"));
+                    discipline.setIdDisciplina(rs.getInt("idDisciplina"));
+                    discipline.setNomeDisciplina(rs.getString("nome_disciplina"));
 
+                    // Cria instância de ClassroomGrade
                     ClassroomGrade classroomGrade = new ClassroomGrade();
-                    classroomGrade.setAluno(classroom);
+                    classroomGrade.setClassroom(classroom);
                     classroomGrade.setDisciplina(discipline);
-                    classroomGrade.setMedia(rs.getDouble("nota"));
+                    classroomGrade.setMedia(rs.getDouble("media"));
 
                     return classroomGrade;
                 });
-
-        for (ClassroomGrade classroomGrade : notas) {
-            System.out.println(classroomGrade);
+        for (ClassroomGrade grade : classroomGrades) {
+            System.out.println(grade);
         }
     }
 }
