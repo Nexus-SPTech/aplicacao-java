@@ -1,19 +1,19 @@
 package school.sptech.config;
 
 import org.springframework.jdbc.core.RowMapper;
-import school.sptech.models.Classroom;
-import school.sptech.models.ClassroomGrade;
+import school.sptech.models.Student;
+import school.sptech.models.StudentGrade;
 import school.sptech.models.Discipline;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClassroomGradeRowMapper implements RowMapper<ClassroomGrade> {
+public class StudentGradeRowMapper implements RowMapper<StudentGrade> {
 
     @Override
-    public ClassroomGrade mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        Classroom classroom = new Classroom(
-                resultSet.getInt("idTurma"),
+    public StudentGrade mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        Student student = new Student(
+                resultSet.getInt("idAluno"),
                 resultSet.getString("fkInstituicao"),
                 resultSet.getString("serie"),
                 resultSet.getString("periodo")
@@ -24,9 +24,9 @@ public class ClassroomGradeRowMapper implements RowMapper<ClassroomGrade> {
                 resultSet.getString("nome_disciplina")
         );
 
-        ClassroomGrade classroomGrade = new ClassroomGrade(classroom, discipline,
+        StudentGrade studentGrade = new StudentGrade(student, discipline,
                 resultSet.getDouble("media"));
 
-        return classroomGrade;
+        return studentGrade;
     }
 }

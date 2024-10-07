@@ -1,19 +1,19 @@
 package school.sptech.models;
 
-public class ClassroomGrade {
-    private Classroom classroom;
+public class StudentGrade {
+    private Student student;
     private Discipline discipline;
     private Double media;
 
-    public ClassroomGrade() {
+    public StudentGrade() {
     }
 
-    public Classroom getClassroom() {
-        return classroom;
+    public Student getClassroom() {
+        return student;
     }
 
-    public void setClassroom(Classroom classroom) {
-        this.classroom = classroom;
+    public void setClassroom(Student student) {
+        this.student = student;
     }
 
     public Discipline getDiscipline() {
@@ -24,18 +24,18 @@ public class ClassroomGrade {
         this.discipline = discipline;
     }
 
-    public ClassroomGrade(Classroom classroom, Discipline discipline, Double media) {
-        this.classroom = classroom;
+    public StudentGrade(Student student, Discipline discipline, Double media) {
+        this.student = student;
         this.discipline = discipline;
         this.media = media;
     }
 
-    public Classroom getAluno() {
-        return classroom;
+    public Student getAluno() {
+        return student;
     }
 
-    public void setAluno(Classroom classroom) {
-        this.classroom = classroom;
+    public void setAluno(Student student) {
+        this.student = student;
     }
 
     public Discipline getDisciplina() {
@@ -59,8 +59,8 @@ public class ClassroomGrade {
         return """
                 Média: %.2f
                 Disciplina: %s
-                Sala de aula: %s
-                """.formatted(media, discipline, classroom);
+                Nome do aluno: %s
+                """.formatted(media, discipline, student);
 
     }
 }

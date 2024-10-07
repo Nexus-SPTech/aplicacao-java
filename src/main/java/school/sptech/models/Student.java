@@ -1,29 +1,29 @@
 package school.sptech.models;
 
-public class Classroom {
-    private Integer idTurma;
-    // A fk instituição gera o nome da instituição da turma
+public class Student {
+    private Integer idAluno;
+    // A fk instituição gera o nome da instituição do aluno
     // Precisa ser alterado para um atributo do tipo Institution
     private String fkInstituicao;
     private String serie;
     private String periodo;
 
-    public Classroom() {
+    public Student() {
     }
 
-    public Classroom(Integer idTurma, String fkInstituicao, String serie, String periodo) {
-        this.idTurma = idTurma;
+    public Student(Integer idAluno, String fkInstituicao, String serie, String periodo) {
+        this.idAluno = idAluno;
         this.fkInstituicao = fkInstituicao;
         this.serie = serie;
         this.periodo = periodo;
     }
 
-    public Integer getIdTurma() {
-        return idTurma;
+    public Integer getIdAluno() {
+        return idAluno;
     }
 
-    public void setIdTurma(Integer idTurma) {
-        this.idTurma = idTurma;
+    public void setIdAluno(Integer idAluno) {
+        this.idAluno = idAluno;
     }
 
     public String getFkInstituicao() {
@@ -57,6 +57,6 @@ public class Classroom {
                 Id: %d
                 Instituicao: %s
                 Serie: %s
-                Periodo: %s""".formatted(idTurma, fkInstituicao, serie, periodo);
+                Periodo: %s""".formatted(idAluno, fkInstituicao, serie, periodo);
     }
 }
