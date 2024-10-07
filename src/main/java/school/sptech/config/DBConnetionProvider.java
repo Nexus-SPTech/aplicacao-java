@@ -11,18 +11,22 @@ public class DBConnetionProvider {
 
     public DBConnetionProvider() {
 
+        String DBUser = System.getenv("DBUser");
+        String DBPassword = System.getenv("DBPassword");
+
+
         // Credenciais do banco de dados
 
-        /* PARA CONEXÃO COM A EC2
-        String username = "root";
-        String password = "urubu100";
-        String database = "nexus";
-        String ip = "54.165.251.183";
-        /*/
+        // PARA CONEXÃO COM A EC2
+//        String username = "root";
+//        String password = "urubu100";
+//        String database = "nexus";
+//        String ip = System.getenv("IPEC2");
+
 
         // PARA CONEXÃO COM LOCAL
-        String username = "root";
-        String password = "<sua senha>";
+        String username = DBUser;
+        String password = DBPassword;
         String database = "dbnexus"; // É necessário criar o banco manualmente
         String ip = "localhost:3306";
 
@@ -40,4 +44,5 @@ public class DBConnetionProvider {
     public JdbcTemplate getConnection() {
         return new JdbcTemplate(dataSource);
     }
+
 }
