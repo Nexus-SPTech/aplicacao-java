@@ -2,6 +2,12 @@ package school.sptech;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.config.ClassroomGradeRowMapper;
+import school.sptech.config.DBConnetionProvider;
+import school.sptech.models.Classroom;
+import school.sptech.models.ClassroomGrade;
+import school.sptech.models.Discipline;
+import school.sptech.models.Institution;
 
 import java.util.List;
 

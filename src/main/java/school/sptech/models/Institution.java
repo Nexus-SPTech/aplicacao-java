@@ -1,4 +1,4 @@
-package school.sptech;
+package school.sptech.models;
 
 public class Institution {
     private Integer idInstituicao;
