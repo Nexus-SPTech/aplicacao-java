@@ -38,5 +38,12 @@
             <version>13.0</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- conexão com o s3 -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.27.21</version>
+        </dependency>
     </dependencies>
 </project>
