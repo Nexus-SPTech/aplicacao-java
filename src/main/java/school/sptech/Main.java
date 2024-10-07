@@ -120,6 +120,11 @@ public class Main {
         jdbcTemplate.update(sql, "Português");
         jdbcTemplate.update(sql, "História");
         jdbcTemplate.update(sql, "Geografia");
+        jdbcTemplate.update(sql, "Biologia");
+        jdbcTemplate.update(sql, "Química");
+        jdbcTemplate.update(sql, "Filosofia");
+        jdbcTemplate.update(sql, "Sociologia");
+        jdbcTemplate.update(sql, "Física");
 
         System.out.println("Disciplinas inseridas com sucesso!");
     }
