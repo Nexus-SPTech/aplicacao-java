@@ -26,6 +26,19 @@
             <version>2.12.0</version>
         </dependency>
 
+        <!-- Dependência principal do POI para arquivos Excel (.xls e .xlsx) -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+        <!-- Dependência para trabalhar com arquivos no formato .xlsx -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+
         <!-- Driver do servidor de banco MySQL -->
         <dependency>
             <groupId>com.mysql</groupId>
