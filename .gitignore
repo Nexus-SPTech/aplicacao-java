@@ -12,6 +12,9 @@ target/
 *.iml
 *.ipr
 
+### Base de dados ###
+alunos.xls
+
 ### Eclipse ###
 .apt_generated
 .classpath
