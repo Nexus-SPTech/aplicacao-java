@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ExcelService {
 
-    // Método para ler múltiplos arquivos Excel de um diretório
+    // metodo para ler varios arquivos de um diretorio
     public void lerVariosArquivos(String caminhoDiretorio) {
         File diretorio = new File(caminhoDiretorio);
         if (diretorio.isDirectory()) {
@@ -26,24 +26,26 @@ public class ExcelService {
         }
     }
 
-    // Método para ler um arquivo Excel específico
+    // metodo para ler um arquivo .xls especifico
+    // obs: é obrigatorio ser uma arquivo .xls
     public void lerExcel(String caminhoArquivo) {
         try (FileInputStream arquivoExcel = new FileInputStream(caminhoArquivo)) {
-            Workbook workbook = new HSSFWorkbook(arquivoExcel); // Para arquivos .xls, use HSSFWorkbook; para .xlsx, use XSSFWorkbook
-            Sheet sheet = workbook.getSheetAt(0); // Considerando que a primeira aba é a desejada
+            // Para arquivos .xls é necessário usar HSSFWorkbooke e para .xlsx XSSFWorkbook
+            Workbook workbook = new HSSFWorkbook(arquivoExcel);
+            Sheet sheet = workbook.getSheetAt(0);
 
             System.out.println("Lendo arquivo: " + caminhoArquivo);
 
-            // Identificar as colunas de interesse
+            // Identificar as colunas de interesse, utilizando o metodo identificar colunas
             Map<String, Integer> colunasParaIndices = identificarColunas(sheet, new String[]{"CD_ALUNO", "porc_ACERT_LI", "SERIE_ANO"});
 
-            // Verificar se as colunas foram encontradas
+            // verificação se as colunas foram encontradas, troque o nmr pela qtd de colunas inserifas
             if (colunasParaIndices.size() < 3) {
                 System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo.");
                 return;
             }
 
-            // Ler as linhas do Excel, mas apenas as colunas de interesse
+            // lendo apenas as colunas de escolha
             for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Ignorar o cabeçalho
                 Row row = sheet.getRow(i);
                 if (row != null) {
@@ -51,6 +53,7 @@ public class ExcelService {
                         Integer idAluno = tratarParaInteiro(getCellValueAsString(row.getCell(colunasParaIndices.get("CD_ALUNO"))));
                         String acertos = getCellValueAsString(row.getCell(colunasParaIndices.get("porc_ACERT_LI")));
                         String ano = getCellValueAsString(row.getCell(colunasParaIndices.get("SERIE_ANO")));
+
 
                         // Imprimir ou processar os dados conforme a regra de negócio
                         System.out.println("ID Aluno: " + idAluno + ", Acertos: " + acertos + ", Ano: " + ano);
@@ -66,7 +69,7 @@ public class ExcelService {
         }
     }
 
-    // Método para identificar os índices das colunas desejadas no cabeçalho da planilha
+    // Metodo para identificar os índices das colunas desejadas no cabeçalho da planilha
     private Map<String, Integer> identificarColunas(Sheet sheet, String[] colunasDesejadas) {
         Map<String, Integer> colunaParaIndice = new HashMap<>();
         Row headerRow = sheet.getRow(0);
@@ -88,7 +91,7 @@ public class ExcelService {
         return colunaParaIndice;
     }
 
-    // Método auxiliar para obter o valor da célula como String
+    // Metodo auxiliar para obter o valor de todas as celulas como String, facilitando o tratamento dos dados depois
     private String getCellValueAsString(Cell cell) {
         if (cell == null) return "";
         switch (cell.getCellType()) {
@@ -109,6 +112,7 @@ public class ExcelService {
         }
     }
 
+    // Metodo para transformar uma string em inteiro
     private Integer tratarParaInteiro(String valor) throws NumberFormatException {
         if (valor == null || valor.trim().isEmpty()) {
             return null;
@@ -119,4 +123,18 @@ public class ExcelService {
         }
         return Integer.parseInt(valor);
     }
+
+    // Metodo para tratar o valor de uma string para double
+    private Double tratarValorComoDouble(String valor) throws NumberFormatException {
+        if (valor == null || valor.trim().isEmpty()) {
+            return null;
+        }
+        // ignora valores menores que zero
+        Double valorDouble = Double.parseDouble(valor);
+        if (valorDouble <= 0) {
+            return null;
+        }
+        return valorDouble;
+    }
+
 }

@@ -45,9 +45,6 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2lJ8AzUfVL82MRFH6ywyPBB7LE4" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -78,16 +75,11 @@
   </component>
   <component name="RunManager" selected="Application.Teste">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <envs>
-        <env name="DBPassword" value="sptech" />
-        <env name="DBUser" value="root" />
-        <env name="IPEC2" value="54.165.251.183" />
-      </envs>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="school.sptech.config.*" />
+          <option name="PATTERN" value="school.sptech.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -118,8 +110,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -136,11 +128,10 @@
       <workItem from="1727641729284" duration="3248000" />
       <workItem from="1727645197614" duration="7995000" />
       <workItem from="1728070130553" duration="5729000" />
-      <workItem from="1728430369955" duration="13000" />
-      <workItem from="1728502573277" duration="1187000" />
-      <workItem from="1728507303541" duration="1843000" />
-      <workItem from="1728514433935" duration="1889000" />
-      <workItem from="1728595298884" duration="4144000" />
+      <workItem from="1728687860673" duration="606000" />
+      <workItem from="1728688808678" duration="87000" />
+      <workItem from="1728688903960" duration="61000" />
+      <workItem from="1728688971058" duration="960000" />
     </task>
     <servers />
   </component>
