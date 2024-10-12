@@ -10,6 +10,33 @@ import java.util.Map;
 
 public class ExcelService {
 
+    // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
+    private static final String COLUNA_ID_ALUNO = "CD_ALUNO";
+    private static final String COLUNA_SERIE_ANO = "SERIE_ANO";
+
+    // Localidade do aluno
+    private static final String COLUNA_NOME_DEP = "NOMEDEP";
+    private static final String COLUNA_NOME_DEP_BOL = "NomeDepBol";
+    private static final String COLUNA_REGIAO_METROPOLITANA = "RegiaoMetropolitana";
+    private static final String COLUNA_MUN = "MUN";
+    private static final String COLUNA_DE = "DE";
+
+    // Propriedades pessoais do aluno
+    private static final String COLUNA_SEXO = "SEXO";
+    private static final String COLUNA_IDADE = "IDADE";
+    private static final String COLUNA_PERIODO = "PERIODO";
+
+    // porcentagem de acertos de cada materia
+    private static final String COLUNA_ACERTOS_LP = "porc_ACERT_LP";
+    private static final String COLUNA_ACERTOS_BIO = "porc_ACERT_BIO";
+    private static final String COLUNA_ACERTOS_FIS = "porc_ACERT_FIS";
+    private static final String COLUNA_ACERTOS_QUI = "porc_ACERT_QUI";
+    private static final String COLUNA_ACERTOS_MAT = "porc_ACERT_MAT";
+    private static final String COLUNA_ACERTOS_GEO = "porc_ACERT_GEO";
+    private static final String COLUNA_ACERTOS_HIS = "porc_ACERT_HIS";
+    private static final String COLUNA_ACERTOS_FIL = "porc_ACERT_FIL";
+    private static final String COLUNA_ACERTOS_SOC = "porc_ACERT_SOC";
+
     // metodo para ler varios arquivos de um diretorio
     public void lerVariosArquivos(String caminhoDiretorio) {
         File diretorio = new File(caminhoDiretorio);
@@ -36,11 +63,21 @@ public class ExcelService {
 
             System.out.println("Lendo arquivo: " + caminhoArquivo);
 
-            // Identificar as colunas de interesse, utilizando o metodo identificar colunas
-            Map<String, Integer> colunasParaIndices = identificarColunas(sheet, new String[]{"CD_ALUNO", "porc_ACERT_LI", "SERIE_ANO"});
+            // Identificar as colunas de interesse
+            String[] colunasDesejadas = {
+                    COLUNA_ID_ALUNO, COLUNA_SERIE_ANO, COLUNA_NOME_DEP, COLUNA_NOME_DEP_BOL,
+                    COLUNA_REGIAO_METROPOLITANA, COLUNA_DE, COLUNA_MUN, COLUNA_SEXO,
+                    COLUNA_IDADE, COLUNA_PERIODO, COLUNA_ACERTOS_LP, COLUNA_ACERTOS_BIO,
+                    COLUNA_ACERTOS_FIS, COLUNA_ACERTOS_QUI, COLUNA_ACERTOS_MAT,
+                    COLUNA_ACERTOS_GEO, COLUNA_ACERTOS_HIS, COLUNA_ACERTOS_FIL,
+                    COLUNA_ACERTOS_SOC
+            };
 
-            // verificação se as colunas foram encontradas, troque o nmr pela qtd de colunas inserifas
-            if (colunasParaIndices.size() < 3) {
+            // Identificar as colunas de interesse, utilizando o metodo identificar colunas
+            Map<String, Integer> colunasParaIndices = identificarColunas(sheet, colunasDesejadas);
+
+            // verificação se as colunas foram encontradas, troque o nmr pela qtd de colunas inseridas
+            if (colunasParaIndices.size() < colunasDesejadas.length) {
                 System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo.");
                 return;
             }
@@ -50,15 +87,58 @@ public class ExcelService {
                 Row row = sheet.getRow(i);
                 if (row != null) {
                     try {
-                        Integer idAluno = tratarParaInteiro(getCellValueAsString(row.getCell(colunasParaIndices.get("CD_ALUNO"))));
-                        String acertos = getCellValueAsString(row.getCell(colunasParaIndices.get("porc_ACERT_LI")));
-                        String ano = getCellValueAsString(row.getCell(colunasParaIndices.get("SERIE_ANO")));
+                        // Declarando variaveis com os valores lidos do excel
+                        String idAluno = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ID_ALUNO)));
+
+                        // variaveis referentes a porcentagem de acertos de cada materia
+                        String acertosLP = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_LP)));
+                        String acertosBIO = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_BIO)));
+                        String acertosFIS = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_FIS)));
+                        String acertosQUI = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_QUI)));
+                        String acertosMAT = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_MAT)));
+                        String acertosGEO = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_GEO)));
+                        String acertosHIS = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_HIS)));
+                        String acertosFIL = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_FIL)));
+                        String acertosSOC = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_SOC)));
+
+                        // variaveis referente a localidade
+                        String regiaoMetropolitana = getCellValueAsString(row.getCell(colunasParaIndices
+                                .get(COLUNA_REGIAO_METROPOLITANA)));
+                        String regiao = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_DE)));
+                        String municipio = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_MUN)));
+
+                        // variaveis referente a propriedades do aluno
+                        String ano = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_SERIE_ANO)));
+                        String idade = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_IDADE)));
+                        String genero = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_SEXO)));
+                        String nomeDepartamento =
+                                getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_NOME_DEP)));
+                        String nomeDepartamentoBol =
+                                getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_NOME_DEP_BOL)));
 
 
-                        // Imprimir ou processar os dados conforme a regra de negócio
-                        System.out.println("ID Aluno: " + idAluno + ", Acertos: " + acertos + ", Ano: " + ano);
+
+                        // Printando todos os dados lidos
+                        System.out.println("Linha " + (i + 1) + ": " +
+                                " ID Aluno: " + idAluno +
+                                ", Acertos LP: " + acertosLP +
+                                ", Acertos BIO: " + acertosBIO +
+                                ", Acertos FIS: " + acertosFIS +
+                                ", Acertos QUI: " + acertosQUI +
+                                ", Acertos MAT: " + acertosMAT +
+                                ", Acertos GEO: " + acertosGEO +
+                                ", Acertos HIS: " + acertosHIS +
+                                ", Acertos FIL: " + acertosFIL +
+                                ", Acertos SOC: " + acertosSOC +
+                                ", Região Metropolitana: " + regiaoMetropolitana +
+                                ", Região: " + regiao +
+                                ", Município: " + municipio +
+                                ", Ano: " + ano +
+                                ", Idade: " + idade +
+                                ", Gênero: " + genero);
                     } catch (NumberFormatException e) {
                         System.out.println("Erro ao converter o valor para Integer na linha " + (i + 1) + ": " + e.getMessage());
+                        e.printStackTrace();
                     }
                 }
             }
