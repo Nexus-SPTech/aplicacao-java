@@ -116,8 +116,6 @@ public class ExcelService {
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_NOME_DEP_BOL)));
 
-
-
                         // Printando todos os dados lidos
                         System.out.println("Linha " + (i + 1) + ": " +
                                 " ID Aluno: " + idAluno +

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/config/DBConnetionProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/config/DBConnetionProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,8 +74,12 @@
       <recent name="school.sptech" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Teste">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="DB_PASSWORD" value="ma140506" />
+        <env name="DB_USER" value="root" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
       <extension name="coverage">
@@ -100,6 +105,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Teste" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Teste" />
@@ -131,7 +140,7 @@
       <workItem from="1728687860673" duration="606000" />
       <workItem from="1728688808678" duration="87000" />
       <workItem from="1728688903960" duration="61000" />
-      <workItem from="1728688971058" duration="3588000" />
+      <workItem from="1728688971058" duration="5025000" />
     </task>
     <servers />
   </component>
