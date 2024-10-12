@@ -1,9 +1,9 @@
 package school.sptech.config;
 
 import org.springframework.jdbc.core.RowMapper;
+import school.sptech.models.Discipline;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
-import school.sptech.models.Discipline;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
