@@ -1,14 +1,23 @@
 package school.sptech.service;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import school.sptech.config.S3Provider;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExcelService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ExcelService.class);
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_ID_ALUNO = "CD_ALUNO";
@@ -53,12 +62,37 @@ public class ExcelService {
         }
     }
 
+    public void lerExcelDoS3(String bucketName, String keyName) {
+        logger.info("Lendo arquivo do S3: Bucket = {}, Key = {}", bucketName, keyName);
+        S3Client s3 = new S3Provider().getS3Client();
+
+        try {
+            GetObjectRequest request = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
+
+            // Obtém o arquivo do S3 como um InputStream
+            InputStream inputStream = s3.getObject(request);
+
+            // Lê o arquivo Excel
+            lerExcel(inputStream.toString());
+
+            // Feche o InputStream
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            s3.close();
+        }
+    }
+
     // metodo para ler um arquivo .xls especifico
     // obs: é obrigatorio ser uma arquivo .xls
     public void lerExcel(String caminhoArquivo) {
         try (FileInputStream arquivoExcel = new FileInputStream(caminhoArquivo)) {
             // Para arquivos .xls é necessário usar HSSFWorkbooke e para .xlsx XSSFWorkbook
-            Workbook workbook = new HSSFWorkbook(arquivoExcel);
+            Workbook workbook = new XSSFWorkbook(arquivoExcel);
             Sheet sheet = workbook.getSheetAt(0);
 
             System.out.println("Lendo arquivo: " + caminhoArquivo);

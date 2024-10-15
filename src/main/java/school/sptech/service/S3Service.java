@@ -10,12 +10,11 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 import java.util.List;
 
 public class S3Service {
-    // Instanciando o cliente S3 via S3Provider
     S3Client s3Client = new S3Provider().getS3Client();
 
     public void getConnectionS3(){
 
-        String bucketName = "nome-do-bucket";
+        String bucketName = "nexus-group-bucket";
 
         // *************************************
         // *   Listando todos os buckets       *
