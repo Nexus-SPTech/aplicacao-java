@@ -12,8 +12,9 @@ target/
 *.iml
 *.ipr
 
-### Base de dados ###
+### Arquivos Confidenciais ###
 alunos.xls
+.env
 
 ### Eclipse ###
 .apt_generated

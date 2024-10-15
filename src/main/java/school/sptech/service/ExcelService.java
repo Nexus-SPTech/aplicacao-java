@@ -1,15 +1,9 @@
 package school.sptech.service;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import school.sptech.config.S3Provider;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -46,59 +40,18 @@ public class ExcelService {
     private static final String COLUNA_ACERTOS_FIL = "porc_ACERT_FIL";
     private static final String COLUNA_ACERTOS_SOC = "porc_ACERT_SOC";
 
-    // metodo para ler varios arquivos de um diretorio
-    public void lerVariosArquivos(String caminhoDiretorio) {
-        File diretorio = new File(caminhoDiretorio);
-        if (diretorio.isDirectory()) {
-            // Percorre todos os arquivos do diretório
-            for (File arquivo : diretorio.listFiles()) {
-                // Verifica se o arquivo tem a extensão .xls ou .xlsx
-                if (arquivo.isFile() && (arquivo.getName().endsWith(".xls") || arquivo.getName().endsWith(".xlsx"))) {
-                    lerExcel(arquivo.getAbsolutePath());
-                }
-            }
-        } else {
-            System.out.println("O caminho fornecido não é um diretório.");
-        }
-    }
-
-    public void lerExcelDoS3(String bucketName, String keyName) {
-        logger.info("Lendo arquivo do S3: Bucket = {}, Key = {}", bucketName, keyName);
-        S3Client s3 = new S3Provider().getS3Client();
-
-        try {
-            GetObjectRequest request = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .build();
-
-            // Obtém o arquivo do S3 como um InputStream
-            InputStream inputStream = s3.getObject(request);
-
-            // Lê o arquivo Excel
-            lerExcel(inputStream.toString());
-
-            // Feche o InputStream
-            inputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            s3.close();
-        }
-    }
-
     // metodo para ler um arquivo .xls especifico
     // obs: é obrigatorio ser uma arquivo .xls
-    public void lerExcel(String caminhoArquivo) {
-        try (FileInputStream arquivoExcel = new FileInputStream(caminhoArquivo)) {
+    public void readExcel(InputStream excelArchive) {
+        try {
             // Para arquivos .xls é necessário usar HSSFWorkbooke e para .xlsx XSSFWorkbook
-            Workbook workbook = new XSSFWorkbook(arquivoExcel);
+            Workbook workbook = new HSSFWorkbook(excelArchive);
             Sheet sheet = workbook.getSheetAt(0);
 
-            System.out.println("Lendo arquivo: " + caminhoArquivo);
+            System.out.println("Lendo arquivo: " + excelArchive);
 
             // Identificar as colunas de interesse
-            String[] colunasDesejadas = {
+            String[] wishedColumns = {
                     COLUNA_ID_ALUNO, COLUNA_SERIE_ANO, COLUNA_NOME_DEP, COLUNA_NOME_DEP_BOL,
                     COLUNA_REGIAO_METROPOLITANA, COLUNA_DE, COLUNA_MUN, COLUNA_SEXO,
                     COLUNA_IDADE, COLUNA_PERIODO, COLUNA_ACERTOS_LP, COLUNA_ACERTOS_BIO,
@@ -108,10 +61,10 @@ public class ExcelService {
             };
 
             // Identificar as colunas de interesse, utilizando o metodo identificar colunas
-            Map<String, Integer> colunasParaIndices = identificarColunas(sheet, colunasDesejadas);
+            Map<String, Integer> columnsForIndex = identifyColumns(sheet, wishedColumns);
 
             // verificação se as colunas foram encontradas, troque o nmr pela qtd de colunas inseridas
-            if (colunasParaIndices.size() < colunasDesejadas.length) {
+            if (columnsForIndex.size() < wishedColumns.length) {
                 System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo.");
                 return;
             }
@@ -122,33 +75,33 @@ public class ExcelService {
                 if (row != null) {
                     try {
                         // Declarando variaveis com os valores lidos do excel
-                        String idAluno = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ID_ALUNO)));
+                        String idAluno = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ID_ALUNO)));
 
                         // variaveis referentes a porcentagem de acertos de cada materia
-                        String acertosLP = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_LP)));
-                        String acertosBIO = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_BIO)));
-                        String acertosFIS = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_FIS)));
-                        String acertosQUI = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_QUI)));
-                        String acertosMAT = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_MAT)));
-                        String acertosGEO = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_GEO)));
-                        String acertosHIS = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_HIS)));
-                        String acertosFIL = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_FIL)));
-                        String acertosSOC = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_ACERTOS_SOC)));
+                        String acertosLP = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_LP)));
+                        String acertosBIO = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_BIO)));
+                        String acertosFIS = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_FIS)));
+                        String acertosQUI = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_QUI)));
+                        String acertosMAT = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_MAT)));
+                        String acertosGEO = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_GEO)));
+                        String acertosHIS = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_HIS)));
+                        String acertosFIL = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_FIL)));
+                        String acertosSOC = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_SOC)));
 
                         // variaveis referente a localidade
-                        String regiaoMetropolitana = getCellValueAsString(row.getCell(colunasParaIndices
+                        String regiaoMetropolitana = getCellValueAsString(row.getCell(columnsForIndex
                                 .get(COLUNA_REGIAO_METROPOLITANA)));
-                        String regiao = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_DE)));
-                        String municipio = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_MUN)));
+                        String regiao = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_DE)));
+                        String municipio = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_MUN)));
 
                         // variaveis referente a propriedades do aluno
-                        String ano = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_SERIE_ANO)));
-                        String idade = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_IDADE)));
-                        String genero = getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_SEXO)));
+                        String ano = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_SERIE_ANO)));
+                        String idade = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_IDADE)));
+                        String genero = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_SEXO)));
                         String nomeDepartamento =
-                                getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_NOME_DEP)));
+                                getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP)));
                         String nomeDepartamentoBol =
-                                getCellValueAsString(row.getCell(colunasParaIndices.get(COLUNA_NOME_DEP_BOL)));
+                                getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
 
                         // Printando todos os dados lidos
                         System.out.println("Linha " + (i + 1) + ": " +
@@ -182,25 +135,25 @@ public class ExcelService {
     }
 
     // Metodo para identificar os índices das colunas desejadas no cabeçalho da planilha
-    private Map<String, Integer> identificarColunas(Sheet sheet, String[] colunasDesejadas) {
-        Map<String, Integer> colunaParaIndice = new HashMap<>();
+    private Map<String, Integer> identifyColumns(Sheet sheet, String[] wishedColumns) {
+        Map<String, Integer> columnsForIndex = new HashMap<>();
         Row headerRow = sheet.getRow(0);
 
         if (headerRow == null) {
             System.out.println("Erro: Cabeçalho não encontrado na planilha.");
-            return colunaParaIndice;
+            return columnsForIndex;
         }
 
         for (Cell cell : headerRow) {
-            String nomeColuna = cell.getStringCellValue();
-            for (String colunaDesejada : colunasDesejadas) {
-                if (nomeColuna.equalsIgnoreCase(colunaDesejada)) {
-                    colunaParaIndice.put(colunaDesejada, cell.getColumnIndex());
+            String columnName = cell.getStringCellValue();
+            for (String wishedColumn : wishedColumns) {
+                if (columnName.equalsIgnoreCase(wishedColumn)) {
+                    columnsForIndex.put(wishedColumn, cell.getColumnIndex());
                 }
             }
         }
 
-        return colunaParaIndice;
+        return columnsForIndex;
     }
 
     // Metodo auxiliar para obter o valor de todas as celulas como String, facilitando o tratamento dos dados depois

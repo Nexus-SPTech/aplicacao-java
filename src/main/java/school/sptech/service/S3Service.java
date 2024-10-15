@@ -2,11 +2,17 @@ package school.sptech.service;
 
 import school.sptech.config.S3Provider;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.model.S3Object;
+import software.amazon.awssdk.services.s3.model.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+import java.io.InputStream;
 import java.util.List;
 
 public class S3Service {
@@ -47,5 +53,16 @@ public class S3Service {
         }
     }
 
+    public InputStream getExcelFileFromS3(String bucketName, String key) {
+        S3Provider s3Provider = new S3Provider();
+        S3Client s3Client = s3Provider.getS3Client();
 
+        GetObjectRequest request = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key) // O caminho do arquivo no bucket
+                .build();
+
+        ResponseInputStream<GetObjectResponse> response = s3Client.getObject(request);
+        return response; // Retorna o InputStream do arquivo
+    }
 }
