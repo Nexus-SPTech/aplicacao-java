@@ -7,6 +7,8 @@ public class Student {
     private String fkInstituicao;
     private String serie;
     private String periodo;
+    private String genero;
+    private Integer idade;
 
     public Student() {
     }
@@ -50,13 +52,30 @@ public class Student {
         this.periodo = periodo;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
 
     @Override
     public String toString() {
         return """
                 Id: %d
-                Instituicao: %s
+                Instituição: %s
                 Serie: %s
-                Periodo: %s""".formatted(idAluno, fkInstituicao, serie, periodo);
+                Periodo: %s
+                Gênero: %s
+                Idade: %d""".formatted(idAluno, fkInstituicao, serie, periodo, genero, idade);
     }
 }

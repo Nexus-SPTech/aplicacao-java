@@ -2,15 +2,17 @@ package school.sptech.models;
 
 public class Institution {
     private Integer idInstituicao;
-    private String nomeInstituicao;
     private String nomeDepartamento;
+    private String departamentoEstadual;
+    private String municipio;
+    private String regiaoMetropolitana;
 
     public Institution() {
     }
 
-    public Institution(Integer idInstituicao, String nomeInstituicao, String nomeDepartamento) {
+    public Institution(Integer idInstituicao, String departamentoEstadual, String nomeDepartamento) {
         this.idInstituicao = idInstituicao;
-        this.nomeInstituicao = nomeInstituicao;
+        this.departamentoEstadual = departamentoEstadual;
         this.nomeDepartamento = nomeDepartamento;
     }
 
@@ -22,12 +24,12 @@ public class Institution {
         this.idInstituicao = idInstituicao;
     }
 
-    public String getNomeInstituicao() {
-        return nomeInstituicao;
+    public String getDepartamentoEstadual() {
+        return departamentoEstadual;
     }
 
-    public void setNomeInstituicao(String nomeInstituicao) {
-        this.nomeInstituicao = nomeInstituicao;
+    public void setDepartamentoEstadual(String departamentoEstadual) {
+        this.departamentoEstadual = departamentoEstadual;
     }
 
     public String getNomeDepartamento() {
@@ -38,12 +40,30 @@ public class Institution {
         this.nomeDepartamento = nomeDepartamento;
     }
 
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getRegiaoMetropolitana() {
+        return regiaoMetropolitana;
+    }
+
+    public void setRegiaoMetropolitana(String regiaoMetropolitana) {
+        this.regiaoMetropolitana = regiaoMetropolitana;
+    }
+
     @Override
     public String toString() {
         return """
                 Id: %d
-                Instituição: %s
-                Departamento: %s
-                """.formatted(idInstituicao, nomeInstituicao, nomeDepartamento);
+                Nome do departamento: %s
+                Departamento estadual: %s
+                Município: %s
+                Região Metropolitana: %s
+                """.formatted(idInstituicao, departamentoEstadual, nomeDepartamento, municipio, regiaoMetropolitana);
     }
 }

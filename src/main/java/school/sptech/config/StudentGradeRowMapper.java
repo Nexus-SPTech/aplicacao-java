@@ -25,7 +25,7 @@ public class StudentGradeRowMapper implements RowMapper<StudentGrade> {
         );
 
         StudentGrade studentGrade = new StudentGrade(student, discipline,
-                resultSet.getDouble("media"));
+                resultSet.getDouble("nota"));
 
         return studentGrade;
     }

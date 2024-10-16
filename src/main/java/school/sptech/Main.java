@@ -28,11 +28,11 @@ public class Main {
         dbService.displayData(jdbcTemplate);
 
         // Instanciando classe de conexão com o S3
-        S3Provider s3Provider = new S3Provider();
-        s3Provider.getS3Client();
-
-        S3Service s3Service = new S3Service();
-        s3Service.getConnectionS3();
+//        S3Provider s3Provider = new S3Provider();
+//        s3Provider.getS3Client();
+//
+//        S3Service s3Service = new S3Service();
+//        s3Service.getConnectionS3();
 
     }
 

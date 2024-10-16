@@ -128,14 +128,14 @@ public class ExcelService {
                         System.out.println("Linha " + (i + 1) + ": " +
                                 " ID Aluno: " + idAluno +
                                 ", Acertos Lingua Portuguesa: " + acertosLP +
-                                ", Acertos Biologoia: " + acertosBIO +
+                                ", Acertos Biologia: " + acertosBIO +
                                 ", Acertos Fisica: " + acertosFIS +
                                 ", Acertos Quimica: " + acertosQUI +
                                 ", Acertos Matematica: " + acertosMAT +
-                                ", Acertos Grografia: " + acertosGEO +
+                                ", Acertos Geografia: " + acertosGEO +
                                 ", Acertos Historia: " + acertosHIS +
                                 ", Acertos Filofofia: " + acertosFIL +
-                                ", Acertos Sociologioa: " + acertosSOC +
+                                ", Acertos Sociologia: " + acertosSOC +
                                 ", Região Metropolitana: " + regiaoMetropolitana +
                                 ", Distrito Estadual: " + distritoEstadual +
                                 ", Município: " + municipio +

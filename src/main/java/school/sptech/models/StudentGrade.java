@@ -3,7 +3,7 @@ package school.sptech.models;
 public class StudentGrade {
     private Student student;
     private Discipline discipline;
-    private Double media;
+    private Double nota;
 
     public StudentGrade() {
     }
@@ -24,10 +24,10 @@ public class StudentGrade {
         this.discipline = discipline;
     }
 
-    public StudentGrade(Student student, Discipline discipline, Double media) {
+    public StudentGrade(Student student, Discipline discipline, Double nota) {
         this.student = student;
         this.discipline = discipline;
-        this.media = media;
+        this.nota = nota;
     }
 
     public Student getAluno() {
@@ -46,12 +46,12 @@ public class StudentGrade {
         this.discipline = discipline;
     }
 
-    public Double getMedia() {
-        return media;
+    public Double getNota() {
+        return nota;
     }
 
-    public void setMedia(Double media) {
-        this.media = media;
+    public void setNota(Double nota) {
+        this.nota = nota;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class StudentGrade {
                 Média: %.2f
                 Disciplina: %s
                 Nome do aluno: %s
-                """.formatted(media, discipline, student);
+                """.formatted(nota, discipline, student);
 
     }
 }
