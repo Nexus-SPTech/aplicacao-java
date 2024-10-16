@@ -19,18 +19,17 @@ public class DBService {
         jdbcTemplate.execute("DROP TABLE IF EXISTS aluno");
         jdbcTemplate.execute("DROP TABLE IF EXISTS instituicao");
 
-        // Criação da tabela 'instituicao'
+        // Criação nas tabelas no banco de dados MySQL:
         jdbcTemplate.execute("""
-                        CREATE TABLE instituicao (
+                        CREATE TABLE IF NOT EXISTS instituicao (
                             idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
                             nome_instituicao VARCHAR(45) NOT NULL,
                             nome_departamento VARCHAR(45)
                         )
                 """);
 
-        // Criação da tabela 'aluno'
         jdbcTemplate.execute("""
-                        CREATE TABLE aluno (
+                        CREATE TABLE IF NOT EXISTS aluno (
                             idAluno INT AUTO_INCREMENT PRIMARY KEY,
                             fkInstituicao INT,
                             serie VARCHAR(45),
@@ -39,17 +38,15 @@ public class DBService {
                         )
                 """);
 
-        // Criação da tabela 'disciplina'
         jdbcTemplate.execute("""
-                        CREATE TABLE disciplina (
+                        CREATE TABLE IF NOT EXISTS disciplina (
                             idDisciplina INT AUTO_INCREMENT PRIMARY KEY,
                             nome_disciplina VARCHAR(45)
                         )
                 """);
 
-        // Criação da tabela 'notas_aluno'
         jdbcTemplate.execute("""
-                        CREATE TABLE notas_aluno (
+                        CREATE TABLE IF NOT EXISTS notas_aluno (
                             fkAluno INT,
                             fkDisciplina INT,
                             media DOUBLE,
@@ -60,11 +57,28 @@ public class DBService {
                 """);
     }
 
+    public void insertDisciplines(JdbcTemplate jdbcTemplate) {
+        String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
+
+        jdbcTemplate.update(sql, "Matemática");
+        jdbcTemplate.update(sql, "Português");
+        jdbcTemplate.update(sql, "História");
+        jdbcTemplate.update(sql, "Geografia");
+        jdbcTemplate.update(sql, "Biologia");
+        jdbcTemplate.update(sql, "Química");
+        jdbcTemplate.update(sql, "Filosofia");
+        jdbcTemplate.update(sql, "Sociologia");
+        jdbcTemplate.update(sql, "Física");
+
+        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
+        System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: " );
+        disciplines.forEach(System.out::println);
+    }
+
     // Inserção de dados na tabela instituição
     public void insertInstitutions(JdbcTemplate jdbcTemplate) {
         // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
         String sql = "INSERT INTO instituicao (nome_instituicao, nome_departamento) VALUES (?, ?)";
-
         /* Explicação metodo UPDATE:
          Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
          Depois passamos os conteudos que serão atualizados na variavel
@@ -93,21 +107,6 @@ public class DBService {
         System.out.println("Alunos inseridos com sucesso!");
     }
 
-    public void insertDisciplines(JdbcTemplate jdbcTemplate) {
-        String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
-
-        jdbcTemplate.update(sql, "Matemática");
-        jdbcTemplate.update(sql, "Português");
-        jdbcTemplate.update(sql, "História");
-        jdbcTemplate.update(sql, "Geografia");
-        jdbcTemplate.update(sql, "Biologia");
-        jdbcTemplate.update(sql, "Química");
-        jdbcTemplate.update(sql, "Filosofia");
-        jdbcTemplate.update(sql, "Sociologia");
-        jdbcTemplate.update(sql, "Física");
-
-        System.out.println("Disciplinas inseridas com sucesso!");
-    }
 
     public void insertClassroomGrades(JdbcTemplate jdbcTemplate) {
         // Recupera as alunos e disciplinas para obter os IDs

@@ -113,7 +113,7 @@ public class ExcelService {
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP)));
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
-                        
+
                         Student student = new Student();
                         students.add(student);
 
