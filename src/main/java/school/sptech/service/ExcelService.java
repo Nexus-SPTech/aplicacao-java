@@ -1,12 +1,18 @@
 package school.sptech.service;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import school.sptech.models.Institution;
+import school.sptech.models.Student;
+import school.sptech.models.StudentGrade;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ExcelService {
@@ -41,8 +47,12 @@ public class ExcelService {
     private static final String COLUNA_ACERTOS_SOC = "porc_ACERT_SOC";
 
     // metodo para ler um arquivo .xls especifico
-    // obs: é obrigatorio ser uma arquivo .xls
-    public void readExcel(InputStream excelArchive) {
+    public Map<String, List<?>> readExcel(InputStream excelArchive) {
+        List<Student> students = new ArrayList<>();
+        List<Institution> institutions = new ArrayList<>();
+        List<StudentGrade> grades = new ArrayList<>();
+        Map<String, List<?>> resultReadData = new HashMap<>();
+
         try {
             // Para arquivos .xls é necessário usar HSSFWorkbooke e para .xlsx XSSFWorkbook
             Workbook workbook = new HSSFWorkbook(excelArchive);
@@ -63,10 +73,10 @@ public class ExcelService {
             // Identificar as colunas de interesse, utilizando o metodo identificar colunas
             Map<String, Integer> columnsForIndex = identifyColumns(sheet, wishedColumns);
 
-            // verificação se as colunas foram encontradas, troque o nmr pela qtd de colunas inseridas
+            // verificação se as colunas foram encontradas
             if (columnsForIndex.size() < wishedColumns.length) {
                 System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo.");
-                return;
+                return null; // encerra o metodo
             }
 
             // lendo apenas as colunas de escolha
@@ -75,6 +85,7 @@ public class ExcelService {
                 if (row != null) {
                     try {
                         // Declarando variaveis com os valores lidos do excel
+
                         String idAluno = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ID_ALUNO)));
 
                         // variaveis referentes a porcentagem de acertos de cada materia
@@ -91,7 +102,7 @@ public class ExcelService {
                         // variaveis referente a localidade
                         String regiaoMetropolitana = getCellValueAsString(row.getCell(columnsForIndex
                                 .get(COLUNA_REGIAO_METROPOLITANA)));
-                        String regiao = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_DE)));
+                        String distritoEstadual = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_DE)));
                         String municipio = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_MUN)));
 
                         // variaveis referente a propriedades do aluno
@@ -102,21 +113,31 @@ public class ExcelService {
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP)));
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
+                        
+                        Student student = new Student();
+                        students.add(student);
+
+                        Institution institution = new Institution();
+                        institutions.add(institution);
+
+                        StudentGrade grade = new StudentGrade();
+                        grades.add(grade);
+
 
                         // Printando todos os dados lidos
                         System.out.println("Linha " + (i + 1) + ": " +
                                 " ID Aluno: " + idAluno +
-                                ", Acertos LP: " + acertosLP +
-                                ", Acertos BIO: " + acertosBIO +
-                                ", Acertos FIS: " + acertosFIS +
-                                ", Acertos QUI: " + acertosQUI +
-                                ", Acertos MAT: " + acertosMAT +
-                                ", Acertos GEO: " + acertosGEO +
-                                ", Acertos HIS: " + acertosHIS +
-                                ", Acertos FIL: " + acertosFIL +
-                                ", Acertos SOC: " + acertosSOC +
+                                ", Acertos Lingua Portuguesa: " + acertosLP +
+                                ", Acertos Biologoia: " + acertosBIO +
+                                ", Acertos Fisica: " + acertosFIS +
+                                ", Acertos Quimica: " + acertosQUI +
+                                ", Acertos Matematica: " + acertosMAT +
+                                ", Acertos Grografia: " + acertosGEO +
+                                ", Acertos Historia: " + acertosHIS +
+                                ", Acertos Filofofia: " + acertosFIL +
+                                ", Acertos Sociologioa: " + acertosSOC +
                                 ", Região Metropolitana: " + regiaoMetropolitana +
-                                ", Região: " + regiao +
+                                ", Distrito Estadual: " + distritoEstadual +
                                 ", Município: " + municipio +
                                 ", Ano: " + ano +
                                 ", Idade: " + idade +
@@ -132,6 +153,12 @@ public class ExcelService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        resultReadData.put("alunos", students);
+        resultReadData.put("instituicoes", institutions);
+        resultReadData.put("notas", grades);
+
+        return resultReadData;
     }
 
     // Metodo para identificar os índices das colunas desejadas no cabeçalho da planilha
