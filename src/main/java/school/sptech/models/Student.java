@@ -4,7 +4,7 @@ public class Student {
     private Integer idAluno;
     // A fk instituição gera o nome da instituição do aluno
     // Precisa ser alterado para um atributo do tipo Institution
-    private String fkInstituicao;
+    private Institution institution;
     private String serie;
     private String periodo;
     private String genero;
@@ -13,9 +13,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer idAluno, String fkInstituicao, String serie, String periodo) {
+    public Student(Integer idAluno, Institution institution, String serie, String periodo) {
         this.idAluno = idAluno;
-        this.fkInstituicao = fkInstituicao;
+        this.institution = institution;
         this.serie = serie;
         this.periodo = periodo;
     }
@@ -28,12 +28,12 @@ public class Student {
         this.idAluno = idAluno;
     }
 
-    public String getFkInstituicao() {
-        return fkInstituicao;
+    public Institution getInstitution() {
+        return institution;
     }
 
-    public void setFkInstituicao(String fkInstituicao) {
-        this.fkInstituicao = fkInstituicao;
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
     }
 
     public String getSerie() {
@@ -76,6 +76,6 @@ public class Student {
                 Serie: %s
                 Periodo: %s
                 Gênero: %s
-                Idade: %d""".formatted(idAluno, fkInstituicao, serie, periodo, genero, idade);
+                Idade: %d""".formatted(idAluno, institution, serie, periodo, genero, idade);
     }
 }

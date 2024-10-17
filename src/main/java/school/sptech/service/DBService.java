@@ -113,7 +113,7 @@ public class DBService {
     }
 
 
-    public void insertClassroomGrades(JdbcTemplate jdbcTemplate) {
+    public void insertStudentsGrades(JdbcTemplate jdbcTemplate) {
         // Recupera as alunos e disciplinas para obter os IDs
         List<Student> students = jdbcTemplate.query("SELECT * FROM aluno", new BeanPropertyRowMapper<>(Student.class));
         List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));

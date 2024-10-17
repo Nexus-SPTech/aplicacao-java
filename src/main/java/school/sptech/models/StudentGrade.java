@@ -8,11 +8,11 @@ public class StudentGrade {
     public StudentGrade() {
     }
 
-    public Student getClassroom() {
+    public Student getStudent() {
         return student;
     }
 
-    public void setClassroom(Student student) {
+    public void setStudent(Student student) {
         this.student = student;
     }
 
@@ -57,10 +57,10 @@ public class StudentGrade {
     @Override
     public String toString() {
         return """
-                Média: %.2f
+                Nota: %.2f
                 Disciplina: %s
-                Nome do aluno: %s
-                """.formatted(nota, discipline, student);
+                ID do aluno: %s
+                """.formatted(nota, discipline, student.getIdAluno());
 
     }
 }
