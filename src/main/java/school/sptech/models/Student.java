@@ -13,11 +13,20 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer idAluno, Institution institution, String serie, String periodo) {
-        this.idAluno = idAluno;
+    public Student(Institution institution, String serie, String periodo, String genero, Integer idade) {
         this.institution = institution;
         this.serie = serie;
         this.periodo = periodo;
+        this.genero = genero;
+        this.idade = idade;
+    }
+
+    public Student(Integer idAluno, String serie, String periodo, String genero, Integer idade) {
+        this.idAluno = idAluno;
+        this.serie = serie;
+        this.periodo = periodo;
+        this.genero = genero;
+        this.idade = idade;
     }
 
     public Integer getIdAluno() {

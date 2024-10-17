@@ -75,7 +75,7 @@ public class DBService {
         jdbcTemplate.update(sql, "Física");
 
         List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
-        System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: " );
+        System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: ");
         disciplines.forEach(System.out::println);
     }
 
@@ -90,9 +90,9 @@ public class DBService {
          O metodo update por fim executa o comando no banco
          /*/
 
-        jdbcTemplate.update(sql, "SPTech", "Faculdade Privada","SP","Paulista");
-        jdbcTemplate.update(sql, "Alberto Menrindes", "Escola estadual","MG","Centro");
-        jdbcTemplate.update(sql, "USP", "Faculdade Publica","MG", "Interior");
+        jdbcTemplate.update(sql, "SPTech", "Faculdade Privada", "SP", "Paulista");
+        jdbcTemplate.update(sql, "Alberto Menrindes", "Escola estadual", "MG", "Centro");
+        jdbcTemplate.update(sql, "USP", "Faculdade Publica", "MG", "Interior");
 
 
         System.out.println("Instituições inseridas com sucesso!");
@@ -105,8 +105,8 @@ public class DBService {
         String sql = "INSERT INTO aluno (fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, ?)";
 
         for (Institution institution : institutions) {
-            jdbcTemplate.update(sql, institution.getIdInstituicao(), "1º Ano", "Matutino","Não Binario","15");
-            jdbcTemplate.update(sql, institution.getIdInstituicao(), "2º Ano", "Vespertino","Curioso","17");
+            jdbcTemplate.update(sql, institution.getIdInstituicao(), "1º Ano", "Matutino", "Não Binario", "15");
+            jdbcTemplate.update(sql, institution.getIdInstituicao(), "2º Ano", "Vespertino", "Curioso", "17");
         }
 
         System.out.println("Alunos inseridos com sucesso!");
@@ -170,22 +170,23 @@ public class DBService {
         }
 
         // Exibe Notas dos Alunos
-        System.out.println("\n--- Notas dos Alunos ---");
-        List<StudentGrade> studentGrades = jdbcTemplate.query("""
-                SELECT 
-                    n.nota,
-                    a.idAluno, a.serie, a.periodo,
-                    d.idDisciplina, d.nome_disciplina,
-                    i.dep_estadual
-                     AS fkInstituicao
-                FROM notas_aluno n
-                JOIN aluno a ON n.fkAluno = a.idAluno
-                JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
-                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
-                """, new StudentGradeRowMapper());
-        for (StudentGrade grade : studentGrades) {
-            System.out.println(grade);
-        }
+//        System.out.println("\n--- Notas dos Alunos ---");
+//        List<StudentGrade> studentGrades = jdbcTemplate.query("""
+//                SELECT
+//                    n.nota,
+//                    a.idAluno, a.serie, a.periodo,
+//                    d.idDisciplina, d.nome_disciplina,
+//                    i.dep_estadual
+//                     AS fkInstituicao
+//                FROM notas_aluno n
+//                JOIN aluno a ON n.fkAluno = a.idAluno
+//                JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
+//                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
+//                """, new StudentGradeRowMapper());
+//        for (StudentGrade grade : studentGrades) {
+//            System.out.println(grade);
+//        }
     }
+
 
 }

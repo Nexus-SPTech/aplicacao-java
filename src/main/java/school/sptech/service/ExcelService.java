@@ -17,8 +17,6 @@ import java.util.Map;
 
 public class ExcelService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ExcelService.class);
-
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_ID_ALUNO = "CD_ALUNO";
     private static final String COLUNA_SERIE_ANO = "SERIE_ANO";
@@ -108,17 +106,18 @@ public class ExcelService {
                         // variaveis referente a propriedades do aluno
                         String ano = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_SERIE_ANO)));
                         String idade = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_IDADE)));
+                        String periodo = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_PERIODO)));
                         String genero = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_SEXO)));
                         String nomeDepartamento =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP)));
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
 
-                        Student student = new Student();
-                        students.add(student);
-
-                        Institution institution = new Institution();
+                        Institution institution = new Institution(nomeDepartamento, distritoEstadual, municipio, regiaoMetropolitana);
                         institutions.add(institution);
+
+                        Student student = new Student(institution, ano, periodo, genero, tratarParaInteiro(idade));
+                        students.add(student);
 
                         StudentGrade grade = new StudentGrade();
                         grades.add(grade);

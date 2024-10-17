@@ -3,18 +3,22 @@ package school.sptech.models;
 public class Institution {
     private Integer idInstituicao;
     private String nomeDepartamento;
-    private String departamentoEstadual;
+    private String distritoEstadual;
     private String municipio;
     private String regiaoMetropolitana;
 
     public Institution() {
     }
 
-    public Institution(Integer idInstituicao, String departamentoEstadual, String nomeDepartamento) {
-        this.idInstituicao = idInstituicao;
-        this.departamentoEstadual = departamentoEstadual;
+    public Institution(String nomeDepartamento, String distritoEstadual, String municipio, String regiaoMetropolitana) {
         this.nomeDepartamento = nomeDepartamento;
+        this.distritoEstadual = distritoEstadual;
+        this.municipio = municipio;
+        this.regiaoMetropolitana = regiaoMetropolitana;
     }
+
+
+
 
     public Integer getIdInstituicao() {
         return idInstituicao;
@@ -24,12 +28,12 @@ public class Institution {
         this.idInstituicao = idInstituicao;
     }
 
-    public String getDepartamentoEstadual() {
-        return departamentoEstadual;
+    public String getDistritoEstadual() {
+        return distritoEstadual;
     }
 
-    public void setDepartamentoEstadual(String departamentoEstadual) {
-        this.departamentoEstadual = departamentoEstadual;
+    public void setDistritoEstadual(String distritoEstadual) {
+        this.distritoEstadual = distritoEstadual;
     }
 
     public String getNomeDepartamento() {
@@ -64,6 +68,6 @@ public class Institution {
                 Departamento estadual: %s
                 Município: %s
                 Região Metropolitana: %s
-                """.formatted(idInstituicao, departamentoEstadual, nomeDepartamento, municipio, regiaoMetropolitana);
+                """.formatted(idInstituicao, distritoEstadual, nomeDepartamento, municipio, regiaoMetropolitana);
     }
 }

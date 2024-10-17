@@ -14,9 +14,10 @@ public class StudentGradeRowMapper implements RowMapper<StudentGrade> {
     public StudentGrade mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Student student = new Student(
                 resultSet.getInt("idAluno"),
-                resultSet.getString("fkInstituicao"),
                 resultSet.getString("serie"),
-                resultSet.getString("periodo")
+                resultSet.getString("periodo"),
+                resultSet.getString("genero"),
+                resultSet.getInt("idade")
         );
 
         Discipline discipline = new Discipline(
