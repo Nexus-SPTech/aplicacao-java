@@ -23,7 +23,7 @@ public class DBService {
         // Criação nas tabelas no banco de dados MySQL:
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
-                            idInstituicao INT PRIMARY KEY,
+                            idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
                             distrito_estadual VARCHAR(45) NOT NULL,
                             nome_departamento VARCHAR(45),
                             municipio VARCHAR(45),
@@ -98,8 +98,8 @@ public class DBService {
         }
 
         // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
-        String sql = "INSERT IGNORE INTO instituicao (idInstituicao, distrito_estadual, nome_departamento, municipio," +
-                "regiao_metropolitana) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT IGNORE INTO instituicao ( distrito_estadual, nome_departamento, municipio," +
+                "regiao_metropolitana) VALUES (?, ?, ?, ?)";
         /* Explicação metodo UPDATE:
          Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
          Depois passamos os conteudos que serão atualizados na variavel
@@ -107,11 +107,12 @@ public class DBService {
          O metodo update por fim executa o comando no banco
          /*/
 
-        for (Institution institution : institutions) {
-            jdbcTemplate.update(sql, institution.getIdInstituicao(), institution.getDistritoEstadual(),
-                    institution.getNomeDepartamento(), institution.getMunicipio(),
-                    institution.getRegiaoMetropolitana());
+        for (int i = 0; i < institutions.size(); i++) {
+            jdbcTemplate.update(sql, institutions.get(i).getDistritoEstadual(),
+                    institutions.get(i).getNomeDepartamento(), institutions.get(i).getMunicipio(),
+                    institutions.get(i).getRegiaoMetropolitana());
         }
+
 
         System.out.println("Instituições inseridas com sucesso!");
     }
@@ -124,10 +125,16 @@ public class DBService {
 
         String select = "SELECT * FROM instituicao WHERE idInstituicao = ?";
         for (Student student : students) {
-            List<Institution> institutions = jdbcTemplate.query(
-                    select,
-                    new Object[]{student.getInstitution().getIdInstituicao()},
-                    new BeanPropertyRowMapper<>(Institution.class)
+            List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao\n" +
+                            "WHERE distrito_estadual = ?" +
+                            "  AND nome_departamento = ?" +
+                            "  AND municipio = ?" +
+                            "  AND regiao_metropolitana = ?",
+                    new BeanPropertyRowMapper<>(Institution.class),
+                    student.getInstitution().getDistritoEstadual(),
+                    student.getInstitution().getNomeDepartamento(),
+                    student.getInstitution().getMunicipio(),
+                    student.getInstitution().getRegiaoMetropolitana()
             );
             jdbcTemplate.update(sql, student.getCodAluno(), institutions.get(0).getIdInstituicao(), student.getSerie(),
                     student.getPeriodo(), student.getGenero(), student.getIdade());

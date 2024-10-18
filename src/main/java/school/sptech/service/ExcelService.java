@@ -111,7 +111,7 @@ public class ExcelService {
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
 
-                        Institution institution = new Institution(i, nomeDepartamento, distritoEstadual, municipio,
+                        Institution institution = new Institution(nomeDepartamento, distritoEstadual, municipio,
                                 regiaoMetropolitana);
                         institutions.add(institution);
 
