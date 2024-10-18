@@ -111,7 +111,8 @@ public class ExcelService {
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
 
-                        Institution institution = new Institution(nomeDepartamento, distritoEstadual, municipio, regiaoMetropolitana);
+                        Institution institution = new Institution(i, nomeDepartamento, distritoEstadual, municipio,
+                                regiaoMetropolitana);
                         institutions.add(institution);
 
                         Student student = new Student(tratarParaInteiro(codAluno), institution, ano, periodo, genero,
@@ -136,25 +137,25 @@ public class ExcelService {
 
 
                         // Printando todos os dados lidos
-                        System.out.println("Linha " + (i + 1) + ": " +
-                                " Código do Aluno: " + codAluno +
-                                ", Acertos Lingua Portuguesa: " + acertosLP +
-                                ", Acertos Biologia: " + acertosBIO +
-                                ", Acertos Fisica: " + acertosFIS +
-                                ", Acertos Quimica: " + acertosQUI +
-                                ", Acertos Matematica: " + acertosMAT +
-                                ", Acertos Geografia: " + acertosGEO +
-                                ", Acertos Historia: " + acertosHIS +
-                                ", Acertos Filofofia: " + acertosFIL +
-                                ", Acertos Sociologia: " + acertosSOC +
-                                ", Região Metropolitana: " + regiaoMetropolitana +
-                                ", Distrito Estadual: " + distritoEstadual +
-                                ", Município: " + municipio +
-                                ", Ano: " + ano +
-                                ", Idade: " + idade +
-                                ", Gênero: " + genero);
+//                        System.out.println("Linha " + (i + 1) + ": " +
+//                                " Código do Aluno: " + codAluno +
+//                                ", Acertos Lingua Portuguesa: " + acertosLP +
+//                                ", Acertos Biologia: " + acertosBIO +
+//                                ", Acertos Fisica: " + acertosFIS +
+//                                ", Acertos Quimica: " + acertosQUI +
+//                                ", Acertos Matematica: " + acertosMAT +
+//                                ", Acertos Geografia: " + acertosGEO +
+//                                ", Acertos Historia: " + acertosHIS +
+//                                ", Acertos Filofofia: " + acertosFIL +
+//                                ", Acertos Sociologia: " + acertosSOC +
+//                                ", Região Metropolitana: " + regiaoMetropolitana +
+//                                ", Distrito Estadual: " + distritoEstadual +
+//                                ", Município: " + municipio +
+//                                ", Ano: " + ano +
+//                                ", Idade: " + idade +
+//                                ", Gênero: " + genero);
                     } catch (NumberFormatException e) {
-                        System.out.println("Erro ao converter o valor para Integer na linha " + (i + 1) + ": " + e.getMessage());
+                        System.out.println("Erro ao converter o valor na linha " + (i + 1) + ": " + e.getMessage());
                         e.printStackTrace();
                     }
                 }
@@ -232,8 +233,11 @@ public class ExcelService {
         if (valor == null || valor.trim().isEmpty()) {
             return null;
         }
-        // ignora valores menores que zero
+
+        // Substituir a vírgula por ponto
+        valor = valor.replace(",", ".");
         Double valorDouble = Double.parseDouble(valor);
+        // ignora valores menores que zero
         if (valorDouble <= 0) {
             return null;
         }

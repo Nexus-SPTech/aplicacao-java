@@ -7,12 +7,11 @@
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/config/StudentGradeRowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/config/StudentGradeRowMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/config/StudentGradeRowMapper.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Institution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Institution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/Teste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/Teste.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +56,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.Principal.executor&quot;: &quot;Coverage&quot;,
     &quot;Application.Teste.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -82,9 +81,13 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
+        <env name="DB_PASSWORD" value="ma140506" />
         <env name="DB_USER" value="root" />
-        <env name="DB_PASSWORD" value="sptech" />
+        <env name="https://github.com/Nexus-SPTech/aplicacao-java." value="" />
       </envs>
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/src/main/java/school/sptech/config/env" />
+      </option>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
       <extension name="coverage">
@@ -98,6 +101,9 @@
       </method>
     </configuration>
     <configuration name="Teste" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/src/main/java/school/sptech/config/env" />
+      </option>
       <option name="MAIN_CLASS_NAME" value="school.sptech.service.Teste" />
       <module name="conexao-banco-de-dados" />
       <extension name="coverage">
@@ -153,7 +159,7 @@
       <workItem from="1729126213207" duration="726000" />
       <workItem from="1729127157036" duration="1919000" />
       <workItem from="1729186637331" duration="11572000" />
-      <workItem from="1729210592075" duration="3341000" />
+      <workItem from="1729210592075" duration="6851000" />
     </task>
     <servers />
   </component>

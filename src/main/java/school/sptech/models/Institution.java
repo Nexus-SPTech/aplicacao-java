@@ -10,7 +10,8 @@ public class Institution {
     public Institution() {
     }
 
-    public Institution(String nomeDepartamento, String distritoEstadual, String municipio, String regiaoMetropolitana) {
+    public Institution(Integer idInstituicao, String nomeDepartamento, String distritoEstadual, String municipio, String regiaoMetropolitana) {
+        this.idInstituicao = idInstituicao;
         this.nomeDepartamento = nomeDepartamento;
         this.distritoEstadual = distritoEstadual;
         this.municipio = municipio;

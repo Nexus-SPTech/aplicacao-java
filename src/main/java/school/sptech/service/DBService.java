@@ -23,7 +23,7 @@ public class DBService {
         // Criação nas tabelas no banco de dados MySQL:
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
-                            idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
+                            idInstituicao INT PRIMARY KEY,
                             distrito_estadual VARCHAR(45) NOT NULL,
                             nome_departamento VARCHAR(45),
                             municipio VARCHAR(45),
@@ -98,8 +98,8 @@ public class DBService {
         }
 
         // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
-        String sql = "INSERT IGNORE INTO instituicao (distrito_estadual, nome_departamento, municipio, " +
-                "regiao_metropolitana) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT IGNORE INTO instituicao (idInstituicao, distrito_estadual, nome_departamento, municipio," +
+                "regiao_metropolitana) VALUES (?, ?, ?, ?, ?)";
         /* Explicação metodo UPDATE:
          Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
          Depois passamos os conteudos que serão atualizados na variavel
@@ -108,8 +108,9 @@ public class DBService {
          /*/
 
         for (Institution institution : institutions) {
-            jdbcTemplate.update(sql, institution.getDistritoEstadual(), institution.getNomeDepartamento(),
-                    institution.getMunicipio(), institution.getRegiaoMetropolitana());
+            jdbcTemplate.update(sql, institution.getIdInstituicao(), institution.getDistritoEstadual(),
+                    institution.getNomeDepartamento(), institution.getMunicipio(),
+                    institution.getRegiaoMetropolitana());
         }
 
         System.out.println("Instituições inseridas com sucesso!");
@@ -119,21 +120,16 @@ public class DBService {
         // Recupera as instituições para obter os nomes
 
         String sql = "INSERT INTO aluno (codAluno, fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, " +
-                "?)";
+                "?, ?)";
 
+        String select = "SELECT * FROM instituicao WHERE idInstituicao = ?";
         for (Student student : students) {
-            List<Institution> institution = jdbcTemplate.query("SELECT * FROM instituicao\n" +
-                            "WHERE distrito_estadual = ?" +
-                            "  AND nome_departamento = ?" +
-                            "  AND municipio = ?" +
-                            "  AND regiao_metropolitana = ?",
-                    new BeanPropertyRowMapper<>(Institution.class),
-                    student.getInstitution().getDistritoEstadual(),
-                    student.getInstitution().getNomeDepartamento(),
-                    student.getInstitution().getMunicipio(),
-                    student.getInstitution().getRegiaoMetropolitana()
+            List<Institution> institutions = jdbcTemplate.query(
+                    select,
+                    new Object[]{student.getInstitution().getIdInstituicao()},
+                    new BeanPropertyRowMapper<>(Institution.class)
             );
-            jdbcTemplate.update(sql, student.getCodAluno(), institution.get(0).getIdInstituicao(), student.getSerie(),
+            jdbcTemplate.update(sql, student.getCodAluno(), institutions.get(0).getIdInstituicao(), student.getSerie(),
                     student.getPeriodo(), student.getGenero(), student.getIdade());
 
         }
@@ -179,54 +175,6 @@ public class DBService {
 
         System.out.println("Notas das alunos inseridas com sucesso!");
     }
-
-    /*/ Esse metodo é responsavel por capturar os dados do banco e printar no console
-     Ou seja, aqui acontece os selects /*/
-//    public void displayData(JdbcTemplate jdbcTemplate) {
-//        // Exibe Instituições
-//        System.out.println("\n--- Instituições ---");
-//        List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao", new BeanPropertyRowMapper<>(Institution.class));
-//        for (Institution institution : institutions) {
-//            System.out.println(institution);
-//        }
-//
-//        // Exibe Alunos
-//        System.out.println("\n--- Alunos ---");
-//        List<Student> students = jdbcTemplate.query("""
-//                SELECT a.*, i.distrito_estadual
-//                 AS fkInstituicao
-//                FROM aluno a
-//                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
-//                """, new BeanPropertyRowMapper<>(Student.class));
-//        for (Student student : students) {
-//            System.out.println(student);
-//        }
-//
-//        // Exibe Disciplinas
-//        System.out.println("\n--- Disciplinas ---");
-//        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
-//        for (Discipline discipline : disciplines) {
-//            System.out.println(discipline);
-//        }
-//
-//         Exibe Notas dos Alunos
-//        System.out.println("\n--- Notas dos Alunos ---");
-//        List<StudentGrade> studentGrades = jdbcTemplate.query("""
-//                SELECT
-//                    n.nota,
-//                    a.codAluno, a.serie, a.periodo,
-//                    d.idDisciplina, d.nome_disciplina,
-//                    i.distrito_estadual
-//                     AS fkInstituicao
-//                FROM notas_aluno n
-//                JOIN aluno a ON n.fkAluno = a.codAluno
-//                JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
-//                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
-//                """, new StudentGradeRowMapper());
-//        for (StudentGrade grade : studentGrades) {
-//            System.out.println(grade);
-//        }
-//    }
 
 
 }
