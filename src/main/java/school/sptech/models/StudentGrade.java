@@ -1,11 +1,14 @@
 package school.sptech.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StudentGrade {
     private Student student;
-    private Discipline discipline;
-    private Double nota;
+    private Map<String, Double> notasDisciplinas;
 
     public StudentGrade() {
+        this.notasDisciplinas = new HashMap<>();
     }
 
     public Student getStudent() {
@@ -16,51 +19,21 @@ public class StudentGrade {
         this.student = student;
     }
 
-    public Discipline getDiscipline() {
-        return discipline;
+    public Map<String, Double> getNotasDisciplinas() {
+        return notasDisciplinas;
     }
 
-    public void setDiscipline(Discipline discipline) {
-        this.discipline = discipline;
+    public void addNotasDisciplinas(String disciplina, Double nota) {
+        notasDisciplinas.put(disciplina, nota);
     }
 
-    public StudentGrade(Student student, Discipline discipline, Double nota) {
-        this.student = student;
-        this.discipline = discipline;
-        this.nota = nota;
-    }
-
-    public Student getAluno() {
-        return student;
-    }
-
-    public void setAluno(Student student) {
-        this.student = student;
-    }
-
-    public Discipline getDisciplina() {
-        return discipline;
-    }
-
-    public void setDisciplina(Discipline discipline) {
-        this.discipline = discipline;
-    }
-
-    public Double getNota() {
-        return nota;
-    }
-
-    public void setNota(Double nota) {
-        this.nota = nota;
-    }
-
-    @Override
-    public String toString() {
-        return """
-                Nota: %.2f
-                Disciplina: %s
-                ID do aluno: %s
-                """.formatted(nota, discipline, student.getIdAluno());
-
-    }
+    //    @Override
+//    public String toString() {
+//        return """
+//                Notas: %.2f
+//                Disciplina: %s
+//                ID do aluno: %s
+//                """.formatted(notas, disciplines, student.getIdAluno());
+//
+//    }
 }

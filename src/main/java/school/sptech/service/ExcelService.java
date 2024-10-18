@@ -2,8 +2,6 @@ package school.sptech.service;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
@@ -18,7 +16,7 @@ import java.util.Map;
 public class ExcelService {
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
-    private static final String COLUNA_ID_ALUNO = "CD_ALUNO";
+    private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
     private static final String COLUNA_SERIE_ANO = "SERIE_ANO";
 
     // Localidade do aluno
@@ -60,7 +58,7 @@ public class ExcelService {
 
             // Identificar as colunas de interesse
             String[] wishedColumns = {
-                    COLUNA_ID_ALUNO, COLUNA_SERIE_ANO, COLUNA_NOME_DEP, COLUNA_NOME_DEP_BOL,
+                    COLUNA_CD_ALUNO, COLUNA_SERIE_ANO, COLUNA_NOME_DEP, COLUNA_NOME_DEP_BOL,
                     COLUNA_REGIAO_METROPOLITANA, COLUNA_DE, COLUNA_MUN, COLUNA_SEXO,
                     COLUNA_IDADE, COLUNA_PERIODO, COLUNA_ACERTOS_LP, COLUNA_ACERTOS_BIO,
                     COLUNA_ACERTOS_FIS, COLUNA_ACERTOS_QUI, COLUNA_ACERTOS_MAT,
@@ -84,7 +82,7 @@ public class ExcelService {
                     try {
                         // Declarando variaveis com os valores lidos do excel
 
-                        String idAluno = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ID_ALUNO)));
+                        String codAluno = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_CD_ALUNO)));
 
                         // variaveis referentes a porcentagem de acertos de cada materia
                         String acertosLP = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_LP)));
@@ -116,16 +114,30 @@ public class ExcelService {
                         Institution institution = new Institution(nomeDepartamento, distritoEstadual, municipio, regiaoMetropolitana);
                         institutions.add(institution);
 
-                        Student student = new Student(institution, ano, periodo, genero, tratarParaInteiro(idade));
+                        Student student = new Student(tratarParaInteiro(codAluno), institution, ano, periodo, genero,
+                                tratarParaInteiro(idade));
                         students.add(student);
 
+                        // fazer switch case para instanciar as disciplinas na classe StudentGrade
+
                         StudentGrade grade = new StudentGrade();
+                        grade.setStudent(student);
+                        grade.addNotasDisciplinas("Português", tratarValorComoDouble(acertosLP));
+                        grade.addNotasDisciplinas("Biologia", tratarValorComoDouble(acertosBIO));
+                        grade.addNotasDisciplinas("Física", tratarValorComoDouble(acertosFIS));
+                        grade.addNotasDisciplinas("Química", tratarValorComoDouble(acertosQUI));
+                        grade.addNotasDisciplinas("Matemática", tratarValorComoDouble(acertosMAT));
+                        grade.addNotasDisciplinas("Geografia", tratarValorComoDouble(acertosGEO));
+                        grade.addNotasDisciplinas("História", tratarValorComoDouble(acertosHIS));
+                        grade.addNotasDisciplinas("Filosofia", tratarValorComoDouble(acertosFIL));
+                        grade.addNotasDisciplinas("Sociologia", tratarValorComoDouble(acertosSOC));
+
                         grades.add(grade);
 
 
                         // Printando todos os dados lidos
                         System.out.println("Linha " + (i + 1) + ": " +
-                                " ID Aluno: " + idAluno +
+                                " Código do Aluno: " + codAluno +
                                 ", Acertos Lingua Portuguesa: " + acertosLP +
                                 ", Acertos Biologia: " + acertosBIO +
                                 ", Acertos Fisica: " + acertosFIS +

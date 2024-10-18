@@ -17,9 +17,6 @@ public class Institution {
         this.regiaoMetropolitana = regiaoMetropolitana;
     }
 
-
-
-
     public Integer getIdInstituicao() {
         return idInstituicao;
     }

@@ -2,13 +2,14 @@ package school.sptech.service;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.config.StudentGradeRowMapper;
+//import school.sptech.config.StudentGradeRowMapper;
 import school.sptech.models.Discipline;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
 
 import java.util.List;
+import java.util.Map;
 
 public class DBService {
 
@@ -23,7 +24,7 @@ public class DBService {
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
                             idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
-                            dep_estadual VARCHAR(45) NOT NULL,
+                            distrito_estadual VARCHAR(45) NOT NULL,
                             nome_departamento VARCHAR(45),
                             municipio VARCHAR(45),
                             regiao_metropolitana VARCHAR(45)
@@ -32,7 +33,7 @@ public class DBService {
 
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS aluno (
-                            idAluno INT AUTO_INCREMENT PRIMARY KEY,
+                            codAluno INT PRIMARY KEY,
                             fkInstituicao INT,
                             serie VARCHAR(45) NOT NULL,
                             periodo VARCHAR(45),
@@ -55,7 +56,7 @@ public class DBService {
                             fkDisciplina INT,
                             nota DOUBLE,
                             PRIMARY KEY (fkAluno, fkDisciplina),
-                            FOREIGN KEY (fkAluno) REFERENCES aluno(idAluno),
+                            FOREIGN KEY (fkAluno) REFERENCES aluno(codAluno),
                             FOREIGN KEY (fkDisciplina) REFERENCES disciplina(idDisciplina)
                         )
                 """);
@@ -64,15 +65,15 @@ public class DBService {
     public void insertDisciplines(JdbcTemplate jdbcTemplate) {
         String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
 
-        jdbcTemplate.update(sql, "Matemática");
         jdbcTemplate.update(sql, "Português");
-        jdbcTemplate.update(sql, "História");
-        jdbcTemplate.update(sql, "Geografia");
         jdbcTemplate.update(sql, "Biologia");
+        jdbcTemplate.update(sql, "Física");
         jdbcTemplate.update(sql, "Química");
+        jdbcTemplate.update(sql, "Matemática");
+        jdbcTemplate.update(sql, "Geografia");
+        jdbcTemplate.update(sql, "História");
         jdbcTemplate.update(sql, "Filosofia");
         jdbcTemplate.update(sql, "Sociologia");
-        jdbcTemplate.update(sql, "Física");
 
         List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
         System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: ");
@@ -80,9 +81,25 @@ public class DBService {
     }
 
     // Inserção de dados na tabela instituição
-    public void insertInstitutions(JdbcTemplate jdbcTemplate) {
+    public void insertInstitutions(JdbcTemplate jdbcTemplate, List<Institution> institutions) {
+
+        String checkConstraintSql = "SELECT COUNT(*) FROM information_schema.table_constraints " +
+                "WHERE table_schema = DATABASE() " +
+                "AND table_name = 'instituicao' " +
+                "AND constraint_name = 'uc_instituicao'";
+
+        Integer count = jdbcTemplate.queryForObject(checkConstraintSql, Integer.class);
+
+        if (count == null || count == 0) {
+            jdbcTemplate.execute("ALTER TABLE instituicao " +
+                    "ADD CONSTRAINT uc_instituicao UNIQUE (distrito_estadual, nome_departamento, municipio, regiao_metropolitana)");
+        } else {
+            System.out.println("A Constraint já existe");
+        }
+
         // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
-        String sql = "INSERT INTO instituicao (dep_estadual, nome_departamento, municipio, regiao_metropolitana) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT IGNORE INTO instituicao (distrito_estadual, nome_departamento, municipio, " +
+                "regiao_metropolitana) VALUES (?, ?, ?, ?)";
         /* Explicação metodo UPDATE:
          Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
          Depois passamos os conteudos que serão atualizados na variavel
@@ -90,50 +107,73 @@ public class DBService {
          O metodo update por fim executa o comando no banco
          /*/
 
-        jdbcTemplate.update(sql, "SPTech", "Faculdade Privada", "SP", "Paulista");
-        jdbcTemplate.update(sql, "Alberto Menrindes", "Escola estadual", "MG", "Centro");
-        jdbcTemplate.update(sql, "USP", "Faculdade Publica", "MG", "Interior");
-
+        for (Institution institution : institutions) {
+            jdbcTemplate.update(sql, institution.getDistritoEstadual(), institution.getNomeDepartamento(),
+                    institution.getMunicipio(), institution.getRegiaoMetropolitana());
+        }
 
         System.out.println("Instituições inseridas com sucesso!");
     }
 
-    public void insertStudents(JdbcTemplate jdbcTemplate) {
+    public void insertStudents(JdbcTemplate jdbcTemplate, List<Student> students) {
         // Recupera as instituições para obter os nomes
-        List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao", new BeanPropertyRowMapper<>(Institution.class));
 
-        String sql = "INSERT INTO aluno (fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO aluno (codAluno, fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, " +
+                "?)";
 
-        for (Institution institution : institutions) {
-            jdbcTemplate.update(sql, institution.getIdInstituicao(), "1º Ano", "Matutino", "Não Binario", "15");
-            jdbcTemplate.update(sql, institution.getIdInstituicao(), "2º Ano", "Vespertino", "Curioso", "17");
+        for (Student student : students) {
+            List<Institution> institution = jdbcTemplate.query("SELECT * FROM instituicao\n" +
+                            "WHERE distrito_estadual = ?" +
+                            "  AND nome_departamento = ?" +
+                            "  AND municipio = ?" +
+                            "  AND regiao_metropolitana = ?",
+                    new BeanPropertyRowMapper<>(Institution.class),
+                    student.getInstitution().getDistritoEstadual(),
+                    student.getInstitution().getNomeDepartamento(),
+                    student.getInstitution().getMunicipio(),
+                    student.getInstitution().getRegiaoMetropolitana()
+            );
+            jdbcTemplate.update(sql, student.getCodAluno(), institution.get(0).getIdInstituicao(), student.getSerie(),
+                    student.getPeriodo(), student.getGenero(), student.getIdade());
+
         }
 
         System.out.println("Alunos inseridos com sucesso!");
     }
 
 
-    public void insertStudentsGrades(JdbcTemplate jdbcTemplate) {
-        // Recupera as alunos e disciplinas para obter os IDs
-        List<Student> students = jdbcTemplate.query("SELECT * FROM aluno", new BeanPropertyRowMapper<>(Student.class));
-        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
-
+    public void insertStudentsGrades(JdbcTemplate jdbcTemplate, Map<String, List<?>> resultReadData) {
         String sql = "INSERT INTO notas_aluno (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)";
 
+        // Captura as notas do Map resultReadData
+        List<StudentGrade> grades = (List<StudentGrade>) resultReadData.get("notas");
 
-        /*/ Esses dois fors tem o objetivo de inserir uma nota aleatória
-         Primeiramente é percorrido a lista de alunos no banco de dados
-         Depois é percorrido a lista de disciplinas
-         Pois cada aluno possui todas as disciplinas
-         então para cada aluno, será necessário inserir notas de todas as disciplinas /*/
-        for (Student student : students) {
-            for (Discipline discipline : disciplines) {
-                // Gera uma média aleatória entre 0 e 10
-                double nota = Math.round(Math.random() * 10 * 100.0) / 100.0;
+        // Itera sobre cada StudentGrade
+        for (StudentGrade grade : grades) {
+            // Obtém o estudante associado
+            Student student = grade.getStudent();
 
-                jdbcTemplate.update(sql, student.getIdAluno(), discipline.getIdDisciplina(), nota);
+            // Itera sobre cada entrada (disciplina e nota)
+            for (Map.Entry<String, Double> entry : grade.getNotasDisciplinas().entrySet()) {
+                String disciplinaNome = entry.getKey(); // Nome da disciplina
+                Double nota = entry.getValue();         // Nota da disciplina
 
-                System.out.println("Inserida média %.2f para a aluno ID %d na disciplina ID %d".formatted(nota, student.getIdAluno(), discipline.getIdDisciplina()));
+                // Consulta o ID da disciplina com base no nome
+                List<Discipline> disciplines = jdbcTemplate.query(
+                        "SELECT * FROM disciplina WHERE nome_disciplina = ?",
+                        new BeanPropertyRowMapper<>(Discipline.class),
+                        disciplinaNome
+                );
+
+                // Verifica se encontrou a disciplina
+                if (!disciplines.isEmpty()) {
+                    Discipline disciplina = disciplines.get(0); // Assume que a consulta retornou uma disciplina válida
+
+                    // Insere a nota do aluno para a disciplina
+                    jdbcTemplate.update(sql, student.getCodAluno(), disciplina.getIdDisciplina(), nota);
+                } else {
+                    System.out.println("Disciplina não encontrada: " + disciplinaNome);
+                }
             }
         }
 
@@ -142,51 +182,51 @@ public class DBService {
 
     /*/ Esse metodo é responsavel por capturar os dados do banco e printar no console
      Ou seja, aqui acontece os selects /*/
-    public void displayData(JdbcTemplate jdbcTemplate) {
-        // Exibe Instituições
-        System.out.println("\n--- Instituições ---");
-        List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao", new BeanPropertyRowMapper<>(Institution.class));
-        for (Institution institution : institutions) {
-            System.out.println(institution);
-        }
-
-        // Exibe Alunos
-        System.out.println("\n--- Alunos ---");
-        List<Student> students = jdbcTemplate.query("""
-                SELECT a.*, i.dep_estadual
-                 AS fkInstituicao
-                FROM aluno a
-                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
-                """, new BeanPropertyRowMapper<>(Student.class));
-        for (Student student : students) {
-            System.out.println(student);
-        }
-
-        // Exibe Disciplinas
-        System.out.println("\n--- Disciplinas ---");
-        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
-        for (Discipline discipline : disciplines) {
-            System.out.println(discipline);
-        }
-
-        // Exibe Notas dos Alunos
+//    public void displayData(JdbcTemplate jdbcTemplate) {
+//        // Exibe Instituições
+//        System.out.println("\n--- Instituições ---");
+//        List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao", new BeanPropertyRowMapper<>(Institution.class));
+//        for (Institution institution : institutions) {
+//            System.out.println(institution);
+//        }
+//
+//        // Exibe Alunos
+//        System.out.println("\n--- Alunos ---");
+//        List<Student> students = jdbcTemplate.query("""
+//                SELECT a.*, i.distrito_estadual
+//                 AS fkInstituicao
+//                FROM aluno a
+//                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
+//                """, new BeanPropertyRowMapper<>(Student.class));
+//        for (Student student : students) {
+//            System.out.println(student);
+//        }
+//
+//        // Exibe Disciplinas
+//        System.out.println("\n--- Disciplinas ---");
+//        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
+//        for (Discipline discipline : disciplines) {
+//            System.out.println(discipline);
+//        }
+//
+//         Exibe Notas dos Alunos
 //        System.out.println("\n--- Notas dos Alunos ---");
 //        List<StudentGrade> studentGrades = jdbcTemplate.query("""
 //                SELECT
 //                    n.nota,
-//                    a.idAluno, a.serie, a.periodo,
+//                    a.codAluno, a.serie, a.periodo,
 //                    d.idDisciplina, d.nome_disciplina,
-//                    i.dep_estadual
+//                    i.distrito_estadual
 //                     AS fkInstituicao
 //                FROM notas_aluno n
-//                JOIN aluno a ON n.fkAluno = a.idAluno
+//                JOIN aluno a ON n.fkAluno = a.codAluno
 //                JOIN disciplina d ON n.fkDisciplina = d.idDisciplina
 //                JOIN instituicao i ON a.fkInstituicao = i.idInstituicao
 //                """, new StudentGradeRowMapper());
 //        for (StudentGrade grade : studentGrades) {
 //            System.out.println(grade);
 //        }
-    }
+//    }
 
 
 }

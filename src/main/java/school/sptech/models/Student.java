@@ -1,7 +1,7 @@
 package school.sptech.models;
 
 public class Student {
-    private Integer idAluno;
+    private Integer codAluno;
     // A fk instituição gera o nome da instituição do aluno
     // Precisa ser alterado para um atributo do tipo Institution
     private Institution institution;
@@ -13,7 +13,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(Institution institution, String serie, String periodo, String genero, Integer idade) {
+    public Student(Integer codAluno, Institution institution, String serie, String periodo, String genero,
+                   Integer idade) {
+        this.codAluno = codAluno;
         this.institution = institution;
         this.serie = serie;
         this.periodo = periodo;
@@ -21,20 +23,20 @@ public class Student {
         this.idade = idade;
     }
 
-    public Student(Integer idAluno, String serie, String periodo, String genero, Integer idade) {
-        this.idAluno = idAluno;
+    public Student(Integer codAluno, String serie, String periodo, String genero, Integer idade) {
+        this.codAluno = codAluno;
         this.serie = serie;
         this.periodo = periodo;
         this.genero = genero;
         this.idade = idade;
     }
 
-    public Integer getIdAluno() {
-        return idAluno;
+    public Integer getCodAluno() {
+        return codAluno;
     }
 
-    public void setIdAluno(Integer idAluno) {
-        this.idAluno = idAluno;
+    public void setCodAluno(Integer codAluno) {
+        this.codAluno = codAluno;
     }
 
     public Institution getInstitution() {
@@ -85,6 +87,6 @@ public class Student {
                 Serie: %s
                 Periodo: %s
                 Gênero: %s
-                Idade: %d""".formatted(idAluno, institution, serie, periodo, genero, idade);
+                Idade: %d""".formatted(codAluno, institution, serie, periodo, genero, idade);
     }
 }
