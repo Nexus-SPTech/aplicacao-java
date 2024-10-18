@@ -41,11 +41,6 @@ public class Main {
         dbService.insertStudents(jdbcTemplate, students);
         dbService.insertStudentsGrades(jdbcTemplate, readDatas);
 
-        // Exibição dos dados, comente se não quiser exibir
-        // dbService.displayData(jdbcTemplate);
-
-
-
     }
 
 }

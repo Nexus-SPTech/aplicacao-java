@@ -1,7 +1,7 @@
 package school.sptech.models;
 
 public class Institution {
-    private Integer idInstituicao;
+    private Integer codInstituicao;
     private String nomeDepartamento;
     private String distritoEstadual;
     private String municipio;
@@ -10,19 +10,20 @@ public class Institution {
     public Institution() {
     }
 
-    public Institution( String nomeDepartamento, String distritoEstadual, String municipio, String regiaoMetropolitana) {
+    public Institution(Integer codInstituicao, String nomeDepartamento, String distritoEstadual, String municipio, String regiaoMetropolitana) {
+        this.codInstituicao = codInstituicao;
         this.nomeDepartamento = nomeDepartamento;
         this.distritoEstadual = distritoEstadual;
         this.municipio = municipio;
         this.regiaoMetropolitana = regiaoMetropolitana;
     }
 
-    public Integer getIdInstituicao() {
-        return idInstituicao;
+    public Integer getCodInstituicao() {
+        return codInstituicao;
     }
 
-    public void setIdInstituicao(Integer idInstituicao) {
-        this.idInstituicao = idInstituicao;
+    public void setCodInstituicao(Integer codInstituicao) {
+        this.codInstituicao = codInstituicao;
     }
 
     public String getDistritoEstadual() {
@@ -65,6 +66,6 @@ public class Institution {
                 Departamento estadual: %s
                 Município: %s
                 Região Metropolitana: %s
-                """.formatted(idInstituicao, distritoEstadual, nomeDepartamento, municipio, regiaoMetropolitana);
+                """.formatted(codInstituicao, distritoEstadual, nomeDepartamento, municipio, regiaoMetropolitana);
     }
 }

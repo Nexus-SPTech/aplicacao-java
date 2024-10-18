@@ -17,21 +17,21 @@ public class ExcelService {
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
-    private static final String COLUNA_SERIE_ANO = "SERIE_ANO";
+    private static final String COLUNA_CD_INST = "CODESC";
 
-    // Localidade do aluno
+    private static final String COLUNA_DE = "DE";
+    private static final String COLUNA_MUN = "MUN";
     private static final String COLUNA_NOME_DEP = "NOMEDEP";
     private static final String COLUNA_NOME_DEP_BOL = "NomeDepBol";
     private static final String COLUNA_REGIAO_METROPOLITANA = "RegiaoMetropolitana";
-    private static final String COLUNA_MUN = "MUN";
-    private static final String COLUNA_DE = "DE";
 
-    // Propriedades pessoais do aluno
+    // Propriedades do aluno
     private static final String COLUNA_SEXO = "SEXO";
     private static final String COLUNA_IDADE = "IDADE";
     private static final String COLUNA_PERIODO = "PERIODO";
+    private static final String COLUNA_SERIE_ANO = "SERIE_ANO";
 
-    // porcentagem de acertos de cada materia
+    // Acertos de cada materia
     private static final String COLUNA_ACERTOS_LP = "porc_ACERT_LP";
     private static final String COLUNA_ACERTOS_BIO = "porc_ACERT_BIO";
     private static final String COLUNA_ACERTOS_FIS = "porc_ACERT_FIS";
@@ -58,7 +58,7 @@ public class ExcelService {
 
             // Identificar as colunas de interesse
             String[] wishedColumns = {
-                    COLUNA_CD_ALUNO, COLUNA_SERIE_ANO, COLUNA_NOME_DEP, COLUNA_NOME_DEP_BOL,
+                    COLUNA_CD_ALUNO, COLUNA_CD_INST, COLUNA_SERIE_ANO, COLUNA_NOME_DEP, COLUNA_NOME_DEP_BOL,
                     COLUNA_REGIAO_METROPOLITANA, COLUNA_DE, COLUNA_MUN, COLUNA_SEXO,
                     COLUNA_IDADE, COLUNA_PERIODO, COLUNA_ACERTOS_LP, COLUNA_ACERTOS_BIO,
                     COLUNA_ACERTOS_FIS, COLUNA_ACERTOS_QUI, COLUNA_ACERTOS_MAT,
@@ -83,6 +83,7 @@ public class ExcelService {
                         // Declarando variaveis com os valores lidos do excel
 
                         String codAluno = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_CD_ALUNO)));
+                        String codInstituicao = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_CD_INST)));
 
                         // variaveis referentes a porcentagem de acertos de cada materia
                         String acertosLP = getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_ACERTOS_LP)));
@@ -111,8 +112,8 @@ public class ExcelService {
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
 
-                        Institution institution = new Institution(nomeDepartamento, distritoEstadual, municipio,
-                                regiaoMetropolitana);
+                        Institution institution = new Institution(tratarParaInteiro(codInstituicao),
+                                nomeDepartamento, distritoEstadual, municipio, regiaoMetropolitana);
                         institutions.add(institution);
 
                         Student student = new Student(tratarParaInteiro(codAluno), institution, ano, periodo, genero,

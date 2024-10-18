@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Institution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Institution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" afterDir="false" />
@@ -80,10 +81,9 @@
       <envs>
         <env name="DB_PASSWORD" value="ma140506" />
         <env name="DB_USER" value="root" />
-        <env name="https://github.com/Nexus-SPTech/aplicacao-java." value="" />
       </envs>
       <option name="envFilePaths">
-        <option value="$PROJECT_DIR$/src/main/java/school/sptech/config/env" />
+        <option value="$PROJECT_DIR$/../env" />
       </option>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
@@ -157,7 +157,8 @@
       <workItem from="1729127157036" duration="1919000" />
       <workItem from="1729186637331" duration="11572000" />
       <workItem from="1729210592075" duration="6851000" />
-      <workItem from="1729271331470" duration="905000" />
+      <workItem from="1729271331470" duration="10609000" />
+      <workItem from="1729288030727" duration="622000" />
     </task>
     <servers />
   </component>

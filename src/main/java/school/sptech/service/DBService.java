@@ -2,7 +2,6 @@ package school.sptech.service;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-//import school.sptech.config.StudentGradeRowMapper;
 import school.sptech.models.Discipline;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
@@ -23,7 +22,7 @@ public class DBService {
         // Criação nas tabelas no banco de dados MySQL:
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
-                            idInstituicao INT AUTO_INCREMENT PRIMARY KEY,
+                            codInstituicao INT PRIMARY KEY,
                             distrito_estadual VARCHAR(45) NOT NULL,
                             nome_departamento VARCHAR(45),
                             municipio VARCHAR(45),
@@ -39,7 +38,7 @@ public class DBService {
                             periodo VARCHAR(45),
                             genero VARCHAR(45),
                             idade INT,
-                            FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
+                            FOREIGN KEY (fkInstituicao) REFERENCES instituicao(codInstituicao)
                         )
                 """);
 
@@ -65,6 +64,12 @@ public class DBService {
     public void insertDisciplines(JdbcTemplate jdbcTemplate) {
         String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
 
+        /* Explicação metodo UPDATE:
+         Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
+         Depois passamos os conteudos que serão atualizados na variavel
+         Com isso as interrogações seram substituídas pelos argumentos passados
+         O metodo update por fim executa o comando no banco
+         /*/
         jdbcTemplate.update(sql, "Português");
         jdbcTemplate.update(sql, "Biologia");
         jdbcTemplate.update(sql, "Física");
@@ -80,39 +85,24 @@ public class DBService {
         disciplines.forEach(System.out::println);
     }
 
-    // Inserção de dados na tabela instituição
+    public boolean institutionExists(JdbcTemplate jdbcTemplate, Integer codInst) {
+        String sql = "SELECT COUNT(*) FROM instituicao WHERE codInstituicao = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, codInst);
+        return count != null && count > 0;
+    }
+
     public void insertInstitutions(JdbcTemplate jdbcTemplate, List<Institution> institutions) {
-
-        String checkConstraintSql = "SELECT COUNT(*) FROM information_schema.table_constraints " +
-                "WHERE table_schema = DATABASE() " +
-                "AND table_name = 'instituicao' " +
-                "AND constraint_name = 'uc_instituicao'";
-
-        Integer count = jdbcTemplate.queryForObject(checkConstraintSql, Integer.class);
-
-        if (count == null || count == 0) {
-            jdbcTemplate.execute("ALTER TABLE instituicao " +
-                    "ADD CONSTRAINT uc_instituicao UNIQUE (distrito_estadual, nome_departamento, municipio, regiao_metropolitana)");
-        } else {
-            System.out.println("A Constraint já existe");
-        }
-
         // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
-        String sql = "INSERT IGNORE INTO instituicao ( distrito_estadual, nome_departamento, municipio," +
-                "regiao_metropolitana) VALUES (?, ?, ?, ?)";
-        /* Explicação metodo UPDATE:
-         Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
-         Depois passamos os conteudos que serão atualizados na variavel
-         Com isso as interrogações seram substituídas pelos argumentos passados
-         O metodo update por fim executa o comando no banco
-         /*/
+        String sql = "INSERT IGNORE INTO instituicao (codInstituicao, distrito_estadual, nome_departamento, " +
+                "municipio, regiao_metropolitana) VALUES (?, ?, ?, ?, ?)";
 
-        for (int i = 0; i < institutions.size(); i++) {
-            jdbcTemplate.update(sql, institutions.get(i).getDistritoEstadual(),
-                    institutions.get(i).getNomeDepartamento(), institutions.get(i).getMunicipio(),
-                    institutions.get(i).getRegiaoMetropolitana());
+        for (Institution inst : institutions) {
+            if (!institutionExists(jdbcTemplate, inst.getCodInstituicao())) {
+                jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
+                        inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
+                System.out.println("Instituição inserida com sucesso");
+            }
         }
-
 
         System.out.println("Instituições inseridas com sucesso!");
     }
@@ -123,20 +113,14 @@ public class DBService {
         String sql = "INSERT INTO aluno (codAluno, fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, " +
                 "?, ?)";
 
-        String select = "SELECT * FROM instituicao WHERE idInstituicao = ?";
+        String select = "SELECT * FROM instituicao WHERE codInstituicao = ?";
         for (Student student : students) {
-            List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao\n" +
-                            "WHERE distrito_estadual = ?" +
-                            "  AND nome_departamento = ?" +
-                            "  AND municipio = ?" +
-                            "  AND regiao_metropolitana = ?",
+            List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao " +
+                            "WHERE codInstituicao = ?",
                     new BeanPropertyRowMapper<>(Institution.class),
-                    student.getInstitution().getDistritoEstadual(),
-                    student.getInstitution().getNomeDepartamento(),
-                    student.getInstitution().getMunicipio(),
-                    student.getInstitution().getRegiaoMetropolitana()
+                    student.getInstitution().getCodInstituicao()
             );
-            jdbcTemplate.update(sql, student.getCodAluno(), institutions.get(0).getIdInstituicao(), student.getSerie(),
+            jdbcTemplate.update(sql, student.getCodAluno(), institutions.get(0).getCodInstituicao(), student.getSerie(),
                     student.getPeriodo(), student.getGenero(), student.getIdade());
 
         }
@@ -144,11 +128,10 @@ public class DBService {
         System.out.println("Alunos inseridos com sucesso!");
     }
 
-
     public void insertStudentsGrades(JdbcTemplate jdbcTemplate, Map<String, List<?>> resultReadData) {
         String sql = "INSERT INTO notas_aluno (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)";
 
-        // Captura as notas do Map resultReadData
+        // Captura os StudentGrade do Map resultReadData
         List<StudentGrade> grades = (List<StudentGrade>) resultReadData.get("notas");
 
         // Itera sobre cada StudentGrade
@@ -156,10 +139,12 @@ public class DBService {
             // Obtém o estudante associado
             Student student = grade.getStudent();
 
-            // Itera sobre cada entrada (disciplina e nota)
+            // Itera sobre a HashMap StudentGrade que contém a (disciplina e nota)
             for (Map.Entry<String, Double> entry : grade.getNotasDisciplinas().entrySet()) {
-                String disciplinaNome = entry.getKey(); // Nome da disciplina
-                Double nota = entry.getValue();         // Nota da disciplina
+                // Obtem a key da HashMap, sendo ela o mesmo nome da disciplina que está inserido no banco
+                String disciplinaNome = entry.getKey();
+                // Obtém a nota com relação a matéria (que é a key da HashMap)
+                Double nota = entry.getValue();
 
                 // Consulta o ID da disciplina com base no nome
                 List<Discipline> disciplines = jdbcTemplate.query(
@@ -174,6 +159,7 @@ public class DBService {
 
                     // Insere a nota do aluno para a disciplina
                     jdbcTemplate.update(sql, student.getCodAluno(), disciplina.getIdDisciplina(), nota);
+
                 } else {
                     System.out.println("Disciplina não encontrada: " + disciplinaNome);
                 }
@@ -182,6 +168,5 @@ public class DBService {
 
         System.out.println("Notas das alunos inseridas com sucesso!");
     }
-
 
 }
