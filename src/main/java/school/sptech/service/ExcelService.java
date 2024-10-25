@@ -44,6 +44,7 @@ public class ExcelService {
 
     // metodo para ler um arquivo .xls especifico
     public Map<String, List<?>> readExcel(InputStream excelArchive) {
+        System.out.println("Iniciando leitura do excel...");
         List<Student> students = new ArrayList<>();
         List<Institution> institutions = new ArrayList<>();
         List<StudentGrade> grades = new ArrayList<>();
@@ -53,8 +54,6 @@ public class ExcelService {
             // Para arquivos .xls é necessário usar HSSFWorkbooke e para .xlsx XSSFWorkbook
             Workbook workbook = new HSSFWorkbook(excelArchive);
             Sheet sheet = workbook.getSheetAt(0);
-
-            System.out.println("Lendo arquivo: " + excelArchive);
 
             // Identificar as colunas de interesse
             String[] wishedColumns = {
@@ -71,9 +70,11 @@ public class ExcelService {
 
             // verificação se as colunas foram encontradas
             if (columnsForIndex.size() < wishedColumns.length) {
-                System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo.");
+                System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo");
                 return null; // encerra o metodo
             }
+
+            System.out.println("Inicializando tratativa dos dados...");
 
             // lendo apenas as colunas de escolha
             for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Ignorar o cabeçalho
@@ -120,8 +121,6 @@ public class ExcelService {
                                 tratarParaInteiro(idade));
                         students.add(student);
 
-                        // fazer switch case para instanciar as disciplinas na classe StudentGrade
-
                         StudentGrade grade = new StudentGrade();
                         grade.setStudent(student);
                         grade.addNotasDisciplinas("Português", tratarValorComoDouble(acertosLP));
@@ -136,25 +135,6 @@ public class ExcelService {
 
                         grades.add(grade);
 
-
-                        // Printando todos os dados lidos
-//                        System.out.println("Linha " + (i + 1) + ": " +
-//                                " Código do Aluno: " + codAluno +
-//                                ", Acertos Lingua Portuguesa: " + acertosLP +
-//                                ", Acertos Biologia: " + acertosBIO +
-//                                ", Acertos Fisica: " + acertosFIS +
-//                                ", Acertos Quimica: " + acertosQUI +
-//                                ", Acertos Matematica: " + acertosMAT +
-//                                ", Acertos Geografia: " + acertosGEO +
-//                                ", Acertos Historia: " + acertosHIS +
-//                                ", Acertos Filofofia: " + acertosFIL +
-//                                ", Acertos Sociologia: " + acertosSOC +
-//                                ", Região Metropolitana: " + regiaoMetropolitana +
-//                                ", Distrito Estadual: " + distritoEstadual +
-//                                ", Município: " + municipio +
-//                                ", Ano: " + ano +
-//                                ", Idade: " + idade +
-//                                ", Gênero: " + genero);
                     } catch (NumberFormatException e) {
                         System.out.println("Erro ao converter o valor na linha " + (i + 1) + ": " + e.getMessage());
                         e.printStackTrace();
@@ -162,15 +142,19 @@ public class ExcelService {
                 }
             }
 
+            System.out.println("Tratativa de dados finalizada!");
+
             workbook.close();
         } catch (IOException e) {
+            System.out.println("Erro ao ler arquivo excel " + e.getMessage());
             e.printStackTrace();
         }
 
+        System.out.println("Leitura do excel finalizada com sucesso!");
         resultReadData.put("alunos", students);
         resultReadData.put("instituicoes", institutions);
         resultReadData.put("notas", grades);
-
+        System.out.println("Retornando HashMap com os dados lidos do excel!");
         return resultReadData;
     }
 
@@ -180,7 +164,7 @@ public class ExcelService {
         Row headerRow = sheet.getRow(0);
 
         if (headerRow == null) {
-            System.out.println("Erro: Cabeçalho não encontrado na planilha.");
+            System.out.println("Erro: Cabeçalho não encontrado na planilha");
             return columnsForIndex;
         }
 

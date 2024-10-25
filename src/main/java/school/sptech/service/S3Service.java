@@ -27,7 +27,7 @@ public class S3Service {
         // *************************************
         try {
             List<Bucket> buckets = s3Client.listBuckets().buckets();
-            System.out.println("Lista de buckets:");
+            System.out.println("Lista de buckets da Nexus:");
             for (Bucket bucket : buckets) {
                 System.out.println("- " + bucket.name());
             }

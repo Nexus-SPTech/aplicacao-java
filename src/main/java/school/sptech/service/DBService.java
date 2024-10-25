@@ -13,6 +13,8 @@ import java.util.Map;
 public class DBService {
 
     public void createTables(JdbcTemplate jdbcTemplate) {
+
+        System.out.println("Inicializando a criação das tabelas");
         // Drop das tabelas existentes
         jdbcTemplate.execute("DROP TABLE IF EXISTS notas_aluno");
         jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
@@ -29,6 +31,7 @@ public class DBService {
                             regiao_metropolitana VARCHAR(45)
                         )
                 """);
+        System.out.println("Tabela Instituição criada com sucesso!");
 
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS aluno (
@@ -41,6 +44,7 @@ public class DBService {
                             FOREIGN KEY (fkInstituicao) REFERENCES instituicao(codInstituicao)
                         )
                 """);
+        System.out.println("Tabela Aluno criada com sucesso!");
 
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS disciplina (
@@ -48,6 +52,7 @@ public class DBService {
                             nome_disciplina VARCHAR(45) NOT NULL UNIQUE
                         )
                 """);
+        System.out.println("Tabela Disciplina criada com sucesso!");
 
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS notas_aluno (
@@ -59,9 +64,11 @@ public class DBService {
                             FOREIGN KEY (fkDisciplina) REFERENCES disciplina(idDisciplina)
                         )
                 """);
+        System.out.println("Tabela Notas_Aluno criada com sucesso!");
     }
 
     public void insertDisciplines(JdbcTemplate jdbcTemplate) {
+        System.out.println("Inserindo disciplinas no banco...");
         String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
 
         /* Explicação metodo UPDATE:
@@ -96,18 +103,22 @@ public class DBService {
         String sql = "INSERT IGNORE INTO instituicao (codInstituicao, distrito_estadual, nome_departamento, " +
                 "municipio, regiao_metropolitana) VALUES (?, ?, ?, ?, ?)";
 
+        System.out.println("""
+                Inserindo instituições no banco...
+                Verificando se a instituição existe no banco...
+                """);
         for (Institution inst : institutions) {
             if (!institutionExists(jdbcTemplate, inst.getCodInstituicao())) {
                 jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
                         inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
-                System.out.println("Instituição inserida com sucesso");
             }
         }
 
-        System.out.println("Instituições inseridas com sucesso!");
+        System.out.println("Dados das instituições inseridos com sucesso!");
     }
 
     public void insertStudents(JdbcTemplate jdbcTemplate, List<Student> students) {
+        System.out.println("Inserindo estudantes no banco...");
         // Recupera as instituições para obter os nomes
 
         String sql = "INSERT INTO aluno (codAluno, fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, " +
@@ -125,10 +136,11 @@ public class DBService {
 
         }
 
-        System.out.println("Alunos inseridos com sucesso!");
+        System.out.println("Dados dos estudantes inseridos com sucesso!");
     }
 
     public void insertStudentsGrades(JdbcTemplate jdbcTemplate, Map<String, List<?>> resultReadData) {
+        System.out.println("Inserindo notas dos estudantes no banco...");
         String sql = "INSERT INTO notas_aluno (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)";
 
         // Captura os StudentGrade do Map resultReadData
