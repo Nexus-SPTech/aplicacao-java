@@ -107,12 +107,27 @@ public class DBService {
                 Inserindo instituições no banco...
                 Verificando se a instituição existe no banco...
                 """);
-        for (Institution inst : institutions) {
-            if (!institutionExists(jdbcTemplate, inst.getCodInstituicao())) {
-                jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
-                        inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
+
+        if (institutions.isEmpty()) {
+            System.out.println("Nenhuma instituição para inserir.");
+        } else {
+            for (Institution inst : institutions) {
+                if (!institutionExists(jdbcTemplate, inst.getCodInstituicao())) {
+                    try {
+                        jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
+                                inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
+                        System.out.println("Instituição inserida: " + inst.getNomeDepartamento());
+                    } catch (Exception e) {
+                        System.err.println("Erro ao inserir a instituição: " + inst.getNomeDepartamento());
+                        e.printStackTrace(); // Imprime a stack trace do erro
+                    }
+                } else {
+                    System.out.println("Instituição já existe: " + inst.getNomeDepartamento());
+                }
             }
         }
+
+        System.out.println("Dados das instituições inseridos com sucesso!");
 
         System.out.println("Dados das instituições inseridos com sucesso!");
     }

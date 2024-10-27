@@ -24,7 +24,7 @@ public class DBConnetionProvider {
         String IPEC2 = System.getenv("IP_EC2");
 
         String database = "dbnexus"; // É necessário criar o banco manualmente
-        String ip = "localhost:3306"; // Para conectar com EC2 coloque a variavel de ambiente aqui
+        String ip = IPEC2 + ":3306"; // Para conectar com EC2 coloque a variavel de ambiente aqui
 
         // URL da conexão completa
         String url = "jdbc:mysql://" + ip + "/" + database;
