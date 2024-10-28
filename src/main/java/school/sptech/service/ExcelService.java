@@ -113,25 +113,25 @@ public class ExcelService {
                         String nomeDepartamentoBol =
                                 getCellValueAsString(row.getCell(columnsForIndex.get(COLUNA_NOME_DEP_BOL)));
 
-                        Institution institution = new Institution(tratarParaInteiro(codInstituicao),
+                        Institution institution = new Institution(transformToInteger(codInstituicao),
                                 nomeDepartamento, distritoEstadual, municipio, regiaoMetropolitana);
                         institutions.add(institution);
 
-                        Student student = new Student(tratarParaInteiro(codAluno), institution, ano, periodo, genero,
-                                tratarParaInteiro(idade));
+                        Student student = new Student(transformToInteger(codAluno), institution, ano, periodo, genero,
+                                transformToInteger(idade));
                         students.add(student);
 
                         StudentGrade grade = new StudentGrade();
                         grade.setStudent(student);
-                        grade.addNotasDisciplinas("Português", tratarValorComoDouble(acertosLP));
-                        grade.addNotasDisciplinas("Biologia", tratarValorComoDouble(acertosBIO));
-                        grade.addNotasDisciplinas("Física", tratarValorComoDouble(acertosFIS));
-                        grade.addNotasDisciplinas("Química", tratarValorComoDouble(acertosQUI));
-                        grade.addNotasDisciplinas("Matemática", tratarValorComoDouble(acertosMAT));
-                        grade.addNotasDisciplinas("Geografia", tratarValorComoDouble(acertosGEO));
-                        grade.addNotasDisciplinas("História", tratarValorComoDouble(acertosHIS));
-                        grade.addNotasDisciplinas("Filosofia", tratarValorComoDouble(acertosFIL));
-                        grade.addNotasDisciplinas("Sociologia", tratarValorComoDouble(acertosSOC));
+                        grade.addNotasDisciplinas("Português", transformToDouble(acertosLP));
+                        grade.addNotasDisciplinas("Biologia", transformToDouble(acertosBIO));
+                        grade.addNotasDisciplinas("Física", transformToDouble(acertosFIS));
+                        grade.addNotasDisciplinas("Química", transformToDouble(acertosQUI));
+                        grade.addNotasDisciplinas("Matemática", transformToDouble(acertosMAT));
+                        grade.addNotasDisciplinas("Geografia", transformToDouble(acertosGEO));
+                        grade.addNotasDisciplinas("História", transformToDouble(acertosHIS));
+                        grade.addNotasDisciplinas("Filosofia", transformToDouble(acertosFIL));
+                        grade.addNotasDisciplinas("Sociologia", transformToDouble(acertosSOC));
 
                         grades.add(grade);
 
@@ -201,7 +201,7 @@ public class ExcelService {
     }
 
     // Metodo para transformar uma string em inteiro
-    private Integer tratarParaInteiro(String valor) throws NumberFormatException {
+    private Integer transformToInteger(String valor) throws NumberFormatException {
         if (valor == null || valor.trim().isEmpty()) {
             return null;
         }
@@ -213,7 +213,7 @@ public class ExcelService {
     }
 
     // Metodo para tratar o valor de uma string para double
-    private Double tratarValorComoDouble(String valor) throws NumberFormatException {
+    private Double transformToDouble(String valor) throws NumberFormatException {
         if (valor == null || valor.trim().isEmpty()) {
             return null;
         }

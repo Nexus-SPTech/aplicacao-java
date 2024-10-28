@@ -39,7 +39,6 @@ public class Main {
         dbService.insertInstitutions(jdbcTemplate, institutions);
         dbService.insertStudents(jdbcTemplate, students);
         dbService.insertStudentsGrades(jdbcTemplate, readDatas);
-
     }
 
 }
