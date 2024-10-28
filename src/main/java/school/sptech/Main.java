@@ -8,6 +8,7 @@ import school.sptech.service.DBService;
 import school.sptech.service.ExcelService;
 import school.sptech.service.S3Service;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -22,12 +23,13 @@ public class Main {
         ExcelService excelService = new ExcelService();
         // Instanciando classe de conexão com o S3
         S3Service s3Service = new S3Service();
-
         s3Service.getConnectionS3();
 
+        InputStream excelArchive = s3Service.getExcelFileFromS3("nexus-group-bucket",
+                "Base 001.xls");
+
         // Variavel armazenando os dados lidos do excel
-        Map<String, List<?>> readDatas = excelService.readExcel(s3Service.getExcelFileFromS3("nexus-group-bucket",
-                "Base 001.xls"));
+        Map<String, List<?>> readDatas = excelService.readExcel(excelArchive);
         List<Institution> institutions = (List<Institution>) readDatas.get("instituicoes");
         List<Student> students = (List<Student>) readDatas.get("alunos");
 
