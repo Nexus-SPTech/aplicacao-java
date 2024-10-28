@@ -141,7 +141,6 @@ public class ExcelService {
                     }
                 }
             }
-
             System.out.println("Tratativa de dados finalizada!");
 
             workbook.close();

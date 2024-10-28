@@ -1,8 +1,7 @@
 package school.sptech;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.config.DBConnetionProvider;
-import school.sptech.config.S3Provider;
+import school.sptech.provider.DBConnetionProvider;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.service.DBService;

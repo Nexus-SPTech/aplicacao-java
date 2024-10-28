@@ -1,4 +1,4 @@
-package school.sptech.config;
+package school.sptech.provider;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,12 +9,10 @@ public class DBConnetionProvider {
 
     private final DataSource dataSource;
 
-    /* Aqui estção sendo definidas as credencias no banco de dados
+    /* Aqui estão sendo definidas as credencias no banco de dados
     Estão sendo definidas em um construtor vazio, pois ele é executado assim que o programa é executado
-    Assim ele configura todas as credencias do banco quando o programa é executado
-     */
+    Assim ele configura todas as credencias do banco quando o programa é executado */
     public DBConnetionProvider() {
-
         // ********* LEMBRE-SE DE CONFIGURAR AS VARIAVEIS DE AMBIENTE *********
         String DBUSER = System.getenv("DB_USER");
         String DBPASSWORD = System.getenv("DB_PASSWORD");
