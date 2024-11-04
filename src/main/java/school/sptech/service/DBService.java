@@ -92,7 +92,7 @@ public class DBService {
         disciplines.forEach(System.out::println);
     }
 
-    public boolean institutionExists(JdbcTemplate jdbcTemplate, Integer codInst) {
+    private boolean institutionExists(JdbcTemplate jdbcTemplate, Integer codInst) {
         String sql = "SELECT COUNT(*) FROM instituicao WHERE codInstituicao = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, codInst);
         return count != null && count > 0;

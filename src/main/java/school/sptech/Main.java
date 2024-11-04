@@ -17,7 +17,6 @@ public class Main {
         // Instancia o provedor de conexão DB
         DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
         JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
-        DBService dbService = new DBService();
 
         // Instanciando classe que faz a leitura dos arquivos do excel
         ExcelService excelService = new ExcelService();
@@ -34,6 +33,7 @@ public class Main {
         List<Student> students = (List<Student>) readDatas.get("alunos");
 
         // Criação das tabelas
+        DBService dbService = new DBService();
         dbService.createTables(jdbcTemplate);
 
         // Inserção de dados
