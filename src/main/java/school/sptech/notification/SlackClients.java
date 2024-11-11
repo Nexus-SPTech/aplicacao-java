@@ -1,19 +1,19 @@
-package school.sptech.test;
+package school.sptech.notification;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class SlackService {
+public class SlackClients extends Slack {
 
-    private final String webhookUrl;
-
-    public SlackService(String webhookUrl) {
-        this.webhookUrl = webhookUrl;
+    public SlackClients(String mensagem) {
+        super(mensagem);
+        this.webhookUrl = "https://hooks.slack.com/services/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";
     }
 
-    public void sendNotification(String message) {
+    public void sendNotification() {
+
         try {
             URL url = new URL(webhookUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -21,7 +21,7 @@ public class SlackService {
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setDoOutput(true);
 
-            String payload = "{\"text\": \"" + message + "\"}";
+            String payload = "{\"text\": \"" + mensagem + "\"}";
 
             try (OutputStream os = connection.getOutputStream()) {
                 byte[] input = payload.getBytes(StandardCharsets.UTF_8);
