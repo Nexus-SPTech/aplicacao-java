@@ -7,5 +7,6 @@ public class App {
         slackClients.sendNotification();
 
         SlackLogs slackLogs = new SlackLogs("Oi");
+        slackLogs.sendNotification();
     }
 }

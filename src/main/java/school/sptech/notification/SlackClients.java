@@ -9,7 +9,7 @@ public class SlackClients extends Slack {
 
     public SlackClients(String mensagem) {
         super(mensagem);
-        this.webhookUrl = "https://hooks.slack.com/services/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";
+        this.webhookUrl = "https://hooks.slack.com/services/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";
     }
 
     public void sendNotification() {

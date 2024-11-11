@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/test/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/test/SlackService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +54,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.App.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.Principal.executor": "Coverage",
     "Application.Teste.executor": "Run",
@@ -80,7 +80,20 @@
       <recent name="school.sptech" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Teste">
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="school.sptech.notification.App" />
+      <module name="conexao-banco-de-dados" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="school.sptech.notification.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="DBPassword" value="sptech" />
@@ -114,6 +127,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
         <item itemvalue="Application.Teste" />
         <item itemvalue="Application.Main" />
       </list>
@@ -164,7 +178,7 @@
       <workItem from="1730849827535" duration="492000" />
       <workItem from="1730923723930" duration="24000" />
       <workItem from="1730928575038" duration="931000" />
-      <workItem from="1731359660202" duration="4531000" />
+      <workItem from="1731359660202" duration="5096000" />
     </task>
     <servers />
   </component>
