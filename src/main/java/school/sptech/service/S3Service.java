@@ -18,9 +18,7 @@ public class S3Service {
 
         String bucketName = "nexus-group-bucket";
 
-        // *************************************
         // *   Listando todos os buckets       *
-        // *************************************
         try {
             List<Bucket> buckets = s3Client.listBuckets().buckets();
             System.out.println("Lista de buckets da Nexus:");
@@ -31,9 +29,7 @@ public class S3Service {
             System.err.println("Erro ao listar buckets: " + e.getMessage());
         }
 
-        // *************************************
         // *   Listando objetos do bucket      *
-        // *************************************
         try {
             ListObjectsRequest listObjects = ListObjectsRequest.builder()
                     .bucket(bucketName)

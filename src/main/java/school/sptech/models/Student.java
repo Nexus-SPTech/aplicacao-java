@@ -2,8 +2,6 @@ package school.sptech.models;
 
 public class Student {
     private Integer codAluno;
-    // A fk instituição gera o nome da instituição do aluno
-    // Precisa ser alterado para um atributo do tipo Institution
     private Institution institution;
     private String serie;
     private String periodo;

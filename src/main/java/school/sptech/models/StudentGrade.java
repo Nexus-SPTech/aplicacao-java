@@ -27,13 +27,4 @@ public class StudentGrade {
         notasDisciplinas.put(disciplina, nota);
     }
 
-    //    @Override
-//    public String toString() {
-//        return """
-//                Notas: %.2f
-//                Disciplina: %s
-//                ID do aluno: %s
-//                """.formatted(notas, disciplines, student.getIdAluno());
-//
-//    }
 }

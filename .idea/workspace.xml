@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/provider/DBConnetionProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/provider/DBConnetionProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/test/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/test/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/test/SlackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/test/SlackService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +162,14 @@
       <workItem from="1730226495921" duration="2447000" />
       <workItem from="1730318309672" duration="25000" />
       <workItem from="1730321094652" duration="23000" />
+      <workItem from="1730756182469" duration="206000" />
+      <workItem from="1730758764661" duration="1911000" />
+      <workItem from="1730835623781" duration="327000" />
+      <workItem from="1730846566851" duration="618000" />
+      <workItem from="1730849827535" duration="492000" />
+      <workItem from="1730923723930" duration="24000" />
+      <workItem from="1730928575038" duration="931000" />
+      <workItem from="1731359660202" duration="960000" />
     </task>
     <servers />
   </component>

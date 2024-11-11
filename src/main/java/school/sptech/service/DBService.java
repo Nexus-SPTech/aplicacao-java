@@ -15,13 +15,11 @@ public class DBService {
     public void createTables(JdbcTemplate jdbcTemplate) {
 
         System.out.println("Inicializando a criação das tabelas");
-        // Drop das tabelas existentes
         jdbcTemplate.execute("DROP TABLE IF EXISTS notas_aluno");
         jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
         jdbcTemplate.execute("DROP TABLE IF EXISTS aluno");
         jdbcTemplate.execute("DROP TABLE IF EXISTS instituicao");
 
-        // Criação nas tabelas no banco de dados MySQL:
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
                             codInstituicao INT PRIMARY KEY,
@@ -71,12 +69,6 @@ public class DBService {
         System.out.println("Inserindo disciplinas no banco...");
         String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
 
-        /* Explicação metodo UPDATE:
-         Passamos como primeiro argumento o nome da variavel que iremos dar update(atualizar)
-         Depois passamos os conteudos que serão atualizados na variavel
-         Com isso as interrogações seram substituídas pelos argumentos passados
-         O metodo update por fim executa o comando no banco
-         /*/
         jdbcTemplate.update(sql, "Português");
         jdbcTemplate.update(sql, "Biologia");
         jdbcTemplate.update(sql, "Física");
@@ -99,7 +91,6 @@ public class DBService {
     }
 
     public void insertInstitutions(JdbcTemplate jdbcTemplate, List<Institution> institutions) {
-        // criando variavel com comando padrao de insert, para depois passarmos os dados a serem substituidos
         String sql = "INSERT IGNORE INTO instituicao (codInstituicao, distrito_estadual, nome_departamento, " +
                 "municipio, regiao_metropolitana) VALUES (?, ?, ?, ?, ?)";
 
@@ -158,41 +149,29 @@ public class DBService {
         System.out.println("Inserindo notas dos estudantes no banco...");
         String sql = "INSERT INTO notas_aluno (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)";
 
-        // Captura os StudentGrade do Map resultReadData
         List<StudentGrade> grades = (List<StudentGrade>) resultReadData.get("notas");
 
-        // Itera sobre cada StudentGrade
         for (StudentGrade grade : grades) {
-            // Obtém o estudante associado
             Student student = grade.getStudent();
 
-            // Itera sobre a HashMap StudentGrade que contém a (disciplina e nota)
             for (Map.Entry<String, Double> entry : grade.getNotasDisciplinas().entrySet()) {
-                // Obtem a key da HashMap, sendo ela o mesmo nome da disciplina que está inserido no banco
                 String disciplinaNome = entry.getKey();
-                // Obtém a nota com relação a matéria (que é a key da HashMap)
                 Double nota = entry.getValue();
 
-                // Consulta o ID da disciplina com base no nome
                 List<Discipline> disciplines = jdbcTemplate.query(
                         "SELECT * FROM disciplina WHERE nome_disciplina = ?",
                         new BeanPropertyRowMapper<>(Discipline.class),
                         disciplinaNome
                 );
 
-                // Verifica se encontrou a disciplina
                 if (!disciplines.isEmpty()) {
-                    Discipline disciplina = disciplines.get(0); // Assume que a consulta retornou uma disciplina válida
-
-                    // Insere a nota do aluno para a disciplina
+                    Discipline disciplina = disciplines.get(0);
                     jdbcTemplate.update(sql, student.getCodAluno(), disciplina.getIdDisciplina(), nota);
-
                 } else {
                     System.out.println("Disciplina não encontrada: " + disciplinaNome);
                 }
             }
         }
-
         System.out.println("Notas das alunos inseridas com sucesso!");
     }
 
