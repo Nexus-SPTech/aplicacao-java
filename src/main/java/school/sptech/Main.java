@@ -14,11 +14,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        // Instancia o provedor de conexão DB
         DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
         JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
 
-        // Instanciando classe que faz a leitura dos arquivos do excel
         ExcelService excelService = new ExcelService();
         // Instanciando classe de conexão com o S3
         S3Service s3Service = new S3Service();
@@ -27,7 +25,6 @@ public class Main {
         InputStream excelArchive = s3Service.getExcelFileFromS3("nexus-group-bucket",
                 "Base 001.xls");
 
-        // Variavel armazenando os dados lidos do excel
         Map<String, List<?>> readDatas = excelService.readExcel(excelArchive);
         List<Institution> institutions = (List<Institution>) readDatas.get("instituicoes");
         List<Student> students = (List<Student>) readDatas.get("alunos");
@@ -42,5 +39,4 @@ public class Main {
         dbService.insertStudents(jdbcTemplate, students);
         dbService.insertStudentsGrades(jdbcTemplate, readDatas);
     }
-
 }

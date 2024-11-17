@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="dev-s3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,16 +47,12 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2lJ8AzUfVL82MRFH6ywyPBB7LE4" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.App.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.Principal.executor": "Coverage",
     "Application.Teste.executor": "Run",
@@ -62,15 +60,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/sfang/OneDrive/Área de Trabalho/Nexus/logJava.sh",
+    "last_opened_file_path": "C:/Users/user/OneDrive/Área de Trabalho/Nexus/aplicacaoJava",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "editor.preferences.inline.completion",
     "vue.rearranger.settings.migration": "true"
   }
@@ -80,31 +75,20 @@
       <recent name="school.sptech" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="school.sptech.notification.App" />
-      <module name="conexao-banco-de-dados" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="school.sptech.notification.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
-        <env name="DBPassword" value="sptech" />
-        <env name="DBUser" value="root" />
-        <env name="IPEC2" value="54.165.251.183" />
+        <env name="DB_PASSWORD" value="ma140506" />
+        <env name="DB_USER" value="root" />
       </envs>
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/../env" />
+      </option>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="school.sptech.config.*" />
+          <option name="PATTERN" value="school.sptech.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -113,11 +97,14 @@
       </method>
     </configuration>
     <configuration name="Teste" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/src/main/java/school/sptech/config/env" />
+      </option>
       <option name="MAIN_CLASS_NAME" value="school.sptech.service.Teste" />
       <module name="conexao-banco-de-dados" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="school.sptech.notification.*" />
+          <option name="PATTERN" value="school.sptech.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -125,10 +112,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Teste" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Teste" />
+        <item itemvalue="Application.Teste" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -136,8 +129,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -154,31 +147,25 @@
       <workItem from="1727641729284" duration="3248000" />
       <workItem from="1727645197614" duration="7995000" />
       <workItem from="1728070130553" duration="5729000" />
-      <workItem from="1728430369955" duration="13000" />
-      <workItem from="1728502573277" duration="1187000" />
-      <workItem from="1728507303541" duration="1843000" />
-      <workItem from="1728514433935" duration="1889000" />
-      <workItem from="1728595298884" duration="5033000" />
-      <workItem from="1729538096561" duration="920000" />
-      <workItem from="1729622980947" duration="194000" />
-      <workItem from="1729624703905" duration="1025000" />
-      <workItem from="1729715019668" duration="118000" />
-      <workItem from="1729723425751" duration="266000" />
-      <workItem from="1729723914919" duration="316000" />
-      <workItem from="1729724268280" duration="610000" />
-      <workItem from="1729809434981" duration="3094000" />
-      <workItem from="1729812817222" duration="423000" />
-      <workItem from="1730226495921" duration="2447000" />
-      <workItem from="1730318309672" duration="25000" />
-      <workItem from="1730321094652" duration="23000" />
-      <workItem from="1730756182469" duration="206000" />
-      <workItem from="1730758764661" duration="1911000" />
-      <workItem from="1730835623781" duration="327000" />
-      <workItem from="1730846566851" duration="618000" />
-      <workItem from="1730849827535" duration="492000" />
-      <workItem from="1730923723930" duration="24000" />
-      <workItem from="1730928575038" duration="931000" />
-      <workItem from="1731359660202" duration="5096000" />
+      <workItem from="1728687860673" duration="606000" />
+      <workItem from="1728688808678" duration="87000" />
+      <workItem from="1728688903960" duration="61000" />
+      <workItem from="1728688971058" duration="7142000" />
+      <workItem from="1729022935633" duration="8509000" />
+      <workItem from="1729126213207" duration="726000" />
+      <workItem from="1729127157036" duration="1919000" />
+      <workItem from="1729186637331" duration="11572000" />
+      <workItem from="1729210592075" duration="6851000" />
+      <workItem from="1729271331470" duration="10609000" />
+      <workItem from="1729288030727" duration="1219000" />
+      <workItem from="1729644361472" duration="498000" />
+      <workItem from="1729886314727" duration="2501000" />
+      <workItem from="1730046658990" duration="599000" />
+      <workItem from="1730136127000" duration="14038000" />
+      <workItem from="1730167610974" duration="1021000" />
+      <workItem from="1730484893897" duration="594000" />
+      <workItem from="1730561075239" duration="171000" />
+      <workItem from="1731861521648" duration="359000" />
     </task>
     <servers />
   </component>

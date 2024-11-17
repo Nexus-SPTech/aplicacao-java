@@ -15,7 +15,6 @@ public class S3Service {
     S3Client s3Client = new S3Provider().getS3Client();
 
     public void getConnectionS3(){
-
         String bucketName = "nexus-group-bucket";
 
         // *   Listando todos os buckets       *

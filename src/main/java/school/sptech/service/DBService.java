@@ -166,7 +166,9 @@ public class DBService {
 
                 if (!disciplines.isEmpty()) {
                     Discipline disciplina = disciplines.get(0);
-                    jdbcTemplate.update(sql, student.getCodAluno(), disciplina.getIdDisciplina(), nota);
+                    if (nota != null) {
+                        jdbcTemplate.update(sql, student.getCodAluno(), disciplina.getIdDisciplina(), nota);
+                    }
                 } else {
                     System.out.println("Disciplina não encontrada: " + disciplinaNome);
                 }
