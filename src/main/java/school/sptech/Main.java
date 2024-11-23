@@ -20,10 +20,9 @@ public class Main {
         ExcelService excelService = new ExcelService();
         // Instanciando classe de conexão com o S3
         S3Service s3Service = new S3Service();
-        s3Service.getConnectionS3();
+        s3Service.processS3Objects();
 
-        InputStream excelArchive = s3Service.getExcelFileFromS3("nexus-group-bucket",
-                "Base 001.xls");
+        InputStream excelArchive = s3Service.processS3Objects();
 
         Map<String, List<?>> readDatas = excelService.readExcel(excelArchive);
         List<Institution> institutions = (List<Institution>) readDatas.get("instituicoes");
