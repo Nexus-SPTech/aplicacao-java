@@ -21,7 +21,8 @@ public class S3Service {
     }
 
     public InputStream processS3Objects() {
-
+        System.out.println("---------------------------");
+        System.out.println("Conexão com o S3 Feita com sucesso!\n");
         try {
             ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
                     .bucket(BUCKET_NAME)
@@ -44,6 +45,7 @@ public class S3Service {
 
                 if (isBase && !isRead) {
                     System.out.println("Objeto filtrado para leitura: " + key);
+                    System.out.println("---------------------------");
 
                     keyObject = key;
                     return getObjectInputStream(key);
@@ -78,6 +80,8 @@ public class S3Service {
                 .build();
 
         s3Client.putObjectTagging(putTaggingRequest);
+        System.out.println("Atualizando tag do Excel para \"LIDO\" no Bucket");
+        System.out.println("---------------------------");
     }
 
     public InputStream getObjectInputStream(String key) {

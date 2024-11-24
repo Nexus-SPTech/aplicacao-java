@@ -149,6 +149,8 @@ public class ExcelService {
             e.printStackTrace();
         }
 
+        System.out.println("---------------------------");
+
         System.out.println("Leitura do excel finalizada com sucesso!");
         resultReadData.put("alunos", students);
         resultReadData.put("instituicoes", institutions);

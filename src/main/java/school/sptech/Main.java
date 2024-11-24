@@ -47,7 +47,7 @@ public class Main {
         // Colocando a tag "LIDO" na base de dados que foi lida, após persistência de seus dados no banco
         s3Service.setTagReadExcel();
 
-        // Logs de sucesso e envio de notificação para cliente
+        // Log de sucesso
         System.out.println("A aplicação foi encerrada com Sucesso!");
 
         // Instanciando classe de envio de notificação para o cliente

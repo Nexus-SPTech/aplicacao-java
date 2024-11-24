@@ -7,7 +7,10 @@
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/provider/DBConnetionProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/provider/DBConnetionProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/provider/S3Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/provider/S3Provider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,7 +173,7 @@
       <workItem from="1732106629225" duration="4000" />
       <workItem from="1732317459296" duration="297000" />
       <workItem from="1732317796514" duration="2980000" />
-      <workItem from="1732406240447" duration="3446000" />
+      <workItem from="1732406240447" duration="4222000" />
     </task>
     <servers />
   </component>

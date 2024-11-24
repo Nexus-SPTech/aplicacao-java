@@ -1,5 +1,6 @@
 package school.sptech.service;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.models.Discipline;
@@ -63,6 +64,9 @@ public class DBService {
                         )
                 """);
         System.out.println("Tabela Notas_Aluno criada com sucesso!");
+
+        System.out.println("\nTodas as tabelas foram criadas com sucesso!");
+        System.out.println("---------------------------");
     }
 
     public void insertDisciplines(JdbcTemplate jdbcTemplate) {
@@ -108,19 +112,16 @@ public class DBService {
                         jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
                                 inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
                         System.out.println("Instituição inserida: " + inst.getNomeDepartamento());
-                    } catch (Exception e) {
+                    } catch (DataAccessException e) {
                         System.err.println("Erro ao inserir a instituição: " + inst.getNomeDepartamento());
+                        System.err.println("Mensagem de erro: " + e.getMessage());
                         e.printStackTrace(); // Imprime a stack trace do erro
                     }
-                } else {
-                    System.out.println("Instituição já existe: " + inst.getNomeDepartamento());
                 }
             }
         }
 
-        System.out.println("Dados das instituições inseridos com sucesso!");
-
-        System.out.println("Dados das instituições inseridos com sucesso!");
+        System.out.println("Dados das instituições inseridas com sucesso!");
     }
 
     public void insertStudents(JdbcTemplate jdbcTemplate, List<Student> students) {
@@ -175,6 +176,8 @@ public class DBService {
             }
         }
         System.out.println("Notas das alunos inseridas com sucesso!");
+        System.out.println("\nTodas os dados foram inseridos no banco com sucesso!");
+        System.out.println("---------------------------");
     }
 
 }
