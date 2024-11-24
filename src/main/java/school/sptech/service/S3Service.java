@@ -13,14 +13,18 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import java.util.List;
 
 public class S3Service {
-    S3Client s3Client = new S3Provider().getS3Client();
+    private static final String BUCKET_NAME = "nexus-group-bucket";
+    private final S3Client s3Client =  new S3Provider().getS3Client();
+    private String keyObject;
+
+    public S3Service() {
+    }
 
     public InputStream processS3Objects() {
-        String bucketName = "nexus-group-bucket";
 
         try {
             ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
-                    .bucket(bucketName)
+                    .bucket(BUCKET_NAME)
                     .build();
 
             ListObjectsV2Response listResponse;
@@ -28,11 +32,11 @@ public class S3Service {
             listResponse = s3Client.listObjectsV2(listRequest);
             for (S3Object object : listResponse.contents()) {
                 String key = object.key();
-                List<Tag> tags = getObjectTags(bucketName, key);
+                List<Tag> tags = getObjectTags(key);
 
                 Boolean isBase = tags.stream()
                         .anyMatch(tag -> tag.key().equals("Tipo")
-                                && tag.value().equals("BASE"));
+                                && tag.value().equals("EXCEL"));
 
                 Boolean isRead = tags.stream()
                         .anyMatch(tag -> tag.key().equals("Status")
@@ -41,7 +45,8 @@ public class S3Service {
                 if (isBase && !isRead) {
                     System.out.println("Objeto filtrado para leitura: " + key);
 
-                    return getObjectInputStream(bucketName, key);
+                    keyObject = key;
+                    return getObjectInputStream(key);
                 }
             }
         } catch (S3Exception e) {
@@ -50,9 +55,9 @@ public class S3Service {
         return null;
     }
 
-    public List<Tag> getObjectTags(String bucketName, String key) {
+    private List<Tag> getObjectTags(String key) {
         GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
-                .bucket(bucketName)
+                .bucket(BUCKET_NAME)
                 .key(key)
                 .build();
 
@@ -60,31 +65,28 @@ public class S3Service {
         return getTaggingResponse.tagSet();
     }
 
-    public void updateObjectTag(String bucketName, String key, String tagKey, String tagValue) {
-        List<Tag> tags = getObjectTags(bucketName, key);
+    public void setTagReadExcel() {
+        List<Tag> tags = getObjectTags(keyObject);
 
-        tags.removeIf(tag -> tag.key().equals(tagKey));
-        tags.add(Tag.builder().key(tagKey).value(tagValue).build());
+        tags.removeIf(tag -> tag.key().equals("Status"));
+        tags.add(Tag.builder().key("Status").value("LIDO").build());
 
         PutObjectTaggingRequest putTaggingRequest = PutObjectTaggingRequest.builder()
-                .bucket(bucketName)
-                .key(key)
+                .bucket(BUCKET_NAME)
+                .key(keyObject)
                 .tagging(Tagging.builder().tagSet(tags).build())
                 .build();
 
         s3Client.putObjectTagging(putTaggingRequest);
     }
 
-    public InputStream getObjectInputStream(String bucketName, String key) {
-        S3Provider s3Provider = new S3Provider();
-        S3Client s3Client = s3Provider.getS3Client();
-
+    public InputStream getObjectInputStream(String key) {
         GetObjectRequest request = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key) // O caminho do arquivo no bucket
+                .bucket(BUCKET_NAME)
+                .key(key)
                 .build();
 
         ResponseInputStream<GetObjectResponse> response = s3Client.getObject(request);
-        return response; // Retorna o InputStream do arquivo
+        return response; // Retorna o InputStream do Excel
     }
 }
