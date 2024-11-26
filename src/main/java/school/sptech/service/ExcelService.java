@@ -74,8 +74,7 @@ public class ExcelService {
             // verificação se as colunas foram encontradas
             if (columnsForIndex.size() < wishedColumns.length) {
                 String mensagem = "Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo";
-                slackLogs.setMensagem(mensagem);
-                slackLogs.sendNotification();
+                slackLogs.sendNotification(mensagem);
                 System.out.println(mensagem);
                 return null;
             }
@@ -143,8 +142,7 @@ public class ExcelService {
 
                     } catch (NumberFormatException e) {
                         String mensagem = "Erro ao converter o valor na linha " + (i + 1) + ": " + e.getMessage();
-                        slackLogs.setMensagem(mensagem);
-                        slackLogs.sendNotification();
+                        slackLogs.sendNotification(mensagem);
                         System.out.println(mensagem);
                         e.printStackTrace();
                     }
@@ -155,8 +153,7 @@ public class ExcelService {
             workbook.close();
         } catch (IOException e) {
             String mensagem = "Erro ao ler arquivo excel " + e.getMessage();
-            slackLogs.setMensagem(mensagem);
-            slackLogs.sendNotification();
+            slackLogs.sendNotification(mensagem);
             System.out.println(mensagem);
             e.printStackTrace();
         }
@@ -179,8 +176,7 @@ public class ExcelService {
         if (headerRow == null) {
             String mensagem = "Erro: Cabeçalho não encontrado na planilha";
             System.out.println();
-            slackLogs.setMensagem(mensagem);
-            slackLogs.sendNotification();
+            slackLogs.sendNotification(mensagem);
             System.out.println(mensagem);
             return columnsForIndex;
         }

@@ -50,9 +50,9 @@ public class Main {
         System.out.println("A aplicação foi encerrada com Sucesso!");
 
         // Instanciando classe de envio de notificação para o cliente
-        SlackClients slackClients = new SlackClients("Olá, foram inseridos novos dados na nossa Dashboard, " +
+        SlackClients slackClients = new SlackClients();
+        slackClients.sendNotification("Olá, foram inseridos novos dados na nossa Dashboard, " +
                 "navegue no nosso Site para se manter atualizado sobre as novas necessidades estudantis! " +
                 "\nAcesse já: www.nexus.com.br");
-        slackClients.sendNotification();
     }
 }

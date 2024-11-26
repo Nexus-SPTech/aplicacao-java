@@ -13,7 +13,7 @@ public class SlackLogs extends Slack {
         this.webhookUrl = "https://hooks.slack.com/services/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";
     }
 
-    public void sendNotification() {
+    public void sendNotification(String mensagem) {
         HttpURLConnection connection = null;
 
         try {
