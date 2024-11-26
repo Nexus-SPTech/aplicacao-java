@@ -107,6 +107,7 @@ public class DBService {
                     try {
                         jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
                                 inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
+                        System.out.println("Instituição inserida id: " + inst.getCodInstituicao());
                     } catch (DataAccessException e) {
                         System.err.println("Erro ao inserir a instituição: " + inst.getNomeDepartamento());
                         System.err.println("Mensagem de erro: " + e.getMessage());
