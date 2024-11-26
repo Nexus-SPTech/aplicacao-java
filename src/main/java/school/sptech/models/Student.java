@@ -87,4 +87,5 @@ public class Student {
                 Gênero: %s
                 Idade: %d""".formatted(codAluno, institution, serie, periodo, genero, idade);
     }
+
 }

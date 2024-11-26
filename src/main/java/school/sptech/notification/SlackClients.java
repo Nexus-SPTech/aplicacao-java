@@ -7,12 +7,11 @@ import java.nio.charset.StandardCharsets;
 
 public class SlackClients extends Slack {
 
-    public SlackClients(String mensagem) {
-        super(mensagem);
-        this.webhookUrl = "https://hooks.slack.com/services/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";
+    public SlackClients() {
+        this.webhookUrl = "https://hooks.slack.com/services/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";
     }
 
-    public void sendNotification() {
+    public void sendNotification(String mensagem) {
 
         try {
             URL url = new URL(webhookUrl);

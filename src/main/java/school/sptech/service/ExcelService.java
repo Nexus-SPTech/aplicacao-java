@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.*;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
+import school.sptech.notification.SlackLogs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ExcelService {
+    SlackLogs slackLogs = new SlackLogs();
+
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
@@ -70,8 +73,11 @@ public class ExcelService {
 
             // verificação se as colunas foram encontradas
             if (columnsForIndex.size() < wishedColumns.length) {
-                System.out.println("Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo");
-                return null; // encerra o metodo
+                String mensagem = "Erro: Uma ou mais colunas não foram encontradas no cabeçalho do arquivo";
+                slackLogs.setMensagem(mensagem);
+                slackLogs.sendNotification();
+                System.out.println(mensagem);
+                return null;
             }
 
             System.out.println("Inicializando tratativa dos dados...");
@@ -136,7 +142,10 @@ public class ExcelService {
                         grades.add(grade);
 
                     } catch (NumberFormatException e) {
-                        System.out.println("Erro ao converter o valor na linha " + (i + 1) + ": " + e.getMessage());
+                        String mensagem = "Erro ao converter o valor na linha " + (i + 1) + ": " + e.getMessage();
+                        slackLogs.setMensagem(mensagem);
+                        slackLogs.sendNotification();
+                        System.out.println(mensagem);
                         e.printStackTrace();
                     }
                 }
@@ -145,7 +154,10 @@ public class ExcelService {
 
             workbook.close();
         } catch (IOException e) {
-            System.out.println("Erro ao ler arquivo excel " + e.getMessage());
+            String mensagem = "Erro ao ler arquivo excel " + e.getMessage();
+            slackLogs.setMensagem(mensagem);
+            slackLogs.sendNotification();
+            System.out.println(mensagem);
             e.printStackTrace();
         }
 
@@ -165,7 +177,11 @@ public class ExcelService {
         Row headerRow = sheet.getRow(0);
 
         if (headerRow == null) {
-            System.out.println("Erro: Cabeçalho não encontrado na planilha");
+            String mensagem = "Erro: Cabeçalho não encontrado na planilha";
+            System.out.println();
+            slackLogs.setMensagem(mensagem);
+            slackLogs.sendNotification();
+            System.out.println(mensagem);
             return columnsForIndex;
         }
 

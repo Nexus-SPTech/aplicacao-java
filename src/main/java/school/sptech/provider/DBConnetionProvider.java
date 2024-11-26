@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-public class DBConnetionProvider {
+        public class DBConnetionProvider {
 
     private final DataSource dataSource;
 

@@ -28,7 +28,7 @@ public class Discipline {
         this.nomeDisciplina = nomeDisciplina;
     }
 
-    @Override
+   @Override
     public String toString() {
         return """
                 Id: %d

@@ -64,7 +64,7 @@ public class Institution {
                 Id: %d
                 Nome do departamento: %s
                 Departamento estadual: %s
-                Município: %s
+                Município: %s   '
                 Região Metropolitana: %s
                 """.formatted(codInstituicao, distritoEstadual, nomeDepartamento, municipio, regiaoMetropolitana);
     }
