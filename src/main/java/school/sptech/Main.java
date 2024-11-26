@@ -24,7 +24,6 @@ public class Main {
 
         // Instanciando classe de conexão com o S3
         S3Service s3Service = new S3Service();
-        s3Service.processS3Objects();
 
         // Capturando a base de dados do Bucket S3
         InputStream excelArchive = s3Service.processS3Objects();
