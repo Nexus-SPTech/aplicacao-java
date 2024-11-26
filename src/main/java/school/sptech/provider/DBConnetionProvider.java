@@ -28,7 +28,6 @@ public class DBConnetionProvider {
         this.dataSource = basicDataSource;
         System.out.println("Conexão com o banco de dados estabelecida com sucesso!\n");
         System.out.println("---------------------------");
-
     }
 
     public JdbcTemplate getConnection() {

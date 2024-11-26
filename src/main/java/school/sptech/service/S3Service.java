@@ -21,8 +21,6 @@ public class S3Service {
     }
 
     public InputStream processS3Objects() {
-        System.out.println("---------------------------");
-        System.out.println("Conexão com o S3 Feita com sucesso!\n");
         try {
             ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
                     .bucket(BUCKET_NAME)
@@ -31,6 +29,10 @@ public class S3Service {
             ListObjectsV2Response listResponse;
 
             listResponse = s3Client.listObjectsV2(listRequest);
+
+            System.out.println("---------------------------");
+            System.out.println("Conexão com o S3 Feita com sucesso!\n");
+
             for (S3Object object : listResponse.contents()) {
                 String key = object.key();
                 List<Tag> tags = getObjectTags(key);

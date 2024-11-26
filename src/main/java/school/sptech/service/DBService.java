@@ -16,10 +16,6 @@ public class DBService {
     public void createTables(JdbcTemplate jdbcTemplate) {
 
         System.out.println("Inicializando a criação das tabelas");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS notas_aluno");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS aluno");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS instituicao");
 
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
