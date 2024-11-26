@@ -26,7 +26,7 @@ import javax.sql.DataSource;
         basicDataSource.setPassword(DBPASSWORD);
 
         this.dataSource = basicDataSource;
-        System.out.println("Conexão com o banco de dados estabelecida com sucesso!\n");
+        System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
         System.out.println("---------------------------");
     }
 

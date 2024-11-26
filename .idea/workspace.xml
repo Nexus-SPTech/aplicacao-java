@@ -6,20 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Discipline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Discipline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Institution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Institution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/Slack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/Slack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackClients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackClients.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackLogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackLogs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/provider/DBConnetionProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/provider/DBConnetionProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" afterDir="false" />
-=======
->>>>>>> 207c5012b2ec8c7656d2a0bd403e3c44a6b4c3fb
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,27 +53,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.Principal.executor": "Coverage",
-    "Application.Teste.executor": "Run",
-    "Application.school.sptech.notification.App.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/lf527/OneDrive/Desktop/aplicacao-java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
-    "vue.rearranger.settings.migration": "true"
-=======
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.App.executor&quot;: &quot;Run&quot;,
@@ -103,28 +70,18 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
->>>>>>> 207c5012b2ec8c7656d2a0bd403e3c44a6b4c3fb
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="school.sptech" />
     </key>
   </component>
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.school.sptech.notification.App">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="school.sptech.test.App" />
-      <module name="conexao-banco-de-dados" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="school.sptech.test.*" />
-=======
   <component name="RunManager" selected="Application.Main">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="school.sptech.notification.App" />
@@ -132,7 +89,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="school.sptech.notification.*" />
->>>>>>> 207c5012b2ec8c7656d2a0bd403e3c44a6b4c3fb
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -142,9 +98,9 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
-        <env name="DB_PASSWORD" value="nexus" />
+           <env name="DB_PASSWORD" value="Ma140506!" />
         <env name="DB_USER" value="root" />
-        <env name="IPEC2" value="52.203.56.211" />
+        <env name="IPE_C2" value="52.203.56.211" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
@@ -171,38 +127,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="school.sptech.notification.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="school.sptech.notification.App" />
-      <module name="conexao-banco-de-dados" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="school.sptech.notification.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.App" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Teste" />
-      <item itemvalue="Application.school.sptech.notification.App" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.school.sptech.notification.App" />
-        <item itemvalue="Application.App" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.App" />
         <item itemvalue="Application.Teste" />
-<<<<<<< HEAD
-        <item itemvalue="Application.Teste" />
-=======
->>>>>>> 207c5012b2ec8c7656d2a0bd403e3c44a6b4c3fb
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -217,23 +161,6 @@
       <workItem from="1727641729284" duration="3248000" />
       <workItem from="1727645197614" duration="7995000" />
       <workItem from="1728070130553" duration="5729000" />
-<<<<<<< HEAD
-      <workItem from="1728687860673" duration="606000" />
-      <workItem from="1728688808678" duration="87000" />
-      <workItem from="1728688903960" duration="61000" />
-      <workItem from="1728688971058" duration="7142000" />
-      <workItem from="1729022935633" duration="8509000" />
-      <workItem from="1729126213207" duration="726000" />
-      <workItem from="1729127157036" duration="1919000" />
-      <workItem from="1729186637331" duration="11572000" />
-      <workItem from="1729210592075" duration="6851000" />
-      <workItem from="1729271331470" duration="10609000" />
-      <workItem from="1729288030727" duration="1219000" />
-      <workItem from="1729644361472" duration="498000" />
-      <workItem from="1729886314727" duration="2501000" />
-      <workItem from="1730046658990" duration="599000" />
-      <workItem from="1730136127000" duration="653000" />
-=======
       <workItem from="1728430369955" duration="13000" />
       <workItem from="1728502573277" duration="1187000" />
       <workItem from="1728507303541" duration="1843000" />
@@ -264,8 +191,7 @@
       <workItem from="1731960316985" duration="6261000" />
       <workItem from="1732044489775" duration="369000" />
       <workItem from="1732638916760" duration="107000" />
-      <workItem from="1732649308234" duration="5743000" />
->>>>>>> 207c5012b2ec8c7656d2a0bd403e3c44a6b4c3fb
+      <workItem from="1732649308234" duration="5427000" />
     </task>
     <servers />
   </component>
@@ -288,22 +214,4 @@
     <MESSAGE value="mudança do nome de classes do projeto" />
     <option name="LAST_COMMIT_MESSAGE" value="mudança do nome de classes do projeto" />
   </component>
-<<<<<<< HEAD
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java</url>
-          <line>21</line>
-          <properties class="school.sptech.models.StudentGrade" method="getNotasDisciplinas">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-=======
->>>>>>> 207c5012b2ec8c7656d2a0bd403e3c44a6b4c3fb
 </project>
