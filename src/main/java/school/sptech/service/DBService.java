@@ -103,7 +103,7 @@ public class DBService {
             System.out.println("Nenhuma instituição para inserir.");
         } else {
             for (Institution inst : institutions) {
-                if (!institutionExists(jdbcTemplate, inst.getCodInstituicao())) {
+
                     try {
                         jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
                                 inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
@@ -113,7 +113,7 @@ public class DBService {
                         System.err.println("Mensagem de erro: " + e.getMessage());
                         e.printStackTrace(); // Imprime a stack trace do erro
                     }
-                }
+
             }
         }
 

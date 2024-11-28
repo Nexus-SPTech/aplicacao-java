@@ -120,7 +120,9 @@ public class ExcelService {
 
                         Institution institution = new Institution(transformToInteger(codInstituicao),
                                 nomeDepartamento, distritoEstadual, municipio, regiaoMetropolitana);
-                        institutions.add(institution);
+                        if (!institutions.contains(institution)) {
+                            institutions.add(institution);
+                        }
 
                         Student student = new Student(transformToInteger(codAluno), institution, ano, periodo, genero,
                                 transformToInteger(idade));
