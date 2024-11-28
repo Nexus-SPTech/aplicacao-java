@@ -130,15 +130,15 @@ public class ExcelService {
 
                         StudentGrade grade = new StudentGrade();
                         grade.setStudent(student);
-                        grade.addNotasDisciplinas("Português", transformToDouble(acertosLP));
-                        grade.addNotasDisciplinas("Biologia", transformToDouble(acertosBIO));
-                        grade.addNotasDisciplinas("Física", transformToDouble(acertosFIS));
-                        grade.addNotasDisciplinas("Química", transformToDouble(acertosQUI));
-                        grade.addNotasDisciplinas("Matemática", transformToDouble(acertosMAT));
-                        grade.addNotasDisciplinas("Geografia", transformToDouble(acertosGEO));
-                        grade.addNotasDisciplinas("História", transformToDouble(acertosHIS));
-                        grade.addNotasDisciplinas("Filosofia", transformToDouble(acertosFIL));
-                        grade.addNotasDisciplinas("Sociologia", transformToDouble(acertosSOC));
+                        grade.addNotasDisciplinas(1, transformToDouble(acertosLP));
+                        grade.addNotasDisciplinas(2, transformToDouble(acertosBIO));
+                        grade.addNotasDisciplinas(3, transformToDouble(acertosFIS));
+                        grade.addNotasDisciplinas(4, transformToDouble(acertosQUI));
+                        grade.addNotasDisciplinas(5, transformToDouble(acertosMAT));
+                        grade.addNotasDisciplinas(6, transformToDouble(acertosGEO));
+                        grade.addNotasDisciplinas(7, transformToDouble(acertosHIS));
+                        grade.addNotasDisciplinas(8, transformToDouble(acertosFIL));
+                        grade.addNotasDisciplinas(9, transformToDouble(acertosSOC));
 
                         grades.add(grade);
 

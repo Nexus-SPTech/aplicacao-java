@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class StudentGrade {
     private Student student;
-    private Map<String, Double> notasDisciplinas;
+    private Map<Integer, Double> notasDisciplinas;
 
     public StudentGrade() {
         this.notasDisciplinas = new HashMap<>();
@@ -19,12 +19,12 @@ public class StudentGrade {
         this.student = student;
     }
 
-    public Map<String, Double> getNotasDisciplinas() {
+    public Map<Integer, Double> getNotasDisciplinas() {
         return notasDisciplinas;
     }
 
-    public void addNotasDisciplinas(String disciplina, Double nota) {
-        notasDisciplinas.put(disciplina, nota);
+    public void addNotasDisciplinas(Integer idDisciplina, Double nota) {
+        notasDisciplinas.put(idDisciplina, nota);
     }
 
 

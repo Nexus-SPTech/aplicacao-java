@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/models/StudentGrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/DBService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/ExcelService.java" afterDir="false" />
     </list>
@@ -98,7 +100,7 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
-      <env name="DB_PASSWORD" value="nexus" />
+        <env name="DB_PASSWORD" value="nexus" />
         <env name="DB_USER" value="root" />
         <env name="IP_EC2" value="52.203.56.211" />
       </envs>

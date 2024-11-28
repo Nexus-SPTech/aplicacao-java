@@ -16,6 +16,7 @@ target/
 ### Arquivos Confidenciais ###
 alunos.xls
 .env
+.idea/workspace.xml
 
 ### Eclipse ###
 .apt_generated

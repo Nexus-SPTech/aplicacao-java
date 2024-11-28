@@ -15,6 +15,10 @@ public class DBService {
 
     public void createTables(JdbcTemplate jdbcTemplate) {
 
+        jdbcTemplate.execute("DROP TABLE IF EXISTS notas_aluno");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS aluno");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS instituicao");
         System.out.println("Inicializando a criação das tabelas");
 
         jdbcTemplate.execute("""
@@ -67,27 +71,21 @@ public class DBService {
 
     public void insertDisciplines(JdbcTemplate jdbcTemplate) {
         System.out.println("Inserindo disciplinas no banco...");
-        String sql = "INSERT INTO disciplina (nome_disciplina) VALUES (?)";
+        String sql = "INSERT INTO disciplina (idDisciplina, nome_disciplina) VALUES (?, ?)";
 
-        jdbcTemplate.update(sql, "Português");
-        jdbcTemplate.update(sql, "Biologia");
-        jdbcTemplate.update(sql, "Física");
-        jdbcTemplate.update(sql, "Química");
-        jdbcTemplate.update(sql, "Matemática");
-        jdbcTemplate.update(sql, "Geografia");
-        jdbcTemplate.update(sql, "História");
-        jdbcTemplate.update(sql, "Filosofia");
-        jdbcTemplate.update(sql, "Sociologia");
+        jdbcTemplate.update(sql, 1, "Português");
+        jdbcTemplate.update(sql, 2, "Biologia");
+        jdbcTemplate.update(sql, 3, "Física");
+        jdbcTemplate.update(sql, 4, "Química");
+        jdbcTemplate.update(sql, 5, "Matemática");
+        jdbcTemplate.update(sql, 6, "Geografia");
+        jdbcTemplate.update(sql, 7, "História");
+        jdbcTemplate.update(sql, 8, "Filosofia");
+        jdbcTemplate.update(sql, 9, "Sociologia");
 
-        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
-        System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: ");
-        disciplines.forEach(System.out::println);
-    }
-
-    private boolean institutionExists(JdbcTemplate jdbcTemplate, Integer codInst) {
-        String sql = "SELECT COUNT(*) FROM instituicao WHERE codInstituicao = ?";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, codInst);
-        return count != null && count > 0;
+//        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
+//        System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: ");
+//        disciplines.forEach(System.out::println);
     }
 
     public void insertInstitutions(JdbcTemplate jdbcTemplate, List<Institution> institutions) {
@@ -103,20 +101,17 @@ public class DBService {
             System.out.println("Nenhuma instituição para inserir.");
         } else {
             for (Institution inst : institutions) {
-
                     try {
                         jdbcTemplate.update(sql, inst.getCodInstituicao(), inst.getDistritoEstadual(),
                                 inst.getNomeDepartamento(), inst.getMunicipio(), inst.getRegiaoMetropolitana());
-                        System.out.println("Instituição inserida id: " + inst.getCodInstituicao());
+//                        System.out.println("Instituição inserida id: " + inst.getCodInstituicao());
                     } catch (DataAccessException e) {
                         System.err.println("Erro ao inserir a instituição: " + inst.getNomeDepartamento());
                         System.err.println("Mensagem de erro: " + e.getMessage());
                         e.printStackTrace(); // Imprime a stack trace do erro
                     }
-
             }
         }
-
         System.out.println("Dados das instituições inseridas com sucesso!");
     }
 
@@ -127,16 +122,10 @@ public class DBService {
         String sql = "INSERT INTO aluno (codAluno, fkInstituicao, serie, periodo, genero, idade) VALUES (?, ?, ?, ?, " +
                 "?, ?)";
 
-        String select = "SELECT * FROM instituicao WHERE codInstituicao = ?";
         for (Student student : students) {
-            List<Institution> institutions = jdbcTemplate.query("SELECT * FROM instituicao " +
-                            "WHERE codInstituicao = ?",
-                    new BeanPropertyRowMapper<>(Institution.class),
-                    student.getInstitution().getCodInstituicao()
-            );
-            jdbcTemplate.update(sql, student.getCodAluno(), institutions.get(0).getCodInstituicao(), student.getSerie(),
+            jdbcTemplate.update(sql, student.getCodAluno(), student.getInstitution().getCodInstituicao(), student.getSerie(),
                     student.getPeriodo(), student.getGenero(), student.getIdade());
-
+//            System.out.println("Aluno inserido com sucesso, Id do aluno: %d".formatted(student.getCodAluno()));
         }
 
         System.out.println("Dados dos estudantes inseridos com sucesso!");
@@ -151,27 +140,18 @@ public class DBService {
         for (StudentGrade grade : grades) {
             Student student = grade.getStudent();
 
-            for (Map.Entry<String, Double> entry : grade.getNotasDisciplinas().entrySet()) {
-                String disciplinaNome = entry.getKey();
+            for (Map.Entry<Integer, Double> entry : grade.getNotasDisciplinas().entrySet()) {
+                Integer idDisciplina = entry.getKey();
                 Double nota = entry.getValue();
 
-                List<Discipline> disciplines = jdbcTemplate.query(
-                        "SELECT * FROM disciplina WHERE nome_disciplina = ?",
-                        new BeanPropertyRowMapper<>(Discipline.class),
-                        disciplinaNome
-                );
-
-                if (!disciplines.isEmpty()) {
-                    Discipline disciplina = disciplines.get(0);
                     if (nota != null) {
-                        jdbcTemplate.update(sql, student.getCodAluno(), disciplina.getIdDisciplina(), nota);
+                        jdbcTemplate.update(sql, student.getCodAluno(), idDisciplina, nota);
+//                        System.out.println("Nota inserida: Nota: %.2f Id Disciplina: %d".formatted(nota, idDisciplina) );
                     }
-                } else {
-                    System.out.println("Disciplina não encontrada: " + disciplinaNome);
-                }
+
             }
         }
-        System.out.println("Notas das alunos inseridas com sucesso!");
+        System.out.println("Notas dos alunos inseridas com sucesso!");
         System.out.println("\nTodas os dados foram inseridos no banco com sucesso!");
         System.out.println("---------------------------");
     }
