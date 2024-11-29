@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
         // Instanciando classe para leitura da base de dados
         ExcelService excelService = new ExcelService();
 

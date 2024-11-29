@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
+import school.sptech.notification.SlackLogs;
 import school.sptech.provider.DBConnetionProvider;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 public class DBService {
     DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
     JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
+    SlackLogs slackLogs = new SlackLogs();
 
     public void createTables() {
 
@@ -109,6 +111,8 @@ public class DBService {
                     } catch (DataAccessException e) {
                         System.err.println("Erro ao inserir a instituição: " + inst.getNomeDepartamento());
                         System.err.println("Mensagem de erro: " + e.getMessage());
+                        slackLogs.sendNotification("Erro ao inserir a instituição: " + inst.getNomeDepartamento());
+                        slackLogs.sendNotification("Mensagem de erro: " + e.getMessage());
                         e.printStackTrace(); // Imprime a stack trace do erro
                     }
             }
