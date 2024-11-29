@@ -17,7 +17,6 @@ import java.util.Map;
 public class ExcelService {
     SlackLogs slackLogs = new SlackLogs();
 
-
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
     private static final String COLUNA_CD_INST = "CODESC";

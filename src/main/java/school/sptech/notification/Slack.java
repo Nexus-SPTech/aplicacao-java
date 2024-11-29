@@ -6,6 +6,5 @@ public abstract class Slack {
     public Slack() {
     }
 
-
     public abstract void sendNotification(String mensagem);
 }

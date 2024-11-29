@@ -84,7 +84,7 @@ public class S3Service {
         System.out.println("---------------------------");
     }
 
-    public InputStream getObjectInputStream(String key) {
+    private InputStream getObjectInputStream(String key) {
         GetObjectRequest request = GetObjectRequest.builder()
                 .bucket(BUCKET_NAME)
                 .key(key)
