@@ -15,9 +15,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        // Gerando conexão com o banco de dados
-        DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
-        JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
 
         // Instanciando classe para leitura da base de dados
         ExcelService excelService = new ExcelService();
@@ -35,13 +32,13 @@ public class Main {
 
         // Criação das tabelas
         DBService dbService = new DBService();
-        dbService.createTables(jdbcTemplate);
+        dbService.createTables();
 
         // Persistência dos dados lidos
-        dbService.insertDisciplines(jdbcTemplate);
-        dbService.insertInstitutions(jdbcTemplate, institutions);
-        dbService.insertStudents(jdbcTemplate, students);
-        dbService.insertStudentsGrades(jdbcTemplate, readDatas);
+        dbService.insertDisciplines();
+        dbService.insertInstitutions(institutions);
+        dbService.insertStudents(students);
+        dbService.insertStudentsGrades(readDatas);
 
         // Colocando a tag "LIDO" na base de dados que foi lida, após persistência de seus dados no banco
         s3Service.setTagReadExcel();

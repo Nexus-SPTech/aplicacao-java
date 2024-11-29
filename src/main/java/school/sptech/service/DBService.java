@@ -5,13 +5,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
+import school.sptech.provider.DBConnetionProvider;
 
 import java.util.List;
 import java.util.Map;
 
 public class DBService {
+    DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
+    JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
 
-    public void createTables(JdbcTemplate jdbcTemplate) {
+    public void createTables() {
 
         jdbcTemplate.execute("DROP TABLE IF EXISTS notas_aluno");
         jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
@@ -67,7 +70,7 @@ public class DBService {
         System.out.println("---------------------------");
     }
 
-    public void insertDisciplines(JdbcTemplate jdbcTemplate) {
+    public void insertDisciplines() {
         System.out.println("Inserindo disciplinas no banco...");
         String sql = "INSERT INTO disciplina (idDisciplina, nome_disciplina) VALUES (?, ?)";
 
@@ -86,7 +89,7 @@ public class DBService {
 //        disciplines.forEach(System.out::println);
     }
 
-    public void insertInstitutions(JdbcTemplate jdbcTemplate, List<Institution> institutions) {
+    public void insertInstitutions(List<Institution> institutions) {
         String sql = "INSERT IGNORE INTO instituicao (codInstituicao, distrito_estadual, nome_departamento, " +
                 "municipio, regiao_metropolitana) VALUES (?, ?, ?, ?, ?)";
 
@@ -113,7 +116,7 @@ public class DBService {
         System.out.println("Dados das instituições inseridas com sucesso!");
     }
 
-    public void insertStudents(JdbcTemplate jdbcTemplate, List<Student> students) {
+    public void insertStudents(List<Student> students) {
         System.out.println("Inserindo estudantes no banco...");
         // Recupera as instituições para obter os nomes
 
@@ -129,7 +132,7 @@ public class DBService {
         System.out.println("Dados dos estudantes inseridos com sucesso!");
     }
 
-    public void insertStudentsGrades(JdbcTemplate jdbcTemplate, Map<String, List<?>> resultReadData) {
+    public void insertStudentsGrades(Map<String, List<?>> resultReadData) {
         System.out.println("Inserindo notas dos estudantes no banco...");
         String sql = "INSERT INTO notas_aluno (fkAluno, fkDisciplina, nota) VALUES (?, ?, ?)";
 
