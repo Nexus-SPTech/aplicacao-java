@@ -1,9 +1,7 @@
 package school.sptech.service;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.models.Discipline;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
@@ -140,7 +138,7 @@ public class DBService {
         for (StudentGrade grade : grades) {
             Student student = grade.getStudent();
 
-            for (Map.Entry<Integer, Double> entry : grade.getNotasDisciplinas().entrySet()) {
+            for (Map.Entry<Integer, Double> entry : grade.getNotasAlunos().entrySet()) {
                 Integer idDisciplina = entry.getKey();
                 Double nota = entry.getValue();
 
