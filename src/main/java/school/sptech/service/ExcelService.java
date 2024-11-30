@@ -21,6 +21,7 @@ public class ExcelService {
     private List<Institution> institutions;
     private List<StudentGrade> grades;
     private S3Service s3Service;
+    InputStream excelArchive;
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
@@ -54,10 +55,11 @@ public class ExcelService {
         institutions = new ArrayList<>();
         grades = new ArrayList<>();
         s3Service = new S3Service();
+        excelArchive = s3Service.processS3Objects();
     }
 
     // metodo para ler um arquivo .xls especifico
-    public Map<String, List<?>> readExcel(InputStream excelArchive) {
+    public Map<String, List<?>> readExcel() {
         System.out.println("Iniciando leitura do excel...");
         Map<String, List<?>> resultReadData = new HashMap<>();
 

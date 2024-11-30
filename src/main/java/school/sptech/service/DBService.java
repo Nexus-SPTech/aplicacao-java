@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
+import school.sptech.notification.SlackClients;
 import school.sptech.notification.SlackLogs;
 import school.sptech.provider.DBConnetionProvider;
 
@@ -15,6 +16,7 @@ public class DBService {
     DBConnetionProvider dbConnectionProvider = new DBConnetionProvider();
     JdbcTemplate jdbcTemplate = dbConnectionProvider.getConnection();
     SlackLogs slackLogs = new SlackLogs();
+    SlackClients slackClients = new SlackClients();
 
     public void createTables() {
 
@@ -159,6 +161,9 @@ public class DBService {
         System.out.println("Notas dos alunos inseridas com sucesso!");
         System.out.println("\nTodas os dados foram inseridos no banco com sucesso!");
         System.out.println("---------------------------");
+        slackClients.sendNotification("Olá, foram inseridos novos dados na nossa Dashboard, " +
+                "navegue no nosso Site para se manter atualizado sobre as novas necessidades estudantis! " +
+                "\nAcesse já: www.nexus.com.br");
     }
 
 

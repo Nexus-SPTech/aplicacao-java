@@ -21,11 +21,8 @@ public class Main {
         // Instanciando classe de conexão com o S3
         S3Service s3Service = new S3Service();
 
-        // Capturando a base de dados do Bucket S3
-        InputStream excelArchive = s3Service.processS3Objects();
-
         // Lendo dados da base de dados e os colocando em listas ou Map
-        Map<String, List<?>> readDatas = excelService.readExcel(excelArchive);
+        Map<String, List<?>> readDatas = excelService.readExcel();
         List<Institution> institutions = (List<Institution>) readDatas.get("instituicoes");
         List<Student> students = (List<Student>) readDatas.get("alunos");
 
@@ -45,10 +42,5 @@ public class Main {
         // Log de sucesso
         System.out.println("A aplicação foi encerrada com Sucesso!");
 
-        // Instanciando classe de envio de notificação para o cliente
-        SlackClients slackClients = new SlackClients();
-        slackClients.sendNotification("Olá, foram inseridos novos dados na nossa Dashboard, " +
-                "navegue no nosso Site para se manter atualizado sobre as novas necessidades estudantis! " +
-                "\nAcesse já: www.nexus.com.br");
     }
 }
