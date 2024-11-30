@@ -17,9 +17,10 @@ import java.util.Map;
 public class ExcelService {
     SlackLogs slackLogs = new SlackLogs();
 
-    List<Student> students = new ArrayList<>();
-    List<Institution> institutions = new ArrayList<>();
-    List<StudentGrade> grades = new ArrayList<>();
+    private List<Student> students;
+    private List<Institution> institutions;
+    private List<StudentGrade> grades;
+    private S3Service s3Service;
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
@@ -47,6 +48,13 @@ public class ExcelService {
     private static final String COLUNA_ACERTOS_HIS = "porc_ACERT_HIS";
     private static final String COLUNA_ACERTOS_FIL = "porc_ACERT_FIL";
     private static final String COLUNA_ACERTOS_SOC = "porc_ACERT_SOC";
+
+    public ExcelService() {
+        students = new ArrayList<>();
+        institutions = new ArrayList<>();
+        grades = new ArrayList<>();
+        s3Service = new S3Service();
+    }
 
     // metodo para ler um arquivo .xls especifico
     public Map<String, List<?>> readExcel(InputStream excelArchive) {
