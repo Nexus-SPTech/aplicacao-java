@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ExcelService {
-    SlackLogs slackLogs = new SlackLogs();
-
+    private SlackLogs slackLogs = new SlackLogs();
     private List<Student> students;
     private List<Institution> institutions;
     private List<StudentGrade> grades;
     private S3Service s3Service;
-    InputStream excelArchive;
+    private InputStream excelArchive;
 
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
