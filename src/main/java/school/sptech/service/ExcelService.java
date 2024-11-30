@@ -17,6 +17,10 @@ import java.util.Map;
 public class ExcelService {
     SlackLogs slackLogs = new SlackLogs();
 
+    List<Student> students = new ArrayList<>();
+    List<Institution> institutions = new ArrayList<>();
+    List<StudentGrade> grades = new ArrayList<>();
+
     // **** CONSTANTES PARA O NOME DAS COLUNAS QUE SERÃO LIDAS ****
     private static final String COLUNA_CD_ALUNO = "CD_ALUNO";
     private static final String COLUNA_CD_INST = "CODESC";
@@ -47,9 +51,6 @@ public class ExcelService {
     // metodo para ler um arquivo .xls especifico
     public Map<String, List<?>> readExcel(InputStream excelArchive) {
         System.out.println("Iniciando leitura do excel...");
-        List<Student> students = new ArrayList<>();
-        List<Institution> institutions = new ArrayList<>();
-        List<StudentGrade> grades = new ArrayList<>();
         Map<String, List<?>> resultReadData = new HashMap<>();
 
         try {
