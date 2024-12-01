@@ -10,6 +10,7 @@ import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class S3Service {
@@ -71,23 +72,28 @@ public class S3Service {
     public void setTagReadExcel() {
         List<Tag> tags = getObjectTags(keyObject);
 
-        System.out.println("Tags antes da atualização: " + tags);
-        tags.removeIf(tag -> tag.key().equals("Status"));
-        tags.add(Tag.builder().key("Status").value("LIDO").build());
-        System.out.println("Tags após a atualização: " + tags);
+        List<Tag> modifiableTags = new ArrayList<>(tags);
+        System.out.println("Tags antes da atualização: " + modifiableTags);
+
+        modifiableTags.removeIf(tag -> tag.key().equals("Status"));
+        System.out.println("Tags depois da remoção de valores com a key status: " + modifiableTags);
+
+
+        modifiableTags.add(Tag.builder().key("Status").value("LIDO").build());
+        System.out.println("Tags depois da adição para lido: " + modifiableTags);
+
 
         PutObjectTaggingRequest putTaggingRequest = PutObjectTaggingRequest.builder()
                 .bucket(BUCKET_NAME)
                 .key(keyObject)
-                .tagging(Tagging.builder().tagSet(tags).build())
+                .tagging(Tagging.builder().tagSet(modifiableTags).build())
                 .build();
-
-        s3Client.putObjectTagging(putTaggingRequest);
 
         s3Client.putObjectTagging(putTaggingRequest);
         System.out.println("Atualizando tag do Excel para \"LIDO\" no Bucket");
         System.out.println("---------------------------");
     }
+
 
     private InputStream getObjectInputStream(String key) {
         GetObjectRequest request = GetObjectRequest.builder()

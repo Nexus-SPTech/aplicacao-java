@@ -20,12 +20,6 @@ public class DBService {
 
     public void createTables() {
 
-        jdbcTemplate.execute("DROP TABLE IF EXISTS notas_aluno");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS disciplina");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS aluno");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS instituicao");
-        System.out.println("Inicializando a criação das tabelas");
-
         jdbcTemplate.execute("""
                         CREATE TABLE IF NOT EXISTS instituicao (
                             codInstituicao INT PRIMARY KEY,

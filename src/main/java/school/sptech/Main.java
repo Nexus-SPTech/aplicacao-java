@@ -18,9 +18,6 @@ public class Main {
         // Instanciando classe para leitura da base de dados
         ExcelService excelService = new ExcelService();
 
-        // Instanciando classe de conexão com o S3
-        S3Service s3Service = new S3Service();
-
         // Lendo dados da base de dados e os colocando em listas ou Map
         Map<String, List<?>> readDatas = excelService.readExcel();
         List<Institution> institutions = (List<Institution>) readDatas.get("instituicoes");

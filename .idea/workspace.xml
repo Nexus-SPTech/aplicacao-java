@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/service/S3Service.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,9 +99,6 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
-        <env name="AWS_ACCESS_KEY_ID" value="ASIATVQJKR464NP4O56H" />
-        <env name="AWS_SECRET_ACCESS_KEY" value="lyfR237XNS5x5xM4YqbEkJ1UJyuI4HMjEduRKa/Y" />
-        <env name="AWS_SESSION_TOKEN" value="IQoJb3JpZ2luX2VjEAEaCXVzLXdlc3QtMiJHMEUCIQCHKtTTfBmMIl1liGpZ8vVR1gkqvNr6D6SiaLE7z9YLzQIgffL79FH1M2VJ1qS9YdQrfeQRmbnchowcuydrQJl+zMEqwAIIqv//////////ARABGgwyNTIzNDg4OTUwMzciDBAqSo86p2NYowX8GiqUAkGhde3supsTB6zWJzvHyEsuzQZq13gSKQKkJtLdTRNubXiMF5c1GpES/owqqH1zLeDZVDvNdFW29l3Kzh70P+zQ2lYo8Bw6PW0OgPxSDn9Hns+Tb7y/qcismhQ69s50xFQVr8OY3mCkz34yUMbirJOO/661B5SupMoZNJ9XfDXYKjUkbh8zqHttXfTvS389qgHYwhB+Gd9v1u8jLzQSOo8Gvs8XQOhfH48LZQsogH+rEP7Gta4BY5T64P+RRvZ8juHKxlNfNeMeK83SjryI1RaolcOdS3vJdjw1kKZSyoRKJecdy3NhWU591wepVoWw/oN0lEPM0UeJsW0E2OTH2lOdQk6P5uIIu3a0/Ngy52QPsLmG0jDTsLK6BjqdAbwDyxa4rIINRvo8f+B1rCyCizmTrXbDNb4eGEGKJFpUS6HPQEqn5pC+pyh9NPN9YJhN/7cwSc2zRClKrHqpgAKp70LEMD6XWhvXuWxKO+19lyyodOYsH9SvwyTXJBhRxSPH/Fs+Wql6lnm/xXUgxVyRnerhxW84muOilKMBXwB1abMdzr22Xk+5L5fixhcAUJfnWW+Wo3KMhEn/F7M=/Y" />
         <env name="DB_USER" value="root" />
         <env name="IP_EC2" value="52.203.56.211" />
         <env name="DB_PASSWORD" value="nexus" />
@@ -201,7 +200,8 @@
       <workItem from="1732905396090" duration="5485000" />
       <workItem from="1732973256739" duration="9313000" />
       <workItem from="1733002061544" duration="7071000" />
-      <workItem from="1733075702835" duration="708000" />
+      <workItem from="1733075702835" duration="867000" />
+      <workItem from="1733084253160" duration="1004000" />
     </task>
     <servers />
   </component>
