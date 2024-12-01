@@ -36,9 +36,6 @@ public class Main {
         dbService.insertStudents(students);
         dbService.insertStudentsGrades(readDatas);
 
-        // Colocando a tag "LIDO" na base de dados que foi lida, após persistência de seus dados no banco
-        s3Service.setTagReadExcel();
-
         // Log de sucesso
         System.out.println("A aplicação foi encerrada com Sucesso!");
 

@@ -48,6 +48,7 @@ public class S3Service {
                     System.out.println("---------------------------");
 
                     keyObject = key;
+                    setTagReadExcel();
                     return getObjectInputStream(key);
                 }
             }
