@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class SlackLogs extends Slack {
 
     public SlackLogs() {
-        this.webhookUrl = "https://hooks.slack.com/services/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";
+        this.webhookUrl = "https://hooks.slack.com/services/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";
     }
 
     public void sendNotification(String mensagem) {

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackClients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackClients.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +198,7 @@
       <workItem from="1732905062545" duration="322000" />
       <workItem from="1732905396090" duration="5485000" />
       <workItem from="1732973256739" duration="9313000" />
-      <workItem from="1733002061544" duration="1347000" />
+      <workItem from="1733002061544" duration="6351000" />
     </task>
     <servers />
   </component>

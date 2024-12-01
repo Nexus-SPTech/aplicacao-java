@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 public class SlackClients extends Slack {
 
     public SlackClients() {
-        this.webhookUrl = "https://hooks.slack.com/services/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";
+        this.webhookUrl = "https://hooks.slack.com/services/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";
     }
 
     public void sendNotification(String mensagem) {
