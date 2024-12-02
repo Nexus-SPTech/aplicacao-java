@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/Teste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/Teste.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackClients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackClients.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackLogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/school/sptech/notification/SlackLogs.java" afterDir="false" />
-    </list>
+    <list default="true" id="3eec9700-c23a-48bf-934e-f9926ac67f05" name="Changes" comment="mudança do nome de classes do projeto" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,38 +49,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.Principal.executor": "Coverage",
-    "Application.Teste.executor": "Run",
-    "Application.school.sptech.Teste.executor": "Run",
-    "Maven.conexao-banco-de-dados [install].executor": "Run",
-    "Maven.conexao-banco-de-dados [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/lf527/OneDrive/Desktop/aplicacao-java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Principal.executor&quot;: &quot;Coverage&quot;,
+    &quot;Application.Teste.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.conexao-banco-de-dados [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sfang/OneDrive/Área de Trabalho/Nexus/logJava.sh&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="school.sptech" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.school.sptech.Teste">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="school.sptech.notification.App" />
       <module name="conexao-banco-de-dados" />
@@ -101,9 +94,9 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
+        <env name="DB_PASSWORD" value="nexus" />
         <env name="DB_USER" value="root" />
         <env name="IP_EC2" value="52.203.56.211" />
-        <env name="DB_PASSWORD" value="nexus" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="school.sptech.Main" />
       <module name="conexao-banco-de-dados" />
@@ -130,33 +123,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="school.sptech.Teste" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="school.sptech.Teste" />
-      <module name="conexao-banco-de-dados" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="school.sptech.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="Application.school.sptech.Teste" />
       <item itemvalue="Application.App" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Teste" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.school.sptech.Teste" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.App" />
         <item itemvalue="Application.Teste" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -203,14 +189,8 @@
       <workItem from="1732638916760" duration="107000" />
       <workItem from="1732649308234" duration="5427000" />
       <workItem from="1732736919878" duration="7000" />
-      <workItem from="1732800707595" duration="1339000" />
-      <workItem from="1732899217035" duration="1000" />
-      <workItem from="1732905062545" duration="322000" />
-      <workItem from="1732905396090" duration="5485000" />
-      <workItem from="1732973256739" duration="9313000" />
-      <workItem from="1733002061544" duration="7071000" />
-      <workItem from="1733075702835" duration="867000" />
-      <workItem from="1733084253160" duration="1004000" />
+      <workItem from="1732835695145" duration="1360000" />
+      <workItem from="1733166285111" duration="3000" />
     </task>
     <servers />
   </component>
