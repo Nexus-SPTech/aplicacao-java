@@ -27,8 +27,6 @@ public class Main {
         DBService dbService = new DBService();
         dbService.createTables();
 
-        // Persistência dos dados lidos
-        dbService.insertDisciplines();
         dbService.insertInstitutions(institutions);
         dbService.insertStudents(students);
         dbService.insertStudentsGrades(readDatas);

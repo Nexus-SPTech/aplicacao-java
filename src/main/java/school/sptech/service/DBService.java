@@ -1,7 +1,9 @@
 package school.sptech.service;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.models.Discipline;
 import school.sptech.models.Institution;
 import school.sptech.models.Student;
 import school.sptech.models.StudentGrade;
@@ -71,18 +73,20 @@ public class DBService {
     public void insertDisciplines() {
         System.out.println("Inserindo disciplinas no banco...");
         String sql = "INSERT INTO disciplina (idDisciplina, nome_disciplina) VALUES (?, ?)";
+        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
 
-        jdbcTemplate.update(sql, 1, "Português");
-        jdbcTemplate.update(sql, 2, "Biologia");
-        jdbcTemplate.update(sql, 3, "Física");
-        jdbcTemplate.update(sql, 4, "Química");
-        jdbcTemplate.update(sql, 5, "Matemática");
-        jdbcTemplate.update(sql, 6, "Geografia");
-        jdbcTemplate.update(sql, 7, "História");
-        jdbcTemplate.update(sql, 8, "Filosofia");
-        jdbcTemplate.update(sql, 9, "Sociologia");
+        if (disciplines.isEmpty()){
+            jdbcTemplate.update(sql, 1, "Português");
+            jdbcTemplate.update(sql, 2, "Biologia");
+            jdbcTemplate.update(sql, 3, "Física");
+            jdbcTemplate.update(sql, 4, "Química");
+            jdbcTemplate.update(sql, 5, "Matemática");
+            jdbcTemplate.update(sql, 6, "Geografia");
+            jdbcTemplate.update(sql, 7, "História");
+            jdbcTemplate.update(sql, 8, "Filosofia");
+            jdbcTemplate.update(sql, 9, "Sociologia");
+        }
 
-//        List<Discipline> disciplines = jdbcTemplate.query("SELECT * FROM disciplina", new BeanPropertyRowMapper<>(Discipline.class));
 //        System.out.println("Disciplinas inseridas com sucesso! \nDisciplinas inseridas: ");
 //        disciplines.forEach(System.out::println);
     }
